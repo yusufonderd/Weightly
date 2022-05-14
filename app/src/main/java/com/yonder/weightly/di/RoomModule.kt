@@ -2,7 +2,7 @@ package com.yonder.weightly.di
 
 import android.content.Context
 import androidx.room.Room
-import com.yonder.weightly.data.room.AppDatabase
+import com.yonder.weightly.data.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

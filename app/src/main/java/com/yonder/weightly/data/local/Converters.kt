@@ -1,4 +1,4 @@
-package com.yonder.weightly.data.room
+package com.yonder.weightly.data.local
 
 import androidx.room.TypeConverter
 import java.util.*

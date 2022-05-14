@@ -1,4 +1,4 @@
-package com.yonder.weightly.data.room
+package com.yonder.weightly.data.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -12,5 +12,5 @@ data class WeightEntity(
     @ColumnInfo(name = "timestamp") val timestamp: Date?,
     @ColumnInfo(name = "value") val value: Float?,
     @ColumnInfo(name = "emoji") val emoji: String?,
-    @ColumnInfo(name = "note") val note: String?,
+    @ColumnInfo(name = "note") val note: String?
 )
