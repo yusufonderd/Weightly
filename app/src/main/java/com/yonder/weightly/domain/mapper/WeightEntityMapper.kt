@@ -4,7 +4,7 @@ import com.yonder.weightly.data.local.WeightEntity
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.utils.extensions.orZero
 
-class WeightEntityMapper {
+object WeightEntityMapper {
 
     fun map(entity: WeightEntity): WeightUIModel {
         return WeightUIModel(
