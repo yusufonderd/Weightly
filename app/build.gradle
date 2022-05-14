@@ -54,8 +54,16 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.41"
     kapt "com.google.dagger:hilt-compiler:2.41"
 
+    //Logging
     implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    //Shared Preferences
     implementation 'com.orhanobut:hawk:2.0.1'
+
+    def room_version = "2.4.2"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
 
 }
