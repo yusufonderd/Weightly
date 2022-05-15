@@ -3,6 +3,7 @@ package com.yonder.weightly.domain.mapper
 import com.yonder.weightly.data.local.WeightEntity
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.utils.extensions.orZero
+import java.util.*
 
 object WeightEntityMapper {
 
@@ -11,7 +12,8 @@ object WeightEntityMapper {
             uid = entity.uid,
             value = entity.value.orZero(),
             emoji = entity.emoji.orEmpty(),
-            note = entity.note.orEmpty()
+            note = entity.note.orEmpty(),
+            date = entity.timestamp ?: Date()
         )
     }
 }

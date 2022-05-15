@@ -4,16 +4,22 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.yonder.weightly.databinding.ItemWeightHistoryBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
+import com.yonder.weightly.utils.extensions.toFormat
 
+const val DATE_FORMAT = "dd MMM yyyy"
 
-class WeightHistoryViewHolder(view: View,
-                        private val onClickWeight: ((weight: WeightUIModel) -> Unit)?) :
+class WeightHistoryViewHolder(
+    view: View,
+    private val onClickWeight: ((weight: WeightUIModel) -> Unit)?
+) :
     RecyclerView.ViewHolder(view) {
     private val binding = ItemWeightHistoryBinding.bind(view)
 
-    fun bind(story: WeightUIModel) = with(binding) {
+    fun bind(uiModel: WeightUIModel) = with(binding) {
+        binding.tvDate.text = uiModel.date.toFormat(DATE_FORMAT)
+        binding.tvWeight.text = String.format("%.2f", uiModel.value)
         itemView.setOnClickListener {
-            onClickWeight?.invoke(story)
+            onClickWeight?.invoke(uiModel)
         }
     }
 }

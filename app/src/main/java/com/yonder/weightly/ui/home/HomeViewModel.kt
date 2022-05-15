@@ -23,11 +23,7 @@ class HomeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
 
-    init {
-        getAllWeightHistory()
-    }
-
-    private fun getAllWeightHistory() {
+    fun getAllWeightHistory() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.update {
                 it.copy(histories = weightRepository())

@@ -22,7 +22,7 @@ interface WeightDao {
     fun insertAll(vararg users: WeightEntity)
 
     @Insert
-    fun insert(weight: WeightEntity)
+    suspend fun insert(weight: WeightEntity)
 
     @Delete
     fun delete(user: WeightEntity)

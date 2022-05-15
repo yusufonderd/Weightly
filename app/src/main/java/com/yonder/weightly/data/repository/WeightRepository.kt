@@ -8,6 +8,5 @@ class WeightRepository @Inject constructor(private val appDatabase: AppDatabase)
     operator fun invoke()= appDatabase.weightDao().getAll().map {
         WeightEntityMapper.map(it)
     }
-
 }
 

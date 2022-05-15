@@ -9,7 +9,15 @@
         android:id="@+id/navigation_home"
         android:name="com.yonder.weightly.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_navigate_add_weight"
+            app:destination="@id/navigation_add_weight">
+
+        </action>
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +30,10 @@
         android:name="com.yonder.weightly.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <dialog
+        android:id="@+id/navigation_add_weight"
+        android:name="com.yonder.weightly.ui.add.AddWeightFragment"
+        android:label="@string/title_add_weight"
+        tools:layout="@layout/fragment_add_weight" />
+
 </navigation>

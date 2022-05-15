@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentHomeBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
@@ -36,12 +37,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllWeightHistory()
+    }
+
     private fun setUIState(uiState: HomeViewModel.UiState){
         adapterWeightHistory.submitList(uiState.histories)
     }
 
     private fun initViews() = with(binding){
         rvWeightHistory.adapter = adapterWeightHistory
+        binding.btnFab.setOnClickListener {
+            findNavController().navigate(R.id.action_navigate_add_weight)
+        }
     }
 
     private fun onClickWeight(weight: WeightUIModel) {
