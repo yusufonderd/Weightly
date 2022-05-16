@@ -40,14 +40,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         lifecycleScope.launchWhenCreated {
             viewModel.uiState.collect(::setUIState)
         }
-        setFragmentResultListener(AddWeightFragment.KEY_SHOULD_FETCH_WEIGHT_HISTORY) { _, _ ->
-            viewModel.getAllWeightHistory()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAllWeightHistory()
     }
 
     private fun setUIState(uiState: HomeViewModel.UiState) {
