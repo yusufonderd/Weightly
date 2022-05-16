@@ -1,6 +1,8 @@
 package com.yonder.weightly.ui.home.adapter
 
 import android.view.View
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.ItemWeightHistoryBinding
@@ -18,6 +20,7 @@ class WeightHistoryViewHolder(
 
     fun bind(uiModel: WeightUIModel) = with(binding) {
         tvNote.text = uiModel.note
+        tvNote.isGone = uiModel.note.isBlank()
         tvDate.text = uiModel.date.toFormat(DATE_FORMAT)
         tvWeight.text = itemView.context.getString(R.string.kg_format, uiModel.value)
         itemView.setOnClickListener {
