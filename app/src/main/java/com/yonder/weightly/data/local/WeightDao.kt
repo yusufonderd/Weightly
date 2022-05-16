@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import java.util.*
 
 @Dao
@@ -25,4 +26,7 @@ interface WeightDao {
 
     @Delete
     fun delete(user: WeightEntity)
+
+    @Query("SELECT * FROM weight")
+    fun getDbAll(): Flow<List<WeightEntity>>
 }
