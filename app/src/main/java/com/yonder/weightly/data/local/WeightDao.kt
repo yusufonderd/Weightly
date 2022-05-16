@@ -9,8 +9,6 @@ import java.util.*
 
 @Dao
 interface WeightDao {
-    @Query("SELECT * FROM weight ORDER BY timestamp DESC")
-    fun getAll(): List<WeightEntity>
 
     @Query("SELECT * FROM weight WHERE uid IN (:userIds)")
     fun loadAllByIds(userIds: IntArray): List<WeightEntity>
@@ -27,6 +25,6 @@ interface WeightDao {
     @Delete
     fun delete(user: WeightEntity)
 
-    @Query("SELECT * FROM weight")
+    @Query("SELECT * FROM weight ORDER BY timestamp DESC")
     fun getDbAll(): Flow<List<WeightEntity>>
 }

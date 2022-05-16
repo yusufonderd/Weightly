@@ -1,11 +1,9 @@
 package com.yonder.weightly.ui.home
 
-import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,14 +15,11 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentHomeBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
-import com.yonder.weightly.ui.add.AddWeightFragment
 import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint

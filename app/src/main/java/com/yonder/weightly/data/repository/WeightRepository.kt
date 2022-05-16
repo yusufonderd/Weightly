@@ -1,6 +1,5 @@
 package com.yonder.weightly.data.repository
 
-import com.yonder.weightly.data.local.AppDatabase
 import com.yonder.weightly.data.local.WeightDao
 import com.yonder.weightly.domain.mapper.WeightEntityMapper
 import com.yonder.weightly.domain.uimodel.WeightUIModel
