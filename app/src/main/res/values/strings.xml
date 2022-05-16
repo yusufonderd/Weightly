@@ -11,4 +11,6 @@
     <string name="input_note">Input note</string>
     <string name="save">Save</string>
 
+    <string name="alert_blank_weight">Please make sure input your weight</string>
+
 </resources>

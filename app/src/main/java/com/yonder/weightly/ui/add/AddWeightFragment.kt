@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.DialogFragment
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentAddWeightBinding
+import com.yonder.weightly.utils.extensions.showToast
 import com.yonder.weightly.utils.extensions.toFormat
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import java.util.*
 
 const val CURRENT_DATE_FORMAT = "dd MMM yyyy"
@@ -37,6 +41,23 @@ class AddWeightFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        observe()
+    }
+
+    private fun observe() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.eventsFlow.collect { event ->
+                when (event) {
+                    AddWeightViewModel.Event.PopBackStack -> {
+                        setFragmentResult(KEY_SHOULD_FETCH_WEIGHT_HISTORY, bundleOf())
+                        findNavController().popBackStack()
+                    }
+                    is AddWeightViewModel.Event.ShowToast -> {
+                        context.showToast(event.textResId)
+                    }
+                }
+            }
+        }
     }
 
     private fun initViews() = with(binding) {
@@ -62,4 +83,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         }
     }
 
+    companion object{
+        const val KEY_SHOULD_FETCH_WEIGHT_HISTORY = "request_weight_history"
+    }
 }

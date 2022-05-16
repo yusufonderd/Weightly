@@ -3,12 +3,14 @@ package com.yonder.weightly.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentHomeBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
+import com.yonder.weightly.ui.add.AddWeightFragment
 import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +23,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by viewModels()
 
-   private val adapterWeightHistory: WeightHistoryAdapter by lazy {
+    private val adapterWeightHistory: WeightHistoryAdapter by lazy {
         WeightHistoryAdapter(::onClickWeight)
     }
 
@@ -31,9 +33,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         observe()
     }
 
-    private fun observe(){
+    private fun observe() {
         lifecycleScope.launchWhenCreated {
             viewModel.uiState.collect(::setUIState)
+        }
+        setFragmentResultListener(AddWeightFragment.KEY_SHOULD_FETCH_WEIGHT_HISTORY) { _, _ ->
+            viewModel.getAllWeightHistory()
         }
     }
 
@@ -42,11 +47,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.getAllWeightHistory()
     }
 
-    private fun setUIState(uiState: HomeViewModel.UiState){
+    private fun setUIState(uiState: HomeViewModel.UiState) {
         adapterWeightHistory.submitList(uiState.histories)
     }
 
-    private fun initViews() = with(binding){
+    private fun initViews() = with(binding) {
         rvWeightHistory.adapter = adapterWeightHistory
         binding.btnFab.setOnClickListener {
             findNavController().navigate(R.id.action_navigate_add_weight)
