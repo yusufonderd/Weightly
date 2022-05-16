@@ -1,6 +1,5 @@
 package com.yonder.weightly.data.local
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -9,7 +8,7 @@ import java.util.*
 
 @Dao
 interface WeightDao {
-    @Query("SELECT * FROM weight")
+    @Query("SELECT * FROM weight ORDER BY timestamp DESC")
     fun getAll(): List<WeightEntity>
 
     @Query("SELECT * FROM weight WHERE uid IN (:userIds)")
