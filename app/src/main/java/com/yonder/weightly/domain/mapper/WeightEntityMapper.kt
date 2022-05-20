@@ -7,9 +7,11 @@ import java.util.*
 
 object WeightEntityMapper {
 
-    fun map(entity: WeightEntity): WeightUIModel {
+    fun map(entity: WeightEntity?): WeightUIModel? {
+        if (entity == null)
+            return null
         return WeightUIModel(
-            uid = entity.uid,
+            uid = entity.uid.orZero,
             value = entity.value.orZero(),
             emoji = entity.emoji.orEmpty(),
             note = entity.note.orEmpty(),

@@ -17,6 +17,7 @@ import com.yonder.weightly.databinding.FragmentHomeBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
+import com.yonder.weightly.utils.extensions.orZero
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -91,9 +92,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
 
-    private fun setChartData(histories: List<WeightUIModel>) {
+    private fun setChartData(histories: List<WeightUIModel?>) {
         val values = histories.reversed().mapIndexed { index, weight ->
-            BarEntry(index.toFloat(), weight.value)
+            BarEntry(index.toFloat(), weight?.value.orZero())
         }
         val set1 = BarDataSet(values, "")
         set1.valueTextSize = 9f

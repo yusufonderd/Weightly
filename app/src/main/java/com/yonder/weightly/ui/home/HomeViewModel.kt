@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor(
     }
 
     data class UiState(
-        var histories: List<WeightUIModel> = emptyList()
+        var histories: List<WeightUIModel?> = emptyList()
     )
 
 }

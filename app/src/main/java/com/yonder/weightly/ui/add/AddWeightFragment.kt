@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -42,6 +40,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observe()
+        viewModel.fetchDate(selectedDate)
     }
 
     private fun observe() {
@@ -49,13 +48,27 @@ class AddWeightFragment : BottomSheetDialogFragment() {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
                     AddWeightViewModel.Event.PopBackStack -> {
-                        setFragmentResult(KEY_SHOULD_FETCH_WEIGHT_HISTORY, bundleOf())
-                       // findNavController().popBackStack()
+                        findNavController().popBackStack()
                     }
                     is AddWeightViewModel.Event.ShowToast -> {
                         context.showToast(event.textResId)
                     }
                 }
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.uiState.collect(::setUIState)
+        }
+    }
+
+    private fun setUIState(uiState: AddWeightViewModel.UiState) = with(binding) {
+        uiState.currentWeight.let { weight ->
+            tilInputNote.setText(weight?.note.orEmpty())
+            val weightValue = weight?.value
+            if (weightValue != null) {
+                tilInputWeight.setText(weight.value.toString())
+            } else {
+                tilInputWeight.setText("")
             }
         }
     }
@@ -70,6 +83,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
             datePicker.addOnPositiveButtonClickListener { timestamp ->
                 selectedDate = Date(timestamp)
                 btnSelectDate.text = selectedDate.toFormat(CURRENT_DATE_FORMAT)
+                viewModel.fetchDate(selectedDate)
             }
             datePicker.show(parentFragmentManager, TAG_DATE_PICKER);
         }
@@ -83,7 +97,4 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         }
     }
 
-    companion object{
-        const val KEY_SHOULD_FETCH_WEIGHT_HISTORY = "request_weight_history"
-    }
 }
