@@ -6,9 +6,12 @@
     <string name="title_add_weight">Add Weight</string>
     <string name="add_weight">Add Weight</string>
     <string name="select_date">Select date</string>
+    <string name="prev_day">Previous</string>
+    <string name="next_day">Next</string>
     <string name="input_weight">Input weight</string>
     <string name="input_note">Input note</string>
     <string name="save">Save</string>
+    <string name="update">Update</string>
     <string name="alert_blank_weight">Please make sure input your weight</string>
     <string name="kg_format">%1$s kg</string>
 </resources>
