@@ -12,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentAddWeightBinding
+import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.utils.extensions.nextDay
 import com.yonder.weightly.utils.extensions.prevDay
 import com.yonder.weightly.utils.extensions.showToast
@@ -69,14 +70,14 @@ class AddWeightFragment : BottomSheetDialogFragment() {
 
         btnSelectDate.text = selectedDate.toFormat(CURRENT_DATE_FORMAT)
 
-        btnSave.setOnClickListener {
+        btnSaveOrUpdate.setOnClickListener {
             val weight = tilInputWeight.text.toString()
             val note = tilInputNote.text.toString()
-            viewModel.addWeight(weight = weight, note = note, date = selectedDate)
+            viewModel.saveOrUpdateWeight(weight = weight, note = note, date = selectedDate)
         }
     }
 
-    private fun fetchDate(date: Date){
+    private fun fetchDate(date: Date) {
         selectedDate = date
         binding.btnSelectDate.text = selectedDate.toFormat(CURRENT_DATE_FORMAT)
         viewModel.fetchDate(selectedDate)
@@ -101,19 +102,22 @@ class AddWeightFragment : BottomSheetDialogFragment() {
     }
 
     private fun setUIState(uiState: AddWeightViewModel.UiState) = with(binding) {
-        val currentWeight = uiState.currentWeight
-        tilInputNote.setText(currentWeight?.note.orEmpty())
+        val weight = uiState.currentWeight
+        tilInputNote.setText(weight?.note.orEmpty())
         tilInputWeight.setText(uiState.currentWeight?.valueText.orEmpty())
-        if (currentWeight == null) {
-            btnSave.setText(R.string.save)
-            btnSave.icon =
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_add_24)
-            btnSave.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_700))
+        setBtnSaveStatus(weight = weight)
+
+    }
+
+    private fun setBtnSaveStatus(weight: WeightUIModel?) = with(binding.btnSaveOrUpdate) {
+        if (weight == null) {
+            setText(R.string.save)
+            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_add_24)
+            setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_700))
         } else {
-            btnSave.icon =
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_edit_24)
-            btnSave.setText(R.string.update)
-            btnSave.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_edit_24)
+            setText(R.string.update)
+            setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
         }
     }
 

@@ -1,9 +1,6 @@
 package com.yonder.weightly.data.local
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 
@@ -14,13 +11,16 @@ interface WeightDao {
     fun loadAllByIds(userIds: IntArray): List<WeightEntity>
 
     @Query("SELECT * FROM weight WHERE  timestamp BETWEEN :startDate AND :endDate")
-    fun fetchBy(startDate: Date,endDate: Date): List<WeightEntity>
+    fun fetchBy(startDate: Date, endDate: Date): List<WeightEntity>
 
     @Insert
     fun insertAll(vararg users: WeightEntity)
 
     @Insert
-    suspend fun insert(weight: WeightEntity)
+    suspend fun save(weight: WeightEntity)
+
+    @Update
+    suspend fun update(weight: WeightEntity)
 
     @Delete
     fun delete(user: WeightEntity)
