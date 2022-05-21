@@ -70,5 +70,8 @@ dependencies {
     //Chart library
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    //Emoji library
+    implementation "com.vanniktech:emoji-google:0.12.0"
+
 
 }

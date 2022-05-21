@@ -41,14 +41,19 @@ class AddWeightViewModel @Inject constructor(
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
     val eventsFlow = eventChannel.receiveAsFlow()
 
-    fun saveOrUpdateWeight(weight: String, note: String, date: Date) {
+    fun saveOrUpdateWeight(weight: String, note: String, emoji: String, date: Date) {
         viewModelScope.launch(Dispatchers.IO) {
             when {
                 weight.isBlank() -> {
                     eventChannel.send(Event.ShowToast(R.string.alert_blank_weight))
                 }
                 else -> {
-                    saveOrUpdateWeight.invoke(weight = weight, note = note, date = date)
+                    saveOrUpdateWeight.invoke(
+                        weight = weight,
+                        note = note,
+                        emoji = emoji,
+                        date = date
+                    )
                     eventChannel.send(Event.PopBackStack)
                 }
             }

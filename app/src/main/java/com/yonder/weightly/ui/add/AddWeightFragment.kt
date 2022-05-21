@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,14 +14,13 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentAddWeightBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
-import com.yonder.weightly.utils.extensions.nextDay
-import com.yonder.weightly.utils.extensions.prevDay
-import com.yonder.weightly.utils.extensions.showToast
-import com.yonder.weightly.utils.extensions.toFormat
+import com.yonder.weightly.ui.emoji.EmojiFragment
+import com.yonder.weightly.utils.extensions.*
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import java.util.*
+
 
 const val CURRENT_DATE_FORMAT = "dd MMM yyyy"
 const val TAG_DATE_PICKER = "Tag_Date_Picker"
@@ -31,6 +31,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
     private val viewModel: AddWeightViewModel by viewModels()
 
     private var selectedDate = Date()
+    private var emoji: String = String.EMPTY
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +56,9 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         btnNext.setOnClickListener {
             fetchDate(selectedDate.nextDay())
         }
+        btnEmoji.setOnClickListener {
+            findNavController().navigate(R.id.action_navigate_emoji)
+        }
 
         btnSelectDate.setOnClickListener {
             val datePicker =
@@ -73,7 +77,12 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         btnSaveOrUpdate.setOnClickListener {
             val weight = tilInputWeight.text.toString()
             val note = tilInputNote.text.toString()
-            viewModel.saveOrUpdateWeight(weight = weight, note = note, date = selectedDate)
+            viewModel.saveOrUpdateWeight(
+                weight = weight,
+                note = note,
+                emoji = emoji,
+                date = selectedDate
+            )
         }
     }
 
@@ -96,9 +105,16 @@ class AddWeightFragment : BottomSheetDialogFragment() {
                 }
             }
         }
+
         lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect(::setUIState)
         }
+
+        setFragmentResultListener(EmojiFragment.KEY_REQUEST_EMOJI) { _, bundle ->
+            emoji = bundle.getString(EmojiFragment.KEY_BUNDLE_EMOJI).orEmpty()
+            binding.btnEmoji.text =  getString(R.string.select_emoji_with_emoji_format, emoji)
+        }
+
     }
 
     private fun setUIState(uiState: AddWeightViewModel.UiState) = with(binding) {

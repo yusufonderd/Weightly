@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class SaveOrUpdateWeight @Inject constructor(private val weightDao: WeightDao) {
 
-    suspend operator fun invoke(weight: String, note: String, date: Date) {
+    suspend operator fun invoke(weight: String, note: String, emoji: String, date: Date) {
         val weightList = weightDao.fetchBy(
             startDate = date.startOfDay(),
             endDate = date.endOfDay()
@@ -19,7 +19,7 @@ class SaveOrUpdateWeight @Inject constructor(private val weightDao: WeightDao) {
                 WeightEntity(
                     timestamp = date,
                     value = weight.toFloat(),
-                    emoji = "E",
+                    emoji = emoji,
                     note = note
                 )
             )
@@ -29,7 +29,7 @@ class SaveOrUpdateWeight @Inject constructor(private val weightDao: WeightDao) {
                     uid = weightList.first().uid,
                     timestamp = date,
                     value = weight.toFloat(),
-                    emoji = "E",
+                    emoji = emoji,
                     note = note
                 )
             )

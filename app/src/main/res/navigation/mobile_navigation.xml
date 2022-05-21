@@ -30,10 +30,24 @@
         android:name="com.yonder.weightly.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
     <dialog
         android:id="@+id/navigation_add_weight"
         android:name="com.yonder.weightly.ui.add.AddWeightFragment"
         android:label="@string/title_add_weight"
-        tools:layout="@layout/fragment_add_weight" />
+        tools:layout="@layout/fragment_add_weight" >
+
+        <action
+            android:id="@+id/action_navigate_emoji"
+            app:destination="@id/navigation_emoji">
+        </action>
+
+    </dialog>
+
+    <dialog
+        android:id="@+id/navigation_emoji"
+        android:name="com.yonder.weightly.ui.emoji.EmojiFragment"
+        android:label="@string/title_emoji"
+        tools:layout="@layout/fragment_emoji" />
 
 </navigation>
