@@ -53,11 +53,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
 
     private fun initViews() = with(binding) {
 
-
-        val weight = args.weight
-        if (weight != null) {
-           fetchDate(weight.date)
-        }
+        args.weight?.date?.run(::fetchDate)
 
         btnPrev.setOnClickListener {
             fetchDate(selectedDate.prevDay())
@@ -66,6 +62,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         btnNext.setOnClickListener {
             fetchDate(selectedDate.nextDay())
         }
+
         btnEmoji.setOnClickListener {
             findNavController().navigate(R.id.action_navigate_emoji)
         }
