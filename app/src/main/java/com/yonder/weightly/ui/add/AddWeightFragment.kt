@@ -112,7 +112,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
 
         setFragmentResultListener(EmojiFragment.KEY_REQUEST_EMOJI) { _, bundle ->
             emoji = bundle.getString(EmojiFragment.KEY_BUNDLE_EMOJI).orEmpty()
-            binding.btnEmoji.text =  getString(R.string.select_emoji_with_emoji_format, emoji)
+            binding.btnEmoji.text = getString(R.string.select_emoji_with_emoji_format, emoji)
         }
 
     }
@@ -122,7 +122,15 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         tilInputNote.setText(weight?.note.orEmpty())
         tilInputWeight.setText(uiState.currentWeight?.valueText.orEmpty())
         setBtnSaveStatus(weight = weight)
+        setBtnEmojiStatus(weight = weight)
+    }
 
+    private fun setBtnEmojiStatus(weight: WeightUIModel?) = with(binding.btnEmoji) {
+        if (weight == null) {
+            setText(R.string.select_emoji)
+        } else {
+            text = getString(R.string.select_emoji_with_emoji_format, weight.emoji)
+        }
     }
 
     private fun setBtnSaveStatus(weight: WeightUIModel?) = with(binding.btnSaveOrUpdate) {

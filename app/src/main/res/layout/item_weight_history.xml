@@ -9,8 +9,8 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         android:textAppearance="?android:textAppearanceMedium"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="07 May 2022">
 
@@ -18,25 +18,36 @@
 
     <TextView
         android:id="@+id/tvNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/tvDate"
         app:layout_constraintTop_toBottomOf="@+id/tvDate"
-        android:layout_width="wrap_content"
-        tools:text="@tools:sample/lorem"
-        android:layout_height="wrap_content">
+        tools:text="@tools:sample/lorem">
 
     </TextView>
+
+    <TextView
+        android:id="@+id/tvEmoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textStyle="bold"
+        android:layout_marginEnd="@dimen/space_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvWeight"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="emoji" />
 
     <TextView
         android:id="@+id/tvWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:textAppearance="?android:textAppearanceMedium"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="70.0">
+        tools:text="70.0 kg " />
 
-    </TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
