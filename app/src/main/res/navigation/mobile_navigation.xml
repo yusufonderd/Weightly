@@ -37,6 +37,11 @@
         android:label="@string/title_add_weight"
         tools:layout="@layout/fragment_add_weight" >
 
+        <argument
+            android:name="weight"
+            app:nullable="true"
+            app:argType="com.yonder.weightly.domain.uimodel.WeightUIModel" />
+
         <action
             android:id="@+id/action_navigate_emoji"
             app:destination="@id/navigation_emoji">

@@ -15,6 +15,8 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentHomeBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
+import com.yonder.weightly.ui.add.AddWeightFragmentArgs
+import com.yonder.weightly.ui.add.AddWeightFragmentDirections
 import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
 import com.yonder.weightly.utils.extensions.orZero
@@ -73,7 +75,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun onClickWeight(weight: WeightUIModel) {
-
+        findNavController().navigate(HomeFragmentDirections.actionNavigateAddWeight(weight))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
