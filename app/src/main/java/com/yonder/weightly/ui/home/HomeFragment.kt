@@ -85,6 +85,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         legend.isEnabled = false
         axisLeft.axisMinimum = 0.0f
         xAxis.position = XAxis.XAxisPosition.BOTTOM
+        // Disable grid lines
+        xAxis.setDrawGridLines(false)
+        axisLeft.setDrawGridLines(false)
+        axisRight.setDrawGridLines(false)
+        //Disable zoom
+        isDoubleTapToZoomEnabled = false
+        setPinchZoom(false)
     }
 
     private fun onClickWeight(weight: WeightUIModel) {
