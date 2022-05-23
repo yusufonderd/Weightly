@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -25,8 +26,6 @@ import com.yonder.weightly.utils.extensions.orZero
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-
-const val DATE_FORMAT_CHART = "dd MMM"
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -92,6 +91,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         //Disable zoom
         isDoubleTapToZoomEnabled = false
         setPinchZoom(false)
+        description = Description().apply {
+            text = String.EMPTY
+        }
     }
 
     private fun onClickWeight(weight: WeightUIModel) {

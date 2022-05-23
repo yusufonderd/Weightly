@@ -2,11 +2,12 @@ package com.yonder.weightly.domain.mapper
 
 import com.yonder.weightly.data.local.WeightEntity
 import com.yonder.weightly.domain.uimodel.WeightUIModel
-import com.yonder.weightly.ui.home.DATE_FORMAT_CHART
 import com.yonder.weightly.utils.extensions.EMPTY
 import com.yonder.weightly.utils.extensions.orZero
 import com.yonder.weightly.utils.extensions.toFormat
 import java.util.*
+
+const val DATE_FORMAT_CHART = "dd MMM"
 
 object WeightEntityMapper {
 
