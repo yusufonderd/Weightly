@@ -66,8 +66,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.stateLayout.setState(State.EMPTY)
         } else {
             binding.stateLayout.setState(State.CONTENT)
-            adapterWeightHistory.submitList(uiState.histories)
-            setChartData(uiState.histories)
+            adapterWeightHistory.submitList(uiState.reversedHistories)
+            setChartData(histories = uiState.histories, barEntries = uiState.barEntries)
         }
     }
 
@@ -121,26 +121,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun setChartData(histories: List<WeightUIModel?>) {
-        val reversedHistory = histories.reversed()
-        val values = reversedHistory.mapIndexed { index, weight ->
-            BarEntry(index.toFloat(), weight?.value.orZero())
-        }
-
-
-        val set1 = BarDataSet(values, String.EMPTY)
-        set1.valueFormatter = WeightValueFormatter(reversedHistory)
+    private fun setChartData(histories: List<WeightUIModel?>, barEntries: List<BarEntry>) {
+        val set1 = BarDataSet(barEntries, String.EMPTY)
+        set1.valueFormatter = WeightValueFormatter(histories)
         set1.valueTextSize = 9f
         val xAxis = binding.barChart.xAxis
         xAxis.labelCount = histories.size
-        xAxis.valueFormatter = XAxisValueDateFormatter(reversedHistory)
+        xAxis.valueFormatter = XAxisValueDateFormatter(histories)
         set1.color = Color.BLUE
         val dataSets: java.util.ArrayList<IBarDataSet> = ArrayList()
         dataSets.add(set1)
         val data = BarData(dataSets)
         binding.barChart.data = data
         //Set marker view
-        val markerView = WeightMarkerView(requireContext(),reversedHistory)
+        val markerView = WeightMarkerView(requireContext(), histories)
         markerView.chartView = binding.barChart
         binding.barChart.marker = markerView
 

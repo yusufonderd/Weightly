@@ -2,8 +2,6 @@ package com.yonder.weightly.data.repository
 
 import com.yonder.weightly.data.local.WeightDao
 import com.yonder.weightly.domain.mapper.WeightEntityMapper
-import com.yonder.weightly.domain.uimodel.WeightUIModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -13,7 +11,7 @@ class WeightRepository @Inject constructor(
     operator fun invoke() = dbDao.getDbAll().map { weightList ->
         weightList.map {
             WeightEntityMapper.map(it)
-        }
+        }.reversed()
     }
 }
 

@@ -2,7 +2,6 @@ package com.yonder.weightly.domain.mapper
 
 import com.yonder.weightly.data.local.WeightEntity
 import com.yonder.weightly.domain.uimodel.WeightUIModel
-import com.yonder.weightly.utils.extensions.EMPTY
 import com.yonder.weightly.utils.extensions.orZero
 import com.yonder.weightly.utils.extensions.toFormat
 import java.util.*
@@ -15,18 +14,17 @@ object WeightEntityMapper {
         if (entity == null)
             return null
         val date = entity.timestamp ?: Date()
+        val valueText =  entity.value?.toString().orEmpty()
+        val emoji = entity.emoji.orEmpty()
         return WeightUIModel(
             uid = entity.uid.orZero,
             value = entity.value.orZero(),
-            valueText = if (entity.value != null) {
-                entity.value.toString()
-            } else {
-                String.EMPTY
-            },
-            emoji = entity.emoji.orEmpty(),
+            valueText = valueText,
+            emoji = emoji,
             note = entity.note.orEmpty(),
             date = date,
-            formattedDate = date.toFormat(DATE_FORMAT_CHART)
+            formattedDate = date.toFormat(DATE_FORMAT_CHART),
+            formattedValue = "$emoji $valueText"
         )
     }
 }

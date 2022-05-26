@@ -12,5 +12,6 @@ data class WeightUIModel(
     var emoji: String,
     var note: String,
     var date: Date,
-    var formattedDate : String
+    var formattedDate : String,
+    var formattedValue : String
 ) : Parcelable
