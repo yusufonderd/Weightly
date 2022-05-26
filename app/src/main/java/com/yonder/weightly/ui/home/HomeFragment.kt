@@ -20,6 +20,7 @@ import com.yonder.weightly.databinding.FragmentHomeBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
+import com.yonder.weightly.ui.home.chart.WeightMarkerView
 import com.yonder.weightly.ui.home.chart.WeightValueFormatter
 import com.yonder.weightly.ui.home.chart.XAxisValueDateFormatter
 import com.yonder.weightly.utils.extensions.EMPTY
@@ -61,9 +62,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setUIState(uiState: HomeViewModel.UiState) {
-        if (uiState.shouldShowEmptyView){
+        if (uiState.shouldShowEmptyView) {
             binding.stateLayout.setState(State.EMPTY)
-        }else{
+        } else {
             binding.stateLayout.setState(State.CONTENT)
             adapterWeightHistory.submitList(uiState.histories)
             setChartData(uiState.histories)
@@ -125,6 +126,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val values = reversedHistory.mapIndexed { index, weight ->
             BarEntry(index.toFloat(), weight?.value.orZero())
         }
+
+
         val set1 = BarDataSet(values, String.EMPTY)
         set1.valueFormatter = WeightValueFormatter(reversedHistory)
         set1.valueTextSize = 9f
@@ -136,6 +139,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         dataSets.add(set1)
         val data = BarData(dataSets)
         binding.barChart.data = data
+        //Set marker view
+        val markerView = WeightMarkerView(requireContext(),reversedHistory)
+        markerView.chartView = binding.barChart
+        binding.barChart.marker = markerView
+
         binding.barChart.invalidate()
     }
 
