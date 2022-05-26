@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.yonder.statelayout.State
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentHomeBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
@@ -60,8 +61,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setUIState(uiState: HomeViewModel.UiState) {
-        adapterWeightHistory.submitList(uiState.histories)
-        setChartData(uiState.histories)
+        if (uiState.shouldShowEmptyView){
+            binding.stateLayout.setState(State.EMPTY)
+        }else{
+            binding.stateLayout.setState(State.CONTENT)
+            adapterWeightHistory.submitList(uiState.histories)
+            setChartData(uiState.histories)
+        }
     }
 
     private fun initViews() {

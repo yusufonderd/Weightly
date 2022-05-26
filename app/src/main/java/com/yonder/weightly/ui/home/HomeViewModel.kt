@@ -29,15 +29,19 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getAllDataFromDb() = viewModelScope.launch(Dispatchers.IO) {
-        weightRepository.invoke().collectLatest { dbList ->
+        weightRepository.invoke().collectLatest { weightHistories ->
             _uiState.update {
-                it.copy(histories = dbList)
+                it.copy(
+                    histories = weightHistories,
+                    shouldShowEmptyView = weightHistories.isEmpty()
+                )
             }
         }
     }
 
     data class UiState(
-        var histories: List<WeightUIModel?> = emptyList()
+        var histories: List<WeightUIModel?> = emptyList(),
+        var shouldShowEmptyView: Boolean = false
     )
 
 }
