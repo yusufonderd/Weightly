@@ -48,12 +48,15 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observe()
-        viewModel.fetchDate(selectedDate)
+        val argWeight = args.weight
+        if (argWeight != null){
+            fetchDate(argWeight.date)
+        }else{
+            viewModel.fetchDate(selectedDate)
+        }
     }
 
     private fun initViews() = with(binding) {
-
-        args.weight?.date?.run(::fetchDate)
 
         btnPrev.setOnClickListener {
             fetchDate(selectedDate.prevDay())
