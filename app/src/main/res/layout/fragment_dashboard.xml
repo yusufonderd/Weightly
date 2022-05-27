@@ -6,17 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:weightSum="3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.yonder.weightly.uicomponents.InfoCardView
+            android:id="@+id/infoCardMax"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            tools:layout_height="200dp"
+
+            android:layout_height="wrap_content">
+
+        </com.yonder.weightly.uicomponents.InfoCardView>
+
+        <com.yonder.weightly.uicomponents.InfoCardView
+            android:id="@+id/infoCardAverage"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            tools:layout_height="200dp"
+            android:layout_height="wrap_content">
+
+        </com.yonder.weightly.uicomponents.InfoCardView>
+
+
+        <com.yonder.weightly.uicomponents.InfoCardView
+            android:id="@+id/infoCardMin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            tools:layout_height="200dp"
+
+            android:layout_height="wrap_content">
+
+        </com.yonder.weightly.uicomponents.InfoCardView>
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

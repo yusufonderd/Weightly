@@ -19,4 +19,9 @@
     <string name="update">Update</string>
     <string name="alert_blank_weight">Please make sure input your weight</string>
     <string name="kg_format">%1$s kg</string>
+
+    <string name="title_min_weight">En düşük kilo</string>
+    <string name="title_max_weight">En yüksek kilo</string>
+    <string name="title_average_weight">Ortalama kilo</string>
+
 </resources>

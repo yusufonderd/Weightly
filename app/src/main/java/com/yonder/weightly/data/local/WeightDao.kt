@@ -27,4 +27,19 @@ interface WeightDao {
 
     @Query("SELECT * FROM weight ORDER BY timestamp DESC")
     fun getDbAll(): Flow<List<WeightEntity>>
+
+    @Query("SELECT AVG(value) as average FROM weight where timestamp BETWEEN :startDay AND :endDay ORDER BY timestamp ASC")
+    fun getAverageByDateRange(
+        startDay: Date,
+        endDay: Date
+    ): Float?
+
+    @Query("SELECT AVG(value) as average FROM weight ORDER BY timestamp ASC")
+    fun getAverage(): Float?
+
+    @Query("SELECT MAX(value) as average FROM weight ORDER BY timestamp ASC")
+    fun getMax(): Float?
+
+    @Query("SELECT MIN(value) as average FROM weight ORDER BY timestamp ASC")
+    fun getMin(): Float?
 }
