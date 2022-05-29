@@ -8,6 +8,21 @@
     app:textEmpty="@string/title_no_weight"
     tools:context=".ui.home.HomeFragment">
 
+    <com.github.lzyzsd.circleprogress.ArcProgress
+        android:id="@+id/arc_progress"
+        android:layout_width="144dp"
+        android:layout_height="144dp"
+        android:layout_marginVertical="@dimen/space_16"
+        app:arc_bottom_text="MEMORY"
+        app:arc_progress="120"
+        app:arc_max="1000"
+        app:arc_suffix_text="kg"
+        app:arc_text_color="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/rvWeightHistory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWeightHistory"
         android:layout_width="match_parent"
@@ -16,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arc_progress"
         tools:itemCount="10"
         tools:listitem="@layout/item_weight_history" />
 

@@ -3,7 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_splash">
+
+    <fragment
+        android:id="@+id/navigation_splash"
+        android:name="com.yonder.weightly.ui.splash.SplashFragment"
+        android:label="@string/title_splash"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_navigate_home"
+            app:destination="@id/navigation_home"/>
+
+        <action
+            android:id="@+id/action_navigate_on_boarding"
+            app:destination="@id/navigation_on_boarding"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_on_boarding"
+        android:name="com.yonder.weightly.ui.onboarding.OnBoardingFragment"
+        android:label="@string/title_on_boarding"
+        tools:layout="@layout/fragment_on_boarding">
+
+        <action
+            android:id="@+id/action_navigate_home"
+            app:destination="@id/navigation_home"/>
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/navigation_home"

@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Weightly</string>
     <string name="title_home">History</string>
+    <string name="title_splash">Splash</string>
+    <string name="title_on_boarding">On Boarding</string>
+
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_emoji">Emojis</string>
