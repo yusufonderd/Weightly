@@ -1,4 +1,4 @@
-package com.yonder.weightly.utils.chart
+package com.yonder.weightly.ui.home.chart
 
 import android.content.Context
 import android.graphics.Color
@@ -9,12 +9,9 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.yonder.weightly.domain.uimodel.WeightUIModel
-import com.yonder.weightly.ui.home.chart.WeightMarkerView
-import com.yonder.weightly.ui.home.chart.WeightValueFormatter
-import com.yonder.weightly.ui.home.chart.XAxisValueDateFormatter
 import com.yonder.weightly.utils.extensions.EMPTY
 
-object BarChartUtils {
+object WeightBarChartInitializer {
 
     fun initBarChart(barChart: BarChart) {
         barChart.legend.isEnabled = false

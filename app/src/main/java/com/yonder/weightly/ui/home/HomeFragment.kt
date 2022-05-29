@@ -13,7 +13,7 @@ import com.yonder.weightly.databinding.FragmentHomeBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
-import com.yonder.weightly.utils.chart.BarChartUtils
+import com.yonder.weightly.ui.home.chart.WeightBarChartInitializer
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -56,18 +56,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         } else {
             binding.stateLayout.setState(State.CONTENT)
             adapterWeightHistory.submitList(uiState.reversedHistories)
-            BarChartUtils.setChartData(
-                barChart = binding.barChart,
-                histories = uiState.histories,
-                barEntries = uiState.barEntries,
-                context = requireContext()
-            )
+
         }
     }
 
     private fun initViews() {
         initWeightRecyclerview()
-        BarChartUtils.initBarChart(binding.barChart)
     }
 
     private fun initWeightRecyclerview() = with(binding.rvWeightHistory) {
