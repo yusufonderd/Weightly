@@ -80,6 +80,9 @@ dependencies {
 
     implementation 'com.github.lzyzsd:circleprogress:1.2.0'
 
+    implementation 'com.neobaran.open:ruler-view:0.0.5'
+
+
 
 
 }

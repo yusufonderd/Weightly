@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout_height="wrap_content"
+    app:cardCornerRadius="4dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/gray_100"
+    tools:layout_width="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/space_8"
+            android:text="@string/current_weight"
+            android:textAppearance="?android:textAppearanceLarge">
+
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_50">
+
+        </View>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfInputCurrentWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tilInputCurrentWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:maxLength="5" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.neobaran.open.android.nruler.RulerView
+            android:id="@+id/rulerViewCurrent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            app:centerLineColor="@color/green"
+            app:centerLineHeight="16dp"
+            app:numDigits="1"
+            app:numMaxValue="300"
+            app:numMinValue="5"
+            app:numTextColor="@color/gray_500"
+            app:numValue="75"
+            app:sideLineColor="#bcbcbc"
+            app:sideLineHeight="8dp"
+            app:textSize="12sp"
+            app:textSpaceHeight="6dp" />
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

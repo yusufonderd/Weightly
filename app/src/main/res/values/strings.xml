@@ -14,6 +14,11 @@
     <string name="prev_day">Previous</string>
     <string name="next_day">Next</string>
     <string name="input_weight">Input weight</string>
+    <string name="goal_weight">Goal weight</string>
+    <string name="current_weight">Current weight</string>
+    <string name="enter_current_weight">Enter current weight</string>
+    <string name="enter_goal_weight">Enter goal weight</string>
+
     <string name="input_note">Input note</string>
     <string name="select_emoji">Select emoji</string>
     <string name="select_emoji_with_emoji_format">%1$s Select emoji</string>
@@ -22,9 +27,12 @@
     <string name="update">Update</string>
     <string name="alert_blank_weight">Please make sure input your weight</string>
     <string name="kg_format">%1$s kg</string>
+    <string name="kg">kg</string>
 
     <string name="title_min_weight">En düşük kilo</string>
     <string name="title_max_weight">En yüksek kilo</string>
     <string name="title_average_weight">Ortalama kilo</string>
+
+
 
 </resources>
