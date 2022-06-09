@@ -24,6 +24,8 @@
     <string name="select_emoji_with_emoji_format">%1$s Select emoji</string>
     <string name="title_no_weight">Add weight from plus button on top right</string>
     <string name="save">Save</string>
+    <string name="_continue">Continue</string>
+
     <string name="update">Update</string>
     <string name="alert_blank_weight">Please make sure input your weight</string>
     <string name="kg_format">%1$s kg</string>
