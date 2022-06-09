@@ -33,7 +33,6 @@ In large projects, we need to use a view component in more than one place. So i 
 * [Kotlin](https://kotlinlang.org/) , [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) , [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/)
 * [Dagger-Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Dependency Injection
 * [MVVM Architecture](https://developer.android.com/jetpack/guide) - Modern, maintainable, and Google suggested app architecture
-* [Retrofit2 & OkHttp3](https://github.com/square/retrofit)
 * [Gson](https://github.com/google/gson)
 * [Navigation Component](https://developer.android.com/guide/navigation) - Single activity multiple fragments approach
 * [View Binding](https://developer.android.com/topic/libraries/view-binding) 
