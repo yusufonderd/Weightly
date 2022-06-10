@@ -25,7 +25,7 @@ object WeightBarChartInitializer {
         barChart.isDoubleTapToZoomEnabled = false
         barChart.setPinchZoom(false)
         barChart.description = Description().apply {
-            text = kotlin.String.EMPTY
+            text = String.EMPTY
         }
     }
 

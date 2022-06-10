@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="8dp"
-    app:cardUseCompatPadding="true"
     tools:layout_height="wrap_content"
     tools:layout_width="wrap_content">
 
@@ -21,7 +19,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
-            android:padding="@dimen/space_16"
+            android:padding="@dimen/space_12"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -40,7 +38,7 @@
             android:layout_marginBottom="@dimen/space_8"
             android:ellipsize="end"
             android:lines="1"
-            android:padding="@dimen/space_8"
+            android:padding="@dimen/space_4"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"

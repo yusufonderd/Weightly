@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">Weightly</string>
-    <string name="title_home">History</string>
+    <string name="title_home">Dashboard</string>
     <string name="title_splash">Splash</string>
     <string name="title_on_boarding">On Boarding</string>
+    <string name="title_settings">Settings</string>
 
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_emoji">Emojis</string>
+
+    <string name="history">History</string>
+    <string name="see_all"><u>See All</u></string>
 
     <string name="title_add_weight">Add Weight</string>
     <string name="add_weight">Add Weight</string>
@@ -31,10 +35,14 @@
     <string name="kg_format">%1$s kg</string>
     <string name="kg">kg</string>
 
-    <string name="title_min_weight">En düşük kilo</string>
-    <string name="title_max_weight">En yüksek kilo</string>
-    <string name="title_average_weight">Ortalama kilo</string>
+    <string name="title_min_weight">Minimum</string>
+    <string name="title_max_weight">Maximum</string>
+    <string name="title_average_weight">Average</string>
 
+
+    <string name="start">Start</string>
+    <string name="goal">Goal</string>
+    <string name="current">Current</string>
 
 
 </resources>

@@ -5,33 +5,146 @@
     android:id="@+id/stateLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_50"
+    android:padding="@dimen/space_8"
     app:textEmpty="@string/title_no_weight"
     tools:context=".ui.home.HomeFragment">
 
-    <com.github.lzyzsd.circleprogress.ArcProgress
-        android:id="@+id/arc_progress"
-        android:layout_width="144dp"
-        android:layout_height="144dp"
-        android:layout_marginVertical="@dimen/space_16"
-        app:arc_bottom_text="MEMORY"
-        app:arc_progress="120"
-        app:arc_max="1000"
-        app:arc_suffix_text="kg"
-        app:arc_text_color="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/rvWeightHistory"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvOutline"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@+id/llContainer"
+        app:layout_constraintDimensionRatio="16:12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/gray_100"
+        app:strokeWidth="1dp">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/space_8" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/llContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_50"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvOutline">
+
+        <com.yonder.weightly.uicomponents.InfoCardView
+            android:id="@+id/icStart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardUseCompatPadding="true">
+
+        </com.yonder.weightly.uicomponents.InfoCardView>
+
+        <com.yonder.weightly.uicomponents.InfoCardView
+            android:id="@+id/icCurrent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardUseCompatPadding="true"></com.yonder.weightly.uicomponents.InfoCardView>
+
+        <com.yonder.weightly.uicomponents.InfoCardView
+            android:id="@+id/icGoal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardUseCompatPadding="true">
+
+        </com.yonder.weightly.uicomponents.InfoCardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llContainer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llContainer">
+
+        <com.yonder.weightly.uicomponents.InfoCardView
+            android:id="@+id/infoCardMax"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardUseCompatPadding="true">
+
+        </com.yonder.weightly.uicomponents.InfoCardView>
+
+        <com.yonder.weightly.uicomponents.InfoCardView
+            android:id="@+id/infoCardAverage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardUseCompatPadding="true">
+
+        </com.yonder.weightly.uicomponents.InfoCardView>
+
+        <com.yonder.weightly.uicomponents.InfoCardView
+            android:id="@+id/infoCardMin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardUseCompatPadding="true">
+
+        </com.yonder.weightly.uicomponents.InfoCardView>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/history"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/space_4"
+        android:layout_marginVertical="@dimen/space_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llContainer2"/>
+
+    <TextView
+        android:id="@+id/tvSeeAllHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        android:text="@string/see_all"
+        android:textColor="@color/purple_500"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvHistory">
+
+
+    </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWeightHistory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="@dimen/space_4"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arc_progress"
+        app:layout_constraintTop_toBottomOf="@+id/tvHistory"
         tools:itemCount="10"
         tools:listitem="@layout/item_weight_history" />
 

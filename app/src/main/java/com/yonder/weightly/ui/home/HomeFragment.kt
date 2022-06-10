@@ -14,6 +14,7 @@ import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
 import com.yonder.weightly.ui.home.chart.WeightBarChartInitializer
+import com.yonder.weightly.uicomponents.InfoCardUIModel
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -56,12 +57,67 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         } else {
             binding.stateLayout.setState(State.CONTENT)
             adapterWeightHistory.submitList(uiState.reversedHistories)
+            WeightBarChartInitializer.setChartData(
+                barChart = binding.barChart,
+                histories = uiState.histories,
+                barEntries = uiState.barEntries,
+                context = requireContext()
+            )
+            binding.infoCardAverage.render(
+                InfoCardUIModel(
+                    title = uiState.averageWeight.orEmpty(),
+                    description = R.string.title_average_weight,
+                    backgroundColor = R.color.white,
+                    textColor = R.color.black
+                )
+            )
+            binding.infoCardMax.render(
+                InfoCardUIModel(
+                    title = uiState.maxWeight.orEmpty(),
+                    description = R.string.title_max_weight,
+                    backgroundColor = R.color.white,
+                    textColor = R.color.black
+                )
+            )
+            binding.infoCardMin.render(
+                InfoCardUIModel(
+                    title = uiState.minWeight.orEmpty(),
+                    description = R.string.title_min_weight,
+                    backgroundColor = R.color.white,
+                    textColor = R.color.black
+                )
+            )
+            binding.icCurrent.render(
+                InfoCardUIModel(
+                    title = uiState.currentWeight.orEmpty(),
+                    description = R.string.current,
+                    backgroundColor = R.color.white,
+                    textColor = R.color.black
+                )
+            )
+            binding.icGoal.render(
+                InfoCardUIModel(
+                    title = uiState.goalWeight.orEmpty(),
+                    description = R.string.goal,
+                    backgroundColor = R.color.white,
+                    textColor = R.color.black
+                )
+            )
 
+            binding.icStart.render(
+                InfoCardUIModel(
+                    title = uiState.startWeight.orEmpty(),
+                    description = R.string.start,
+                    backgroundColor = R.color.white,
+                    textColor = R.color.black
+                )
+            )
         }
     }
 
-    private fun initViews() {
+    private fun initViews() = with(binding) {
         initWeightRecyclerview()
+        WeightBarChartInitializer.initBarChart(binding.barChart)
     }
 
     private fun initWeightRecyclerview() = with(binding.rvWeightHistory) {
