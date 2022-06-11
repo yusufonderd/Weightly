@@ -10,6 +10,11 @@ import com.yonder.weightly.R
 import com.yonder.weightly.databinding.ViewCardRulerBinding
 
 
+enum class MeasureUnit{
+    KG,
+    LB
+}
+const val FLOOR_FOR_LB_TO_KG = 2.204f
 class CardRulerViewComponent @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -23,6 +28,23 @@ class CardRulerViewComponent @JvmOverloads constructor(
     private var shouldChangeRulerView = true
 
     var value: Float = 0.0f
+
+    var currentUnit = MeasureUnit.KG
+
+    fun setUnit(unit: MeasureUnit){
+        if (unit == MeasureUnit.LB){
+            if (currentUnit == MeasureUnit.KG){
+                value *= FLOOR_FOR_LB_TO_KG
+            }
+        }else{
+            if (currentUnit == MeasureUnit.LB){
+                value /= FLOOR_FOR_LB_TO_KG
+            }
+        }
+        currentUnit = unit
+        binding.tilInputCurrentWeight.setText(context.getString(R.string.kg_format, value))
+        binding.rulerViewCurrent.setValue(value)
+    }
 
     fun render(cardRuler: CardRuler) = with(binding) {
         val context = binding.root.context

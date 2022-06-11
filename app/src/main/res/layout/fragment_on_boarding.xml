@@ -26,13 +26,6 @@
 
     </com.yonder.weightly.uicomponents.CardRulerViewComponent>
 
-    <com.yonder.weightly.uicomponents.CardRulerViewComponent
-        android:id="@+id/cardRulerHeight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/space_8"
-        app:cardElevation="0dp"/>
-
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
@@ -56,6 +49,15 @@
             android:text="@string/lbs" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+    <com.yonder.weightly.uicomponents.CardRulerViewComponent
+        android:id="@+id/cardRulerHeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/space_8"
+        app:cardElevation="0dp"/>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnContinue"
