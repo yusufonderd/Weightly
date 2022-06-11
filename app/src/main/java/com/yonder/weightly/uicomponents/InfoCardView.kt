@@ -34,9 +34,9 @@ class InfoCardView @JvmOverloads constructor(
 
 
 data class InfoCardUIModel(
-    var title: String,
+    var title: String? ,
     @StringRes var description: Int,
-    @ColorRes var backgroundColor: Int,
-    @ColorRes var textColor: Int = R.color.white
+    @ColorRes var backgroundColor: Int = R.color.white,
+    @ColorRes var textColor: Int =R.color.black
 
     )

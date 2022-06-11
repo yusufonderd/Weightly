@@ -3,7 +3,6 @@ package com.yonder.weightly.ui.home.chart
 import android.content.Context
 import android.graphics.Color
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -11,23 +10,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.utils.extensions.EMPTY
 
-object WeightBarChartInitializer {
-
-    fun initBarChart(barChart: BarChart) {
-        barChart.legend.isEnabled = false
-        barChart.axisLeft.axisMinimum = 0.0f
-        barChart.xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
-        // Disable grid lines
-        barChart.xAxis.setDrawGridLines(false)
-        barChart.axisLeft.setDrawGridLines(false)
-        barChart.axisRight.setDrawGridLines(false)
-        //Disable zoom
-        barChart.isDoubleTapToZoomEnabled = false
-        barChart.setPinchZoom(false)
-        barChart.description = Description().apply {
-            text = String.EMPTY
-        }
-    }
+object BarChartFeeder {
 
     fun setChartData(
         barChart: BarChart,

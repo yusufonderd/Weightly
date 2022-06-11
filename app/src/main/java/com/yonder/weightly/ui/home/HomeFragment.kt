@@ -13,7 +13,8 @@ import com.yonder.weightly.databinding.FragmentHomeBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
-import com.yonder.weightly.ui.home.chart.WeightBarChartInitializer
+import com.yonder.weightly.ui.home.chart.BarChartFeeder
+import com.yonder.weightly.ui.home.chart.BarChartInitializer
 import com.yonder.weightly.uicomponents.InfoCardUIModel
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,7 +58,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         } else {
             binding.stateLayout.setState(State.CONTENT)
             adapterWeightHistory.submitList(uiState.reversedHistories)
-            WeightBarChartInitializer.setChartData(
+            BarChartFeeder.setChartData(
                 barChart = binding.barChart,
                 histories = uiState.histories,
                 barEntries = uiState.barEntries,
@@ -65,51 +66,39 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             )
             binding.infoCardAverage.render(
                 InfoCardUIModel(
-                    title = uiState.averageWeight.orEmpty(),
-                    description = R.string.title_average_weight,
-                    backgroundColor = R.color.white,
-                    textColor = R.color.black
+                    title = uiState.averageWeight,
+                    description = R.string.title_average_weight
                 )
             )
             binding.infoCardMax.render(
                 InfoCardUIModel(
-                    title = uiState.maxWeight.orEmpty(),
-                    description = R.string.title_max_weight,
-                    backgroundColor = R.color.white,
-                    textColor = R.color.black
+                    title = uiState.maxWeight,
+                    description = R.string.title_max_weight
                 )
             )
             binding.infoCardMin.render(
                 InfoCardUIModel(
-                    title = uiState.minWeight.orEmpty(),
-                    description = R.string.title_min_weight,
-                    backgroundColor = R.color.white,
-                    textColor = R.color.black
+                    title = uiState.minWeight,
+                    description = R.string.title_min_weight
                 )
             )
             binding.icCurrent.render(
                 InfoCardUIModel(
-                    title = uiState.currentWeight.orEmpty(),
-                    description = R.string.current,
-                    backgroundColor = R.color.white,
-                    textColor = R.color.black
+                    title = uiState.currentWeight,
+                    description = R.string.current
                 )
             )
             binding.icGoal.render(
                 InfoCardUIModel(
-                    title = uiState.goalWeight.orEmpty(),
-                    description = R.string.goal,
-                    backgroundColor = R.color.white,
-                    textColor = R.color.black
+                    title = uiState.goalWeight,
+                    description = R.string.goal
                 )
             )
 
             binding.icStart.render(
                 InfoCardUIModel(
-                    title = uiState.startWeight.orEmpty(),
-                    description = R.string.start,
-                    backgroundColor = R.color.white,
-                    textColor = R.color.black
+                    title = uiState.startWeight,
+                    description = R.string.start
                 )
             )
         }
@@ -117,7 +106,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initViews() = with(binding) {
         initWeightRecyclerview()
-        WeightBarChartInitializer.initBarChart(binding.barChart)
+        BarChartInitializer.initBarChart(binding.barChart)
     }
 
     private fun initWeightRecyclerview() = with(binding.rvWeightHistory) {
