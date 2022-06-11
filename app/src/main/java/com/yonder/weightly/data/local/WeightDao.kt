@@ -23,7 +23,7 @@ interface WeightDao {
     suspend fun update(weight: WeightEntity)
 
     @Delete
-    fun delete(user: WeightEntity)
+    suspend fun delete(user: WeightEntity)
 
     @Query("SELECT * FROM weight ORDER BY timestamp DESC")
     fun getDbAll(): Flow<List<WeightEntity>>

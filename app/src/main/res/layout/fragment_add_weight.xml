@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -87,8 +88,24 @@
         app:icon="@drawable/ic_baseline_add_24"
         app:iconGravity="textStart"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnEmoji"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintStart_toStartOf="@+id/btnEmoji"
         app:layout_constraintTop_toBottomOf="@+id/btnEmoji" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDelete"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="0dp"
+        app:layout_constraintStart_toEndOf="@+id/btn_save_or_update"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/space_8"
+        android:text="@string/delete"
+        app:backgroundTint="@color/red"
+        android:layout_marginStart="@dimen/space_16"
+        app:icon="@drawable/ic_baseline_delete_24"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_save_or_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_save_or_update" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

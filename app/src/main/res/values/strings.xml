@@ -34,6 +34,7 @@
     <string name="title_no_weight">Add weight from plus button on top right</string>
     <string name="save">Save</string>
     <string name="_continue">Continue</string>
+    <string name="delete">Delete</string>
 
     <string name="update">Update</string>
     <string name="alert_blank_weight">Please make sure input your weight</string>
