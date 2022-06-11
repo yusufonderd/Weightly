@@ -11,10 +11,11 @@ import com.yonder.weightly.R
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.utils.extensions.EMPTY
 
+
 object ChartFeeder {
 
     fun setChartData(
-        barChart: LineChart,
+        chart: LineChart,
         histories: List<WeightUIModel?>,
         barEntries: List<BarEntry>,
         context: Context
@@ -22,19 +23,22 @@ object ChartFeeder {
         val set1 = LineDataSet(barEntries, String.EMPTY)
         set1.valueFormatter = WeightValueFormatter(histories)
         set1.valueTextSize = 9f
+        set1.setDrawFilled(true)
+        set1.fillColor = ContextCompat.getColor(context, R.color.purple_200)
+        set1.fillAlpha = 150
         set1.setCircleColor(ContextCompat.getColor(context, R.color.purple_200))
-        val xAxis = barChart.xAxis
+        val xAxis = chart.xAxis
         xAxis.valueFormatter = XAxisValueDateFormatter(histories)
         set1.color = ContextCompat.getColor(context, R.color.purple_200)
         val dataSets: java.util.ArrayList<ILineDataSet> = ArrayList()
         dataSets.add(set1)
         val data = LineData(dataSets)
-        barChart.data = data
+        chart.data = data
         //Set marker view
         val markerView = WeightMarkerView(context, histories)
-        markerView.chartView = barChart
-        barChart.marker = markerView
+        markerView.chartView = chart
+        chart.marker = markerView
 
-        barChart.invalidate()
+        chart.invalidate()
     }
 }

@@ -62,7 +62,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             btnSeeAllHistory.isVisible = uiState.shouldShowAllWeightButton
             adapterWeightHistory.submitList(uiState.reversedHistories)
             ChartFeeder.setChartData(
-                barChart = lineChart,
+                chart = lineChart,
                 histories = uiState.histories,
                 barEntries = uiState.barEntries,
                 context = requireContext()

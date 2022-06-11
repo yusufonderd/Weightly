@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentAddWeightBinding
@@ -51,9 +51,11 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         initViews()
         observe()
         val argWeight = args.weight
-        if (argWeight != null){
+        if (argWeight != null) {
             fetchDate(argWeight.date)
-        }else{
+        } else {
+            //fetch current date
+            binding.btnNext.isGone = true
             viewModel.fetchDate(selectedDate)
         }
     }
@@ -78,14 +80,22 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         }
 
         btnSelectDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val startFrom = calendar.timeInMillis
+            val constraints = CalendarConstraints.Builder()
+                .setEnd(startFrom)
+                .build()
+
             val datePicker =
                 MaterialDatePicker.Builder.datePicker()
                     .setTitleText(getString(R.string.select_date))
+                    .setCalendarConstraints(constraints)
                     .setSelection(selectedDate.time)
                     .build()
             datePicker.addOnPositiveButtonClickListener { timestamp ->
                 fetchDate(Date(timestamp))
             }
+
             datePicker.show(parentFragmentManager, TAG_DATE_PICKER);
         }
 
@@ -107,6 +117,11 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         selectedDate = date
         binding.btnSelectDate.text = selectedDate.toFormat(CURRENT_DATE_FORMAT)
         viewModel.fetchDate(selectedDate)
+        val shouldHideNextButton =
+            selectedDate > Date() || selectedDate.toFormat(CURRENT_DATE_FORMAT) == Date().toFormat(
+                CURRENT_DATE_FORMAT
+            )
+        binding.btnNext.isGone = shouldHideNextButton
     }
 
     private fun observe() {
@@ -151,9 +166,10 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setDeleteButton(weight: WeightUIModel?){
+    private fun setDeleteButton(weight: WeightUIModel?) {
         binding.btnDelete.isGone = weight == null
     }
+
     private fun setBtnSaveStatus(weight: WeightUIModel?) = with(binding.btnSaveOrUpdate) {
         if (weight == null) {
             setText(R.string.save)
