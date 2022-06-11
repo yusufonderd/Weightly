@@ -83,7 +83,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/llContainer2"
+        android:id="@+id/ll_insight_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
@@ -139,7 +139,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/rvWeightHistory"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llContainer2" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_insight_view" />
 
     <Button
         android:id="@+id/btnSeeAllHistory"

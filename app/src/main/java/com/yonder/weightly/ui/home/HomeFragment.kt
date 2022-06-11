@@ -53,11 +53,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchInsights()
+    }
+
     private fun setUIState(uiState: HomeViewModel.UiState) = with(binding) {
         if (uiState.shouldShowEmptyView) {
             stateLayout.setState(State.EMPTY)
         } else {
             stateLayout.setState(State.CONTENT)
+            llInsightView.isVisible = uiState.shouldShowInsightView
             btnSeeAllHistory.isVisible = uiState.shouldShowAllWeightButton
             adapterWeightHistory.submitList(uiState.reversedHistories)
             ChartFeeder.setChartData(

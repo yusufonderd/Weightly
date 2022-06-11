@@ -30,10 +30,9 @@ class HomeViewModel @Inject constructor(
 
     init {
         getWeightHistories()
-        fetchInsights()
     }
 
-    private fun fetchInsights() = viewModelScope.launch(Dispatchers.IO) {
+    fun fetchInsights() = viewModelScope.launch(Dispatchers.IO) {
         val averageWeight = weightDao.getAverage()
         val maxWeight = weightDao.getMax()
         val minWeight = weightDao.getMin()
@@ -54,6 +53,7 @@ class HomeViewModel @Inject constructor(
                 it.copy(
                     histories = weightHistories,
                     startWeight = "${weightHistories.firstOrNull()?.formattedValue}",
+                    shouldShowInsightView = weightHistories.size > 1,
                     currentWeight = "${weightHistories.lastOrNull()?.formattedValue}",
                     reversedHistories = weightHistories.asReversed().take(WEIGHT_LIMIT_FOR_HOME),
                     shouldShowAllWeightButton = weightHistories.size > WEIGHT_LIMIT_FOR_HOME,
@@ -77,10 +77,11 @@ class HomeViewModel @Inject constructor(
         var reversedHistories: List<WeightUIModel?> = emptyList(),
         var barEntries: List<BarEntry> = emptyList(),
         var shouldShowEmptyView: Boolean = false,
-        var shouldShowAllWeightButton: Boolean = false
+        var shouldShowAllWeightButton: Boolean = false,
+        var shouldShowInsightView: Boolean = false
     )
 
-    companion object{
+    companion object {
         const val WEIGHT_LIMIT_FOR_HOME = 10
     }
 }

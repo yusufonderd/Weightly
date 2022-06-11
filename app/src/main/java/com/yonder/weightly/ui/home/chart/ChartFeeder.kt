@@ -1,12 +1,11 @@
 package com.yonder.weightly.ui.home.chart
 
 import android.content.Context
-import android.graphics.Color
 import androidx.core.content.ContextCompat
-import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.yonder.weightly.R
 import com.yonder.weightly.domain.uimodel.WeightUIModel
