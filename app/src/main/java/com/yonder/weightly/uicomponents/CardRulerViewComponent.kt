@@ -26,14 +26,16 @@ class CardRulerViewComponent @JvmOverloads constructor(
 
     fun render(cardRuler: CardRuler) = with(binding) {
         val context = binding.root.context
-        rulerViewCurrent.setUnitStr(context.getString(R.string.kg))
-        tvTitle.setText(cardRuler.title)
+        rulerViewCurrent.setUnitStr(context.getString(cardRuler.unit))
         tfInputCurrentWeight.setHint(cardRuler.hint)
         rulerViewCurrent.setValueListener {
             shouldChangeRulerView = false
             value = it
             tilInputCurrentWeight.setText(context.getString(R.string.kg_format, it))
         }
+
+        rulerViewCurrent.setMaxValue(cardRuler.max)
+        rulerViewCurrent.setValue(cardRuler.num)
 
         tilInputCurrentWeight.addTextChangedListener {
             if (shouldChangeRulerView) {
@@ -52,7 +54,9 @@ class CardRulerViewComponent @JvmOverloads constructor(
 
 
 data class CardRuler(
-    @StringRes var title: Int,
-    @StringRes var hint: Int
+    @StringRes var unit: Int,
+    @StringRes var hint: Int,
+    var num: Float = 75.0f,
+    var max: Int = 350
 )
 
