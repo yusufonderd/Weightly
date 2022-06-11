@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/purple_200"
     app:cardUseCompatPadding="true"
-    app:contentPadding="@dimen/space_8"
-    app:strokeColor="@color/gray_100"
-    app:strokeWidth="1dp">
+    app:contentPadding="@dimen/space_8">
 
     <TextView
         android:id="@+id/tvMarkerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         tools:text="@tools:sample/lorem">
 
     </TextView>

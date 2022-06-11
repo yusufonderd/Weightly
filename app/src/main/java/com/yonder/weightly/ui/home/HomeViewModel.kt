@@ -30,19 +30,41 @@ class HomeViewModel @Inject constructor(
 
     init {
         getWeightHistories()
+        fetchInsights()
     }
 
-    fun fetchInsights() = viewModelScope.launch(Dispatchers.IO) {
-        val averageWeight = weightDao.getAverage()
-        val maxWeight = weightDao.getMax()
-        val minWeight = weightDao.getMin()
+    private fun fetchInsights(){
+        viewModelScope.launch(Dispatchers.IO) {
+            weightDao.getAverage().collectLatest { average ->
+                _uiState.update {
+                    it.copy(
+                        averageWeight = "${average.format(1)}",
+                    )
+                }
+            }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            weightDao.getMax().collectLatest { max ->
+                _uiState.update {
+                    it.copy(
+                        maxWeight = "$max"
+                    )
+                }
+            }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            weightDao.getMin().collectLatest { min ->
+                _uiState.update {
+                    it.copy(
+                        minWeight = "$min"
+                    )
+                }
+            }
+        }
         val goalWeight = "${Hawk.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0)}"
         _uiState.update {
             it.copy(
-                goalWeight = goalWeight,
-                averageWeight = "${averageWeight?.format(1)}",
-                minWeight = "$minWeight",
-                maxWeight = "$maxWeight"
+                goalWeight = goalWeight
             )
         }
     }
