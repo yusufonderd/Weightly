@@ -16,7 +16,7 @@
         android:layout_height="0dp"
         app:cardElevation="0dp"
         app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/llContainer"
+        app:layout_constraintBottom_toTopOf="@+id/tvSummary"
         app:layout_constraintDimensionRatio="16:10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,15 +29,28 @@
             android:layout_margin="@dimen/space_8" />
     </com.google.android.material.card.MaterialCardView>
 
+    <TextView
+        android:id="@+id/tvSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/space_8"
+        android:layout_marginStart="@dimen/space_4"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/llContainer"
+        android:text="@string/summary"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvOutline" />
+
     <LinearLayout
         android:id="@+id/llContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_50"
         android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvOutline">
+        app:layout_constraintTop_toBottomOf="@+id/tvSummary">
 
         <com.yonder.weightly.uicomponents.InfoCardView
             android:id="@+id/icStart"
