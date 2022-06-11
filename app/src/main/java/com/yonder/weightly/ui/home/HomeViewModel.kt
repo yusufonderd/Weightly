@@ -54,7 +54,8 @@ class HomeViewModel @Inject constructor(
                     histories = weightHistories,
                     startWeight = "${weightHistories.firstOrNull()?.formattedValue}",
                     currentWeight = "${weightHistories.lastOrNull()?.formattedValue}",
-                    reversedHistories = weightHistories.asReversed(),
+                    reversedHistories = weightHistories.take(WEIGHT_LIMIT_FOR_HOME).asReversed(),
+                    shouldShowAllWeightButton = weightHistories.size > WEIGHT_LIMIT_FOR_HOME,
                     barEntries = weightHistories.mapIndexed { index, weight ->
                         BarEntry(index.toFloat(), weight?.value.orZero())
                     },
@@ -74,7 +75,11 @@ class HomeViewModel @Inject constructor(
         var histories: List<WeightUIModel?> = emptyList(),
         var reversedHistories: List<WeightUIModel?> = emptyList(),
         var barEntries: List<BarEntry> = emptyList(),
-        var shouldShowEmptyView: Boolean = false
+        var shouldShowEmptyView: Boolean = false,
+        var shouldShowAllWeightButton: Boolean = false
     )
 
+    companion object{
+        const val WEIGHT_LIMIT_FOR_HOME = 10
+    }
 }

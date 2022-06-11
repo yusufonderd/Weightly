@@ -2,6 +2,7 @@ package com.yonder.weightly.ui.home
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -57,6 +58,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             stateLayout.setState(State.EMPTY)
         } else {
             stateLayout.setState(State.CONTENT)
+            btnSeeAllHistory.isVisible = uiState.shouldShowAllWeightButton
             adapterWeightHistory.submitList(uiState.reversedHistories)
             BarChartFeeder.setChartData(
                 barChart = barChart,

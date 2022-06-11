@@ -55,7 +55,7 @@
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 
-    <fragment
+    <dialog
         android:id="@+id/navigation_history"
         android:name="com.yonder.weightly.ui.history.HistoryFragment"
         android:label="@string/title_history"
@@ -74,7 +74,7 @@
 
         <action
             android:id="@+id/action_navigate_emoji"
-            app:destination="@id/navigation_emoji"></action>
+            app:destination="@id/navigation_emoji"/>
 
     </dialog>
 

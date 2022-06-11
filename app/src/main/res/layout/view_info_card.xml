@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:layout_height="wrap_content"
+    app:cardElevation="0dp"
     tools:layout_width="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/green">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/tvValue"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
-            android:padding="@dimen/space_12"
+            android:padding="@dimen/space_8"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/white"
             android:textStyle="bold"

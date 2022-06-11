@@ -14,14 +14,13 @@
         android:id="@+id/cvOutline"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:cardElevation="0dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/llContainer"
-        app:layout_constraintDimensionRatio="16:12"
+        app:layout_constraintDimensionRatio="16:10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/gray_100"
-        app:strokeWidth="1dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
@@ -45,6 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:cardElevation="0dp"
             app:cardUseCompatPadding="true">
 
         </com.yonder.weightly.uicomponents.InfoCardView>
@@ -54,13 +54,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:cardUseCompatPadding="true"></com.yonder.weightly.uicomponents.InfoCardView>
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true" />
 
         <com.yonder.weightly.uicomponents.InfoCardView
             android:id="@+id/icGoal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:cardElevation="0dp"
             app:cardUseCompatPadding="true">
 
         </com.yonder.weightly.uicomponents.InfoCardView>
@@ -81,6 +83,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+
+            app:cardElevation="0dp"
             app:cardUseCompatPadding="true">
 
         </com.yonder.weightly.uicomponents.InfoCardView>
@@ -90,6 +94,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:cardElevation="0dp"
+
             app:cardUseCompatPadding="true">
 
         </com.yonder.weightly.uicomponents.InfoCardView>
@@ -99,6 +105,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+
+            app:cardElevation="0dp"
             app:cardUseCompatPadding="true">
 
         </com.yonder.weightly.uicomponents.InfoCardView>
@@ -109,24 +117,28 @@
         android:id="@+id/tvHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/space_8"
+        android:layout_marginStart="@dimen/space_4"
+
+        android:layout_marginBottom="8dp"
         android:text="@string/history"
         android:textAppearance="?android:textAppearanceLarge"
         android:textStyle="bold"
-        android:layout_marginStart="@dimen/space_4"
-        android:layout_marginVertical="@dimen/space_8"
+        app:layout_constraintBottom_toTopOf="@+id/rvWeightHistory"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llContainer2"/>
+        app:layout_constraintTop_toBottomOf="@+id/llContainer2" />
 
     <Button
         android:id="@+id/btnSeeAllHistory"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/space_8"
         android:layout_marginEnd="@dimen/space_8"
+        android:gravity="end|center"
         android:text="@string/see_all"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:textColor="@color/purple_500"
         android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/purple_500"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
         app:layout_constraintEnd_toEndOf="parent"
@@ -134,6 +146,7 @@
 
 
     </Button>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWeightHistory"
@@ -147,6 +160,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvHistory"
         tools:itemCount="10"
         tools:listitem="@layout/item_weight_history" />
+
 
 </com.yonder.statelayout.StateLayoutView>
 
