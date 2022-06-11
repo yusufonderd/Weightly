@@ -1,14 +1,13 @@
 package com.yonder.weightly.ui.home.chart
 
-import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
 import com.yonder.weightly.utils.extensions.EMPTY
 
-object BarChartInitializer {
+object ChartInitializer {
 
-    fun initBarChart(barChart: BarChart) {
+    fun initBarChart(barChart: LineChart) {
         barChart.legend.isEnabled = false
-        barChart.axisLeft.axisMinimum = 0.0f
         barChart.xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
         // Disable grid lines
         barChart.xAxis.setDrawGridLines(false)

@@ -14,8 +14,8 @@ import com.yonder.weightly.databinding.FragmentHomeBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
-import com.yonder.weightly.ui.home.chart.BarChartFeeder
-import com.yonder.weightly.ui.home.chart.BarChartInitializer
+import com.yonder.weightly.ui.home.chart.ChartFeeder
+import com.yonder.weightly.ui.home.chart.ChartInitializer
 import com.yonder.weightly.uicomponents.InfoCardUIModel
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,8 +60,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             stateLayout.setState(State.CONTENT)
             btnSeeAllHistory.isVisible = uiState.shouldShowAllWeightButton
             adapterWeightHistory.submitList(uiState.reversedHistories)
-            BarChartFeeder.setChartData(
-                barChart = barChart,
+            ChartFeeder.setChartData(
+                barChart = lineChart,
                 histories = uiState.histories,
                 barEntries = uiState.barEntries,
                 context = requireContext()
@@ -69,25 +69,30 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             infoCardAverage.render(
                 InfoCardUIModel(
                     title = uiState.averageWeight,
-                    description = R.string.title_average_weight
+                    description = R.string.title_average_weight,
+                    titleTextColor = R.color.orange
                 )
             )
             infoCardMax.render(
                 InfoCardUIModel(
                     title = uiState.maxWeight,
-                    description = R.string.title_max_weight
+                    description = R.string.title_max_weight,
+                    titleTextColor = R.color.red
                 )
             )
             infoCardMin.render(
                 InfoCardUIModel(
                     title = uiState.minWeight,
-                    description = R.string.title_min_weight
+                    description = R.string.title_min_weight,
+                    titleTextColor = R.color.green
+
                 )
             )
             icCurrent.render(
                 InfoCardUIModel(
                     title = uiState.currentWeight,
-                    description = R.string.current
+                    description = R.string.current,
+                    titleTextColor = R.color.purple_500
                 )
             )
             icGoal.render(
@@ -108,7 +113,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initViews() = with(binding) {
         initWeightRecyclerview()
-        BarChartInitializer.initBarChart(barChart)
+        ChartInitializer.initBarChart(lineChart)
         btnSeeAllHistory.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavigateHistory())
         }
