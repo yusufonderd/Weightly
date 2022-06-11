@@ -117,23 +117,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llContainer2"/>
 
-    <TextView
-        android:id="@+id/tvSeeAllHistory"
+    <Button
+        android:id="@+id/btnSeeAllHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/space_8"
         android:layout_marginEnd="@dimen/space_8"
         android:text="@string/see_all"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/purple_500"
         android:textAppearance="?android:textAppearanceSmall"
         android:textStyle="bold"
-
         app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvHistory">
 
 
-    </TextView>
+    </Button>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWeightHistory"

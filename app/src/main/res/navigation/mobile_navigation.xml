@@ -13,11 +13,11 @@
 
         <action
             android:id="@+id/action_navigate_home"
-            app:destination="@id/navigation_home"/>
+            app:destination="@id/navigation_home" />
 
         <action
             android:id="@+id/action_navigate_on_boarding"
-            app:destination="@id/navigation_on_boarding"/>
+            app:destination="@id/navigation_on_boarding" />
 
     </fragment>
     <fragment
@@ -28,7 +28,7 @@
 
         <action
             android:id="@+id/action_navigate_home"
-            app:destination="@id/navigation_home"/>
+            app:destination="@id/navigation_home" />
 
     </fragment>
 
@@ -41,9 +41,11 @@
 
         <action
             android:id="@+id/action_navigate_add_weight"
-            app:destination="@id/navigation_add_weight">
+            app:destination="@id/navigation_add_weight" />
 
-        </action>
+        <action
+            android:id="@+id/action_navigate_history"
+            app:destination="@id/navigation_history" />
 
     </fragment>
 
@@ -53,22 +55,26 @@
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.yonder.weightly.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
 
     <dialog
         android:id="@+id/navigation_add_weight"
         android:name="com.yonder.weightly.ui.add.AddWeightFragment"
         android:label="@string/title_add_weight"
-        tools:layout="@layout/fragment_add_weight" >
+        tools:layout="@layout/fragment_add_weight">
 
         <argument
             android:name="weight"
-            app:nullable="true"
-            app:argType="com.yonder.weightly.domain.uimodel.WeightUIModel" />
+            app:argType="com.yonder.weightly.domain.uimodel.WeightUIModel"
+            app:nullable="true" />
 
         <action
             android:id="@+id/action_navigate_emoji"
-            app:destination="@id/navigation_emoji">
-        </action>
+            app:destination="@id/navigation_emoji"></action>
 
     </dialog>
 

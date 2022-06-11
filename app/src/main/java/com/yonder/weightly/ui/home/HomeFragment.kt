@@ -52,50 +52,50 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun setUIState(uiState: HomeViewModel.UiState) {
+    private fun setUIState(uiState: HomeViewModel.UiState) = with(binding) {
         if (uiState.shouldShowEmptyView) {
-            binding.stateLayout.setState(State.EMPTY)
+            stateLayout.setState(State.EMPTY)
         } else {
-            binding.stateLayout.setState(State.CONTENT)
+            stateLayout.setState(State.CONTENT)
             adapterWeightHistory.submitList(uiState.reversedHistories)
             BarChartFeeder.setChartData(
-                barChart = binding.barChart,
+                barChart = barChart,
                 histories = uiState.histories,
                 barEntries = uiState.barEntries,
                 context = requireContext()
             )
-            binding.infoCardAverage.render(
+            infoCardAverage.render(
                 InfoCardUIModel(
                     title = uiState.averageWeight,
                     description = R.string.title_average_weight
                 )
             )
-            binding.infoCardMax.render(
+            infoCardMax.render(
                 InfoCardUIModel(
                     title = uiState.maxWeight,
                     description = R.string.title_max_weight
                 )
             )
-            binding.infoCardMin.render(
+            infoCardMin.render(
                 InfoCardUIModel(
                     title = uiState.minWeight,
                     description = R.string.title_min_weight
                 )
             )
-            binding.icCurrent.render(
+            icCurrent.render(
                 InfoCardUIModel(
                     title = uiState.currentWeight,
                     description = R.string.current
                 )
             )
-            binding.icGoal.render(
+            icGoal.render(
                 InfoCardUIModel(
                     title = uiState.goalWeight,
                     description = R.string.goal
                 )
             )
 
-            binding.icStart.render(
+            icStart.render(
                 InfoCardUIModel(
                     title = uiState.startWeight,
                     description = R.string.start
@@ -106,7 +106,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initViews() = with(binding) {
         initWeightRecyclerview()
-        BarChartInitializer.initBarChart(binding.barChart)
+        BarChartInitializer.initBarChart(barChart)
+        btnSeeAllHistory.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionNavigateHistory())
+        }
     }
 
     private fun initWeightRecyclerview() = with(binding.rvWeightHistory) {
