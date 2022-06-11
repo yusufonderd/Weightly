@@ -22,7 +22,6 @@ object BarChartFeeder {
         set1.valueFormatter = WeightValueFormatter(histories)
         set1.valueTextSize = 9f
         val xAxis = barChart.xAxis
-        xAxis.labelCount = histories.size
         xAxis.valueFormatter = XAxisValueDateFormatter(histories)
         set1.color = Color.BLUE
         val dataSets: java.util.ArrayList<IBarDataSet> = ArrayList()

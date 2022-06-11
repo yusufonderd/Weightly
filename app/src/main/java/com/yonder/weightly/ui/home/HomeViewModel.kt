@@ -8,6 +8,7 @@ import com.yonder.weightly.data.local.WeightDao
 import com.yonder.weightly.data.repository.WeightRepository
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.extensions.format
 import com.yonder.weightly.utils.extensions.orZero
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +41,7 @@ class HomeViewModel @Inject constructor(
         _uiState.update {
             it.copy(
                 goalWeight = goalWeight,
-                averageWeight = "$averageWeight",
+                averageWeight = "${averageWeight?.format(1)}",
                 minWeight = "$minWeight",
                 maxWeight = "$maxWeight"
             )
@@ -54,7 +55,7 @@ class HomeViewModel @Inject constructor(
                     histories = weightHistories,
                     startWeight = "${weightHistories.firstOrNull()?.formattedValue}",
                     currentWeight = "${weightHistories.lastOrNull()?.formattedValue}",
-                    reversedHistories = weightHistories.take(WEIGHT_LIMIT_FOR_HOME).asReversed(),
+                    reversedHistories = weightHistories.asReversed().take(WEIGHT_LIMIT_FOR_HOME),
                     shouldShowAllWeightButton = weightHistories.size > WEIGHT_LIMIT_FOR_HOME,
                     barEntries = weightHistories.mapIndexed { index, weight ->
                         BarEntry(index.toFloat(), weight?.value.orZero())

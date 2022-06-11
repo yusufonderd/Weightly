@@ -17,7 +17,7 @@
         app:cardElevation="0dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/tvSummary"
-        app:layout_constraintDimensionRatio="16:10"
+        app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,11 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/space_8"
         android:layout_marginStart="@dimen/space_4"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/llContainer"
         android:text="@string/summary"
         android:textAppearance="?android:textAppearanceLarge"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/llContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvOutline" />
 
@@ -47,6 +46,7 @@
         android:id="@+id/llContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

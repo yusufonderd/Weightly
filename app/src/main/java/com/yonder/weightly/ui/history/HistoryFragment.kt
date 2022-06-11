@@ -16,7 +16,6 @@ import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HistoryFragment : BottomSheetDialogFragment() {
@@ -64,7 +63,6 @@ class HistoryFragment : BottomSheetDialogFragment() {
     }
 
     private fun setUIState(uiState: HistoryViewModel.UiState) = with(binding) {
-        Timber.d("setUIState => ${uiState.histories.size}")
         adapterWeightHistory.submitList(uiState.histories)
     }
 
