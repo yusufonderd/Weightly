@@ -4,6 +4,7 @@ Weightly is simple weight tracker app. It stores data from the scale to monitor 
 ## Screenshots
 
 <p align="center">
+<img src="https://user-images.githubusercontent.com/13941871/173247152-ab9bf1d6-a9ca-43be-8aff-5aff188ff004.png" width="24%" />  
 <img src="https://user-images.githubusercontent.com/13941871/173245722-a91d2fb1-59d2-4138-bcb2-4c456cfcbb04.png" width="24%" />  
 <img src="https://user-images.githubusercontent.com/13941871/173245571-566d1fd3-cfe6-4677-8f4d-5d4b253a5859.png" width="24%" />  
 <img src="https://user-images.githubusercontent.com/13941871/173245648-ae74f3ee-63db-4793-bbd6-e6d5fd47c0e2.png" width="24%" />  
