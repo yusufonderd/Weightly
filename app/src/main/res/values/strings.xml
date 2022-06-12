@@ -12,6 +12,7 @@
 
     <string name="history">History</string>
     <string name="summary">Summary</string>
+    <string name="your_progress">Your progress</string>
 
     <string name="see_all"><u>See All</u></string>
 
@@ -52,5 +53,9 @@
     <string name="development">Development</string>
     <string name="developer">Developer</string>
     <string name="source_code">Source Codes</string>
+
+    <string name="line_chart">Line</string>
+    <string name="bar_chart">Bar</string>
+
 
 </resources>

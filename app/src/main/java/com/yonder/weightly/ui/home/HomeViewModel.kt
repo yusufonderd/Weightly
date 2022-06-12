@@ -7,6 +7,7 @@ import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.data.local.WeightDao
 import com.yonder.weightly.data.repository.WeightRepository
 import com.yonder.weightly.domain.uimodel.WeightUIModel
+import com.yonder.weightly.ui.home.chart.ChartType
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.extensions.format
 import com.yonder.weightly.utils.extensions.orZero
@@ -88,6 +89,18 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun changeChartType(chartType: ChartType){
+       val currentChartType=  ChartType.valueOf(Hawk.get(Constants.Prefs.KEY_CHART_TYPE,0))
+        if (chartType != currentChartType){
+            Hawk.put(Constants.Prefs.KEY_CHART_TYPE,chartType.value)
+            _uiState.update {
+                it.copy(
+                    chartType = chartType
+                )
+            }
+        }
+    }
+
     data class UiState(
         var maxWeight: String? = null,
         var minWeight: String? = null,
@@ -100,7 +113,8 @@ class HomeViewModel @Inject constructor(
         var barEntries: List<BarEntry> = emptyList(),
         var shouldShowEmptyView: Boolean = false,
         var shouldShowAllWeightButton: Boolean = false,
-        var shouldShowInsightView: Boolean = false
+        var shouldShowInsightView: Boolean = false,
+        var chartType: ChartType = ChartType.LINE
     )
 
     companion object {

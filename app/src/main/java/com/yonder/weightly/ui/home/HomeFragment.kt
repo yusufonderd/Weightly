@@ -16,6 +16,7 @@ import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
 import com.yonder.weightly.ui.home.chart.ChartFeeder
 import com.yonder.weightly.ui.home.chart.ChartInitializer
+import com.yonder.weightly.ui.home.chart.ChartType
 import com.yonder.weightly.uicomponents.InfoCardUIModel
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,12 +62,27 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             llInsightView.isVisible = uiState.shouldShowInsightView
             btnSeeAllHistory.isVisible = uiState.shouldShowAllWeightButton
             adapterWeightHistory.submitList(uiState.reversedHistories)
-            ChartFeeder.setChartData(
-                chart = lineChart,
-                histories = uiState.histories,
-                barEntries = uiState.barEntries,
-                context = requireContext()
-            )
+
+            if (uiState.chartType == ChartType.LINE){
+                lineChart.isVisible = true
+                barChart.isVisible = false
+                ChartFeeder.setLineChartData(
+                    chart = lineChart,
+                    histories = uiState.histories,
+                    barEntries = uiState.barEntries,
+                    context = requireContext()
+                )
+            }else{
+                lineChart.isVisible = false
+                barChart.isVisible = true
+                ChartFeeder.setBarChartData(
+                    chart = barChart,
+                    histories = uiState.histories,
+                    barEntries = uiState.barEntries,
+                    context = requireContext()
+                )
+            }
+
             infoCardAverage.render(
                 InfoCardUIModel(
                     title = uiState.averageWeight,
@@ -117,6 +133,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         ChartInitializer.initBarChart(lineChart)
         btnSeeAllHistory.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavigateHistory())
+        }
+        toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (!isChecked)
+                return@addOnButtonCheckedListener
+            if (checkedId == R.id.btnBarChart) {
+                viewModel.changeChartType(ChartType.BAR)
+            } else {
+                viewModel.changeChartType(ChartType.LINE)
+            }
         }
     }
 
