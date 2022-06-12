@@ -35,24 +35,22 @@
     <string name="save">Save</string>
     <string name="_continue">Continue</string>
     <string name="delete">Delete</string>
-
     <string name="update">Update</string>
     <string name="alert_blank_weight">Please make sure input your weight</string>
     <string name="kg_format">%1$s kg</string>
     <string name="kg">kg</string>
     <string name="lbs">lb</string>
     <string name="cm">cm</string>
-
     <string name="title_min_weight">Minimum</string>
     <string name="title_max_weight">Maximum</string>
     <string name="title_average_weight">Average</string>
-
-
     <string name="start">Start</string>
     <string name="goal">Goal</string>
     <string name="current">Current</string>
-
     <string name="settings">Settings</string>
 
+    <string name="development">Development</string>
+    <string name="developer">Developer</string>
+    <string name="source_code">Source Codes</string>
 
 </resources>

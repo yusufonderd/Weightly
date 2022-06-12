@@ -63,7 +63,12 @@
         android:id="@+id/navigation_history"
         android:name="com.yonder.weightly.ui.history.HistoryFragment"
         android:label="@string/title_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history">
+
+        <action
+            android:id="@+id/action_navigate_add_weight"
+            app:destination="@id/navigation_add_weight" />
+    </dialog>
 
     <dialog
         android:id="@+id/navigation_add_weight"

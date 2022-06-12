@@ -104,6 +104,6 @@ class HomeViewModel @Inject constructor(
     )
 
     companion object {
-        const val WEIGHT_LIMIT_FOR_HOME = 10
+        const val WEIGHT_LIMIT_FOR_HOME = 5
     }
 }
