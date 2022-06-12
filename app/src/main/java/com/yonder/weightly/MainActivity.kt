@@ -27,8 +27,17 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_on_boarding
             )
         )
+        val noBottomNavigationIds = listOf(R.id.navigation_splash, R.id.navigation_on_boarding)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (noBottomNavigationIds.contains(destination.id)) {
+                supportActionBar?.hide()
+            } else {
+                supportActionBar?.show()
+            }
+        }
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         return navController.navigateUp() || super.onSupportNavigateUp()
