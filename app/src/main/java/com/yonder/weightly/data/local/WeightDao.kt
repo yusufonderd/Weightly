@@ -35,11 +35,11 @@ interface WeightDao {
     ): Float?
 
     @Query("SELECT AVG(value) as average FROM weight ORDER BY timestamp ASC")
-    fun getAverage(): Flow<Float>
+    fun getAverage(): Flow<Float?>
 
     @Query("SELECT MAX(value) FROM weight ORDER BY timestamp ASC")
-    fun getMax(): Flow<Float>
+    fun getMax(): Flow<Float?>
 
     @Query("SELECT MIN(value)  FROM weight ORDER BY timestamp ASC")
-    fun getMin(): Flow<Float>
+    fun getMin(): Flow<Float?>
 }

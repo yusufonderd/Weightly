@@ -23,11 +23,14 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
-                R.id.navigation_settings,
                 R.id.navigation_splash,
                 R.id.navigation_on_boarding
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

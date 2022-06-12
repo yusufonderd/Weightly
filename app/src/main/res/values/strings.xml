@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Weightly</string>
-    <string name="title_home">Dashboard</string>
+    <string name="title_home">Weightly</string>
     <string name="title_splash">Splash</string>
     <string name="title_on_boarding">On Boarding</string>
     <string name="title_settings">Settings</string>
@@ -51,6 +51,8 @@
     <string name="start">Start</string>
     <string name="goal">Goal</string>
     <string name="current">Current</string>
+
+    <string name="settings">Settings</string>
 
 
 </resources>

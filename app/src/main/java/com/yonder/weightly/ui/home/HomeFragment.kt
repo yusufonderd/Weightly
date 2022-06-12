@@ -145,6 +145,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 findNavController().navigate(HomeFragmentDirections.actionNavigateAddWeight(null))
                 true
             }
+            R.id.action_settings -> {
+                findNavController().navigate(HomeFragmentDirections.actionNavigateSettings())
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

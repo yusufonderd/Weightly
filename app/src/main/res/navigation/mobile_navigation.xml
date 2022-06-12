@@ -47,7 +47,17 @@
             android:id="@+id/action_navigate_history"
             app:destination="@id/navigation_history" />
 
+        <action
+            android:id="@+id/action_navigate_settings"
+            app:destination="@id/navigation_settings" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.yonder.weightly.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
 
     <dialog
         android:id="@+id/navigation_history"

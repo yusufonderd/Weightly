@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
             weightDao.getAverage().collectLatest { average ->
                 _uiState.update {
                     it.copy(
-                        averageWeight = "${average.format(1)}",
+                        averageWeight = "${average?.format(1)}",
                     )
                 }
             }
