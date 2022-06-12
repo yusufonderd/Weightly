@@ -53,12 +53,18 @@ class OnBoardingFragment : Fragment(R.layout.fragment_on_boarding) {
         btnContinue.setOnClickListener {
             val currentWeight: Float = cardRulerCurrent.value
             val goalWeight: Float = cardRulerGoal.value
+            val currentHeight: Float = cardRulerHeight.value
             val unit = if (toggleButton.checkedButtonId == R.id.button1) {
                 MeasureUnit.KG
             } else {
                 MeasureUnit.LB
             }
-            viewModel.save(currentWeight = currentWeight, goalWeight = goalWeight, unit = unit)
+            viewModel.save(
+                currentWeight = currentWeight,
+                goalWeight = goalWeight,
+                currentHeight = currentHeight,
+                unit = unit
+            )
         }
         toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (!isChecked)

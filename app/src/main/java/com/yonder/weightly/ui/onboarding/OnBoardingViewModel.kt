@@ -27,10 +27,11 @@ class OnBoardingViewModel @Inject constructor(
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
     val eventsFlow = eventChannel.receiveAsFlow()
 
-    fun save(currentWeight: Float, goalWeight: Float,unit: MeasureUnit) {
+    fun save(currentWeight: Float, goalWeight: Float, currentHeight: Float, unit: MeasureUnit) {
         viewModelScope.launch(Dispatchers.IO) {
             Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT, goalWeight)
             Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT, unit.name)
+            Hawk.put(Constants.Prefs.KEY_GOAL_HEIGHT,currentHeight)
             Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT_DATE, Date().time)
             Hawk.put(Constants.Prefs.KEY_SHOULD_SHOW_ON_BOARDING, false)
             saveOrUpdateWeight.invoke("$currentWeight", String.EMPTY, String.EMPTY, Date())

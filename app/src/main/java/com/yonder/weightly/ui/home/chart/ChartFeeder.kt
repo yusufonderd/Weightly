@@ -3,6 +3,7 @@ package com.yonder.weightly.ui.home.chart
 import android.content.Context
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet

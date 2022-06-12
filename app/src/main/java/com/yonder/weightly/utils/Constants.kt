@@ -4,6 +4,7 @@ object Constants {
 
     // For shared prefs
     object Prefs{
+        const val KEY_GOAL_HEIGHT = "key_goal_height"
         const val KEY_GOAL_WEIGHT = "key_goal_weight"
         const val KEY_GOAL_WEIGHT_UNIT = "key_goal_weight_unit"
         const val KEY_GOAL_WEIGHT_DATE = "key_goal_weight_date"
