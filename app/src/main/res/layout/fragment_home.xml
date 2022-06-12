@@ -1,179 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.yonder.statelayout.StateLayoutView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/stateLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_50"
-    android:padding="@dimen/space_8"
-    app:textEmpty="@string/title_no_weight"
     tools:context=".ui.home.HomeFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cvOutline"
+    <com.yonder.statelayout.StateLayoutView
+        android:id="@+id/stateLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:cardElevation="0dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/tvSummary"
-        app:layout_constraintDimensionRatio="16:10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:background="@color/gray_50"
+        android:padding="@dimen/space_8"
+        app:textEmpty="@string/title_no_weight"
+        tools:context=".ui.home.HomeFragment">
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvOutline"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/space_8" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:id="@+id/tvSummary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/space_8"
-        android:layout_marginStart="@dimen/space_4"
-        android:text="@string/summary"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/llContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvOutline" />
-
-    <LinearLayout
-        android:id="@+id/llContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:weightSum="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSummary">
-
-        <com.yonder.weightly.uicomponents.InfoCardView
-            android:id="@+id/icStart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="0dp"
             app:cardElevation="0dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toTopOf="@+id/tvSummary"
+            app:layout_constraintDimensionRatio="16:10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        </com.yonder.weightly.uicomponents.InfoCardView>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/space_8" />
+        </com.google.android.material.card.MaterialCardView>
 
-        <com.yonder.weightly.uicomponents.InfoCardView
-            android:id="@+id/icCurrent"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tvSummary"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:cardElevation="0dp"
-            app:cardUseCompatPadding="true" />
+            android:layout_marginVertical="@dimen/space_8"
+            android:layout_marginStart="@dimen/space_4"
+            android:text="@string/summary"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/llContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvOutline" />
 
-        <com.yonder.weightly.uicomponents.InfoCardView
-            android:id="@+id/icGoal"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/llContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:cardElevation="0dp"
-            app:cardUseCompatPadding="true">
+            android:layout_marginTop="8dp"
+            android:weightSum="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSummary">
 
-        </com.yonder.weightly.uicomponents.InfoCardView>
+            <com.yonder.weightly.uicomponents.InfoCardView
+                android:id="@+id/icStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true">
 
-    </LinearLayout>
+            </com.yonder.weightly.uicomponents.InfoCardView>
 
-    <LinearLayout
-        android:id="@+id/ll_insight_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llContainer">
+            <com.yonder.weightly.uicomponents.InfoCardView
+                android:id="@+id/icCurrent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true" />
 
-        <com.yonder.weightly.uicomponents.InfoCardView
-            android:id="@+id/infoCardMax"
-            android:layout_width="0dp"
+            <com.yonder.weightly.uicomponents.InfoCardView
+                android:id="@+id/icGoal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true">
+
+            </com.yonder.weightly.uicomponents.InfoCardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_insight_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:weightSum="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llContainer">
 
-            app:cardElevation="0dp"
-            app:cardUseCompatPadding="true">
+            <com.yonder.weightly.uicomponents.InfoCardView
+                android:id="@+id/infoCardMax"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
 
-        </com.yonder.weightly.uicomponents.InfoCardView>
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true">
 
-        <com.yonder.weightly.uicomponents.InfoCardView
-            android:id="@+id/infoCardAverage"
-            android:layout_width="0dp"
+            </com.yonder.weightly.uicomponents.InfoCardView>
+
+            <com.yonder.weightly.uicomponents.InfoCardView
+                android:id="@+id/infoCardAverage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardElevation="0dp"
+
+                app:cardUseCompatPadding="true">
+
+            </com.yonder.weightly.uicomponents.InfoCardView>
+
+            <com.yonder.weightly.uicomponents.InfoCardView
+                android:id="@+id/infoCardMin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true">
+
+            </com.yonder.weightly.uicomponents.InfoCardView>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvHistory"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:cardElevation="0dp"
+            android:layout_marginVertical="@dimen/space_8"
+            android:layout_marginStart="@dimen/space_4"
 
-            app:cardUseCompatPadding="true">
+            android:layout_marginBottom="8dp"
+            android:text="@string/history"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/rvWeightHistory"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_insight_view" />
 
-        </com.yonder.weightly.uicomponents.InfoCardView>
-
-        <com.yonder.weightly.uicomponents.InfoCardView
-            android:id="@+id/infoCardMin"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/btnSeeAllHistory"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-
-            app:cardElevation="0dp"
-            app:cardUseCompatPadding="true">
-
-        </com.yonder.weightly.uicomponents.InfoCardView>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvHistory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/space_8"
-        android:layout_marginStart="@dimen/space_4"
-
-        android:layout_marginBottom="8dp"
-        android:text="@string/history"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/rvWeightHistory"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_insight_view" />
-
-    <Button
-        android:id="@+id/btnSeeAllHistory"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/space_8"
-        android:layout_marginEnd="@dimen/space_8"
-        android:gravity="end|center"
-        android:text="@string/see_all"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="@color/purple_500"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvHistory">
+            android:layout_marginVertical="@dimen/space_8"
+            android:layout_marginEnd="@dimen/space_8"
+            android:gravity="end|center"
+            android:text="@string/see_all"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/purple_500"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvHistory">
 
 
-    </Button>
+        </Button>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvWeightHistory"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingHorizontal="@dimen/space_4"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHistory"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_weight_history" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvWeightHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/space_4"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHistory"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_weight_history" />
 
 
-</com.yonder.statelayout.StateLayoutView>
+    </com.yonder.statelayout.StateLayoutView>
 
+
+</androidx.core.widget.NestedScrollView>
