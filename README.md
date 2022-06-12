@@ -39,7 +39,6 @@ In large projects, we need to use a view component in more than one place. So i 
 * [Navigation Component](https://developer.android.com/guide/navigation) - Single activity multiple fragments approach
 * [View Binding](https://developer.android.com/topic/libraries/view-binding) 
 * [StateLayout](https://github.com/yusufonderd/StateLayout) - For managing view states
-* Single Activity multiple Fragments approach
 
 
 ## TODOs and Improvements
