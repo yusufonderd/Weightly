@@ -1,8 +1,10 @@
 package com.yonder.weightly.ui.home.chart
 
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
+import com.yonder.weightly.R
 import com.yonder.weightly.utils.extensions.EMPTY
 
 object ChartInitializer {
@@ -12,6 +14,8 @@ object ChartInitializer {
         chart.xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
         // Disable grid lines
         chart.xAxis.setDrawGridLines(false)
+        chart.axisLeft.textColor =  ContextCompat.getColor(chart.context, R.color.black)
+        chart.axisRight.textColor =  ContextCompat.getColor(chart.context, R.color.black)
         chart.axisLeft.setDrawGridLines(false)
         chart.axisRight.setDrawGridLines(false)
         //Disable zoom
@@ -22,6 +26,8 @@ object ChartInitializer {
         }
     }
     fun initBarChart(barChart: BarChart) {
+        barChart.axisLeft.textColor =  ContextCompat.getColor(barChart.context, R.color.black)
+        barChart.axisRight.textColor =  ContextCompat.getColor(barChart.context, R.color.black)
         barChart.legend.isEnabled = false
         barChart.xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
         // Disable grid lines

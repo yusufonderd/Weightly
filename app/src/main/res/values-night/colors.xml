@@ -8,12 +8,11 @@
     <color name="green">#4CAF50</color>
     <color name="orange">#EC5E31</color>
     <color name="red">#E91E1E</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="gray_50">#F4F2F2</color>
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#FF000000</color>
+    <color name="gray_50">#292929</color>
     <color name="gray_100">#CDCDCD</color>
     <color name="gray_500">#616161</color>
-
-    <color name="chart_background">#FFFFFFFF</color>
+    <color name="chart_background">#303030</color>
 
 </resources>
