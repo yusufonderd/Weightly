@@ -34,7 +34,7 @@ class HomeViewModel @Inject constructor(
         fetchInsights()
     }
 
-    private fun fetchInsights(){
+    private fun fetchAverage() {
         viewModelScope.launch(Dispatchers.IO) {
             weightDao.getAverage().collectLatest { average ->
                 _uiState.update {
@@ -44,6 +44,9 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun fetchMax() {
         viewModelScope.launch(Dispatchers.IO) {
             weightDao.getMax().collectLatest { max ->
                 _uiState.update {
@@ -53,6 +56,9 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun fetchMin() {
         viewModelScope.launch(Dispatchers.IO) {
             weightDao.getMin().collectLatest { min ->
                 _uiState.update {
@@ -62,12 +68,22 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun fetchGoal() {
         val goalWeight = "${Hawk.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0)}"
         _uiState.update {
             it.copy(
                 goalWeight = goalWeight
             )
         }
+    }
+
+    private fun fetchInsights() {
+        fetchAverage()
+        fetchMax()
+        fetchMin()
+        fetchGoal()
     }
 
     private fun getWeightHistories() = viewModelScope.launch(Dispatchers.IO) {
@@ -89,10 +105,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun changeChartType(chartType: ChartType){
-       val currentChartType=  ChartType.valueOf(Hawk.get(Constants.Prefs.KEY_CHART_TYPE,0))
-        if (chartType != currentChartType){
-            Hawk.put(Constants.Prefs.KEY_CHART_TYPE,chartType.value)
+    fun changeChartType(chartType: ChartType) {
+        val currentChartType = ChartType.valueOf(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0))
+        if (chartType != currentChartType) {
+            Hawk.put(Constants.Prefs.KEY_CHART_TYPE, chartType.value)
             _uiState.update {
                 it.copy(
                     chartType = chartType
