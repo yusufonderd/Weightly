@@ -2,7 +2,6 @@ package com.yonder.weightly.ui.home.adapter
 
 import android.view.View
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.ItemWeightHistoryBinding

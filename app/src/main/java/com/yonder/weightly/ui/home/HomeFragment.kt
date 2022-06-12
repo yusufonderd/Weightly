@@ -130,7 +130,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initViews() = with(binding) {
         initWeightRecyclerview()
-        ChartInitializer.initBarChart(lineChart)
+        ChartInitializer.initLineChart(lineChart)
+        ChartInitializer.initBarChart(barChart)
         btnSeeAllHistory.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavigateHistory())
         }
