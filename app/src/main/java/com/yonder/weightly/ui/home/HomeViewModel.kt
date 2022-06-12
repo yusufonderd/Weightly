@@ -99,6 +99,7 @@ class HomeViewModel @Inject constructor(
                     barEntries = weightHistories.mapIndexed { index, weight ->
                         BarEntry(index.toFloat(), weight?.value.orZero())
                     },
+                    chartType =  ChartType.valueOf(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0)),
                     shouldShowEmptyView = weightHistories.isEmpty()
                 )
             }
