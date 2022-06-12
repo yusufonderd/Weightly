@@ -42,7 +42,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
     }
-    private fun openUrl(url : String){
+
+    private fun openUrl(url: String) {
         val viewIntent = Intent(
             "android.intent.action.VIEW",
             Uri.parse(url)

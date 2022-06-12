@@ -221,11 +221,11 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvRecyclerview"
             android:layout_width="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_8"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHistory"
-            android:layout_height="wrap_content">
+            app:layout_constraintTop_toBottomOf="@+id/tvHistory">
 
 
             <androidx.recyclerview.widget.RecyclerView

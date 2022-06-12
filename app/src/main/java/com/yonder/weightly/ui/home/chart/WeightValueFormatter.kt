@@ -10,5 +10,4 @@ class WeightValueFormatter(var histories: List<WeightUIModel?>) : ValueFormatter
         val history = histories[barEntry?.x?.toInt().orZero]
         return history?.formattedValue.orEmpty()
     }
-
 }

@@ -181,6 +181,4 @@ class AddWeightFragment : BottomSheetDialogFragment() {
             setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
         }
     }
-
-
 }

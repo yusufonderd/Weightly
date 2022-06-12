@@ -27,9 +27,8 @@ class SplashViewModel @Inject constructor() : ViewModel() {
         val shouldShowOnBoardingScreen = Hawk.get(Constants.Prefs.KEY_SHOULD_SHOW_ON_BOARDING, true)
         if (shouldShowOnBoardingScreen) {
             eventChannel.send(Event.NavigateToOnBoardingScreen)
-        }else{
+        } else {
             eventChannel.send(Event.NavigateToHome)
         }
     }
-
 }
