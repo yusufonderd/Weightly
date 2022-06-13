@@ -44,6 +44,7 @@ object ChartFeeder {
 
         chart.invalidate()
     }
+
     fun setBarChartData(
         chart: BarChart,
         histories: List<WeightUIModel?>,

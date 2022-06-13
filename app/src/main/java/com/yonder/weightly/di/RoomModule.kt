@@ -10,6 +10,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+
 const val DATABASE_NAME = "Weight_ly"
 
 @[Module InstallIn(SingletonComponent::class)]
@@ -18,7 +19,7 @@ object RoomModule {
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java,DATABASE_NAME)
+        return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration()
             .build()
     }
@@ -28,6 +29,4 @@ object RoomModule {
     fun provideDao(
         db: AppDatabase
     ): WeightDao = db.weightDao()
-
-
 }

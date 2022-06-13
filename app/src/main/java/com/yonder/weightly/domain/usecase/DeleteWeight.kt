@@ -17,5 +17,4 @@ class DeleteWeight @Inject constructor(private val weightDao: WeightDao) {
             weightDao.delete(this)
         }
     }
-
 }

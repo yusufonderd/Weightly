@@ -96,16 +96,16 @@
         android:id="@+id/btnDelete"
         style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="0dp"
-        app:layout_constraintStart_toEndOf="@+id/btn_save_or_update"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/space_8"
+        android:layout_marginStart="@dimen/space_16"
         android:text="@string/delete"
         app:backgroundTint="@color/red"
-        android:layout_marginStart="@dimen/space_16"
         app:icon="@drawable/ic_baseline_delete_24"
         app:iconGravity="textStart"
         app:layout_constraintBottom_toBottomOf="@+id/btn_save_or_update"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_save_or_update"
         app:layout_constraintTop_toTopOf="@+id/btn_save_or_update" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

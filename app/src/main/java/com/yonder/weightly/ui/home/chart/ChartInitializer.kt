@@ -14,8 +14,8 @@ object ChartInitializer {
         chart.xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
         // Disable grid lines
         chart.xAxis.setDrawGridLines(false)
-        chart.axisLeft.textColor =  ContextCompat.getColor(chart.context, R.color.black)
-        chart.axisRight.textColor =  ContextCompat.getColor(chart.context, R.color.black)
+        chart.axisLeft.textColor = ContextCompat.getColor(chart.context, R.color.black)
+        chart.axisRight.textColor = ContextCompat.getColor(chart.context, R.color.black)
         chart.axisLeft.setDrawGridLines(false)
         chart.axisRight.setDrawGridLines(false)
         //Disable zoom
@@ -25,9 +25,10 @@ object ChartInitializer {
             text = String.EMPTY
         }
     }
+
     fun initBarChart(barChart: BarChart) {
-        barChart.axisLeft.textColor =  ContextCompat.getColor(barChart.context, R.color.black)
-        barChart.axisRight.textColor =  ContextCompat.getColor(barChart.context, R.color.black)
+        barChart.axisLeft.textColor = ContextCompat.getColor(barChart.context, R.color.black)
+        barChart.axisRight.textColor = ContextCompat.getColor(barChart.context, R.color.black)
         barChart.legend.isEnabled = false
         barChart.xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
         // Disable grid lines
@@ -41,5 +42,4 @@ object ChartInitializer {
             text = String.EMPTY
         }
     }
-
 }

@@ -18,7 +18,8 @@ class WeightHistoryAdapter(private val onClickWeight: ((weight: WeightUIModel) -
         inflater: LayoutInflater,
         viewType: Int
     ): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_weight_history, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_weight_history, parent, false)
         return WeightHistoryViewHolder(view, onClickWeight)
     }
 
@@ -29,6 +30,5 @@ class WeightHistoryAdapter(private val onClickWeight: ((weight: WeightUIModel) -
             }
         }
     }
-
 }
 

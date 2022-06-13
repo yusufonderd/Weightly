@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.weightly.R
 import com.yonder.weightly.data.local.WeightDao
-import com.yonder.weightly.data.local.WeightEntity
 import com.yonder.weightly.domain.mapper.WeightEntityMapper
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.domain.usecase.DeleteWeight
@@ -43,7 +42,7 @@ class AddWeightViewModel @Inject constructor(
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
     val eventsFlow = eventChannel.receiveAsFlow()
 
-    fun delete(date: Date){
+    fun delete(date: Date) {
         viewModelScope.launch(Dispatchers.IO) {
             deleteWeight.invoke(date)
         }
@@ -84,6 +83,4 @@ class AddWeightViewModel @Inject constructor(
     data class UiState(
         var currentWeight: WeightUIModel? = null
     )
-
-
 }
