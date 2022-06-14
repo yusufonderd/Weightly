@@ -8,6 +8,25 @@
     android:orientation="vertical"
     android:padding="@dimen/space_16">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_to_weightly"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@color/black"
+        android:textStyle="bold">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_description"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/black">
+
+    </TextView>
+
     <com.yonder.weightly.uicomponents.CardRulerViewComponent
         android:id="@+id/cardRulerCurrent"
         android:layout_width="match_parent"
@@ -49,14 +68,6 @@
             android:text="@string/lbs" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
-
-
-    <com.yonder.weightly.uicomponents.CardRulerViewComponent
-        android:id="@+id/cardRulerHeight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/space_8"
-        app:cardElevation="0dp" />
 
 
     <com.google.android.material.button.MaterialButton

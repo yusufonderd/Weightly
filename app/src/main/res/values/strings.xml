@@ -56,7 +56,11 @@
 
     <string name="feedback">Feedback</string>
     <string name="send_feedback">Send feedback</string>
+    <string name="welcome_to_weightly">Welcome to Weightly</string>
+    <string name="welcome_description">Hello 🥳 Please fill your information to start Weightly 🚀</string>
 
+    <string name="alert_current_weight_must_different_with_goal_weight">Your current weight should be different from your target weight 🥳 </string>
+    <string name="alert_weight_bigger_than_zero">Your weight should bigger than 0 🥳 </string>
 
     <string name="line_chart">Line</string>
     <string name="bar_chart">Bar</string>

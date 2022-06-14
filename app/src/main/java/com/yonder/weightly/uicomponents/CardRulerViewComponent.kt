@@ -38,10 +38,12 @@ class CardRulerViewComponent @JvmOverloads constructor(
             if (currentUnit == MeasureUnit.KG) {
                 value *= FLOOR_FOR_LB_TO_KG
             }
+            binding.rulerViewCurrent.setUnitStr(context.getString(R.string.lbs))
         } else {
             if (currentUnit == MeasureUnit.LB) {
                 value /= FLOOR_FOR_LB_TO_KG
             }
+            binding.rulerViewCurrent.setUnitStr(context.getString(R.string.kg))
         }
         currentUnit = unit
         binding.tilInputCurrentWeight.setText(context.getString(R.string.kg_format, value))
