@@ -7,15 +7,16 @@
 
     <TextView
         android:id="@+id/tvHistory"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/space_8"
         android:text="@string/history"
+        android:background="@color/gray_50"
+        android:gravity="center"
         android:textAppearance="?android:textAppearanceLarge"
-        android:textStyle="bold"
-        android:layout_marginStart="@dimen/space_4"
-        android:layout_marginVertical="@dimen/space_8"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWeightHistory"

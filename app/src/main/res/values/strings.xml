@@ -54,6 +54,10 @@
     <string name="developer">Developer</string>
     <string name="source_code">Source Codes</string>
 
+    <string name="feedback">Feedback</string>
+    <string name="send_feedback">Send feedback</string>
+
+
     <string name="line_chart">Line</string>
     <string name="bar_chart">Bar</string>
 
