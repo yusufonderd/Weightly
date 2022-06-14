@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:layout_height="wrap_content"
     app:cardElevation="0dp"
+    tools:layout_height="wrap_content"
     tools:layout_width="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,9 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="108">
-
-        </TextView>
+            tools:text="108" />
 
         <TextView
             android:id="@+id/tvDescription"
@@ -44,9 +42,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="En yüksek kilo">
-
-        </TextView>
+            tools:text="En yüksek kilo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,7 +3,7 @@ package com.yonder.weightly.utils
 object Constants {
 
     // For shared prefs
-    object Prefs{
+    object Prefs {
         const val KEY_CHART_TYPE = "key_chart_type"
         const val KEY_GOAL_HEIGHT = "key_goal_height"
         const val KEY_GOAL_WEIGHT = "key_goal_weight"

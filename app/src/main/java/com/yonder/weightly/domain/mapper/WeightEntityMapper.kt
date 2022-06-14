@@ -14,7 +14,7 @@ object WeightEntityMapper {
         if (entity == null)
             return null
         val date = entity.timestamp ?: Date()
-        val valueText =  entity.value?.toString().orEmpty()
+        val valueText = entity.value?.toString().orEmpty()
         val emoji = entity.emoji.orEmpty()
         return WeightUIModel(
             uid = entity.uid.orZero,

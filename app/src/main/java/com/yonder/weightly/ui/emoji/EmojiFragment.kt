@@ -67,9 +67,7 @@ class EmojiFragment : BottomSheetDialogFragment(), OnEmojiClickListener,
         emojiView.tearDown()
     }
 
-    override fun onEmojiBackspaceClick() {
-
-    }
+    override fun onEmojiBackspaceClick() {}
 
     override fun onEmojiClick(emoji: Emoji) {
         setFragmentResult(KEY_REQUEST_EMOJI, bundleOf(KEY_BUNDLE_EMOJI to emoji.unicode))
@@ -79,7 +77,5 @@ class EmojiFragment : BottomSheetDialogFragment(), OnEmojiClickListener,
     companion object {
         const val KEY_REQUEST_EMOJI = "Key_Emoji"
         const val KEY_BUNDLE_EMOJI = "Key_Bundle_Emoji"
-
     }
-
 }

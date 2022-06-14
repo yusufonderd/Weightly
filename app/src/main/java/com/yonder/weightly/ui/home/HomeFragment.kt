@@ -65,7 +65,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             btnSeeAllHistory.isVisible = uiState.shouldShowAllWeightButton
             adapterWeightHistory.submitList(uiState.reversedHistories)
 
-            if (uiState.chartType == ChartType.LINE){
+            if (uiState.chartType == ChartType.LINE) {
                 lineChart.isVisible = true
                 barChart.isVisible = false
                 ChartFeeder.setLineChartData(
@@ -74,7 +74,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     barEntries = uiState.barEntries,
                     context = requireContext()
                 )
-            }else{
+            } else {
                 lineChart.isVisible = false
                 barChart.isVisible = true
                 ChartFeeder.setBarChartData(
@@ -148,9 +148,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         val currentChartType = ChartType.valueOf(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0))
 
-        if (currentChartType == ChartType.LINE){
+        if (currentChartType == ChartType.LINE) {
             toggleButton.check(R.id.btnLineChart)
-        }else{
+        } else {
             toggleButton.check(R.id.btnBarChart)
         }
     }

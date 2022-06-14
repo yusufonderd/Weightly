@@ -35,5 +35,4 @@ class SaveOrUpdateWeight @Inject constructor(private val weightDao: WeightDao) {
             )
         }
     }
-
 }
