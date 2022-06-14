@@ -31,17 +31,19 @@ class OnBoardingViewModel @Inject constructor(
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
     val eventsFlow = eventChannel.receiveAsFlow()
 
+    private fun sendEvent(event: Event){
+        viewModelScope.launch {
+            eventChannel.send(event)
+        }
+    }
+
     fun save(currentWeight: Float, goalWeight: Float,unit: MeasureUnit) {
         if (currentWeight == goalWeight) {
-            viewModelScope.launch {
-                eventChannel.send(Event.Message(R.string.alert_current_weight_must_different_with_goal_weight))
-            }
+            sendEvent(Event.Message(R.string.alert_current_weight_must_different_with_goal_weight))
             return
         }
         if (currentWeight.toInt() == Int.ZERO) {
-            viewModelScope.launch {
-                eventChannel.send(Event.Message(R.string.alert_weight_bigger_than_zero))
-            }
+            sendEvent(Event.Message(R.string.alert_weight_bigger_than_zero))
             return
         }
         viewModelScope.launch(Dispatchers.IO) {

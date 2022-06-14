@@ -18,13 +18,14 @@ class WeightMarkerView(context: Context, var histories: List<WeightUIModel?>) :
     private val tvMarkerTitle = findViewById<TextView>(R.id.tvMarkerTitle);
 
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
-        super.refreshContent(e, highlight)
         val history = histories[e?.x.orZero().toInt()]
         val stringBuilder = StringBuilder()
         stringBuilder.append(history?.formattedValue)
         stringBuilder.append("\n")
         stringBuilder.append(history?.formattedDate)
         tvMarkerTitle.text = stringBuilder.toString()
+        super.refreshContent(e, highlight)
+
     }
 
     override fun getOffset(): MPPointF {
