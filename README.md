@@ -1,4 +1,4 @@
-# Weightly(Still in development)
+# Weightly
 Weightly is simple weight tracker app. It stores data from the scale to monitor and analyze weight loss.
 
 ## Screenshots
