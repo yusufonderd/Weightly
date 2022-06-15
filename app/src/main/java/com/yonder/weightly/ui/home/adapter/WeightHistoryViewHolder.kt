@@ -1,6 +1,7 @@
 package com.yonder.weightly.ui.home.adapter
 
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.yonder.weightly.R
@@ -23,6 +24,8 @@ class WeightHistoryViewHolder(
         tvNote.isGone = uiModel.note.isBlank()
         tvDate.text = uiModel.date.toFormat(DATE_FORMAT)
         tvWeight.text = itemView.context.getString(R.string.kg_format, uiModel.value)
+        tvDifference.text = uiModel.difference
+        tvDifference.setTextColor(ContextCompat.getColor(binding.root.context,uiModel.differenceColor))
         itemView.setOnClickListener {
             onClickWeight?.invoke(uiModel)
         }

@@ -1,6 +1,7 @@
 package com.yonder.weightly.domain.uimodel
 
 import android.os.Parcelable
+import androidx.annotation.ColorRes
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
@@ -13,5 +14,7 @@ data class WeightUIModel(
     var note: String,
     var date: Date,
     var formattedDate: String,
-    var formattedValue: String
+    var formattedValue: String,
+    var difference: String,
+    @ColorRes var differenceColor: Int
 ) : Parcelable
