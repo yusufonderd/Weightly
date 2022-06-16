@@ -162,6 +162,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         if (weight == null) {
             setText(R.string.select_emoji)
         } else {
+            emoji = weight.emoji
             text = getString(R.string.select_emoji_with_emoji_format, weight.emoji)
         }
     }
