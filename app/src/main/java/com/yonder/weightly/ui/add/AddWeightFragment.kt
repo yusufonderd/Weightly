@@ -114,6 +114,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
     }
 
     private fun fetchDate(date: Date) {
+        emoji = String.EMPTY
         selectedDate = date
         binding.btnSelectDate.text = selectedDate.toFormat(CURRENT_DATE_FORMAT)
         viewModel.fetchDate(selectedDate)
