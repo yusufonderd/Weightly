@@ -1,6 +1,7 @@
 package com.yonder.weightly.ui
 
 import android.app.Application
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.orhanobut.hawk.Hawk
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.google.GoogleEmojiProvider
@@ -18,6 +19,11 @@ class App : Application() {
         setupTimber()
         setupHawk()
         setupEmojiManager()
+        initCrashlytics()
+    }
+
+    private fun initCrashlytics(){
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
     }
 
     private fun setupEmojiManager(){
