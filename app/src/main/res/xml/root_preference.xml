@@ -9,6 +9,7 @@
             app:entries="@array/unit_entries"
             app:entryValues="@array/unit_entries"
             app:key="unit"
+            app:icon="@drawable/ic_baseline_bookmark_24"
             app:title="@string/unit"
             app:useSimpleSummaryProvider="true" />
 

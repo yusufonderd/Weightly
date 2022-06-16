@@ -18,6 +18,7 @@ import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
 import com.yonder.weightly.ui.home.chart.ChartFeeder
 import com.yonder.weightly.ui.home.chart.ChartInitializer
 import com.yonder.weightly.ui.home.chart.ChartType
+import com.yonder.weightly.ui.home.chart.LimitLineFeeder
 import com.yonder.weightly.uicomponents.InfoCardUIModel
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.viewBinding
@@ -126,6 +127,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     title = uiState.startWeight,
                     description = R.string.start
                 )
+            )
+            LimitLineFeeder.addLimitLineToLineChart(
+                requireContext(),
+                lineChart,
+                uiState.averageWeight?.toFloatOrNull(),
+                uiState.goalWeight?.toFloatOrNull()
+            )
+            LimitLineFeeder.addLimitLineToBarChart(
+                requireContext(),
+                barChart,
+                uiState.averageWeight?.toFloatOrNull(),
+                uiState.goalWeight?.toFloatOrNull()
             )
         }
     }
