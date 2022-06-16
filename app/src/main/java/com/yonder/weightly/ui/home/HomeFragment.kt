@@ -146,7 +146,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 viewModel.changeChartType(ChartType.LINE)
             }
         }
-        val currentChartType = ChartType.valueOf(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0))
+        val currentChartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0))
 
         if (currentChartType == ChartType.LINE) {
             toggleButton.check(R.id.btnLineChart)

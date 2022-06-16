@@ -23,7 +23,7 @@ class WeightHistoryViewHolder(
         tvEmoji.text = uiModel.emoji
         tvNote.isGone = uiModel.note.isBlank()
         tvDate.text = uiModel.date.toFormat(DATE_FORMAT)
-        tvWeight.text = itemView.context.getString(R.string.kg_format, uiModel.value)
+        tvWeight.text = uiModel.valueWithUnit
         tvDifference.text = uiModel.difference
         tvDifference.setTextColor(ContextCompat.getColor(binding.root.context,uiModel.differenceColor))
         itemView.setOnClickListener {

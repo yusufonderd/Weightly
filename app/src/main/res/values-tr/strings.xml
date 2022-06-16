@@ -34,10 +34,6 @@
     <string name="delete">Sil</string>
     <string name="update">Güncelle</string>
     <string name="alert_blank_weight">Lütfen kilonu girdiğinden emin ol 🥳</string>
-    <string name="kg_format">%1$s kg</string>
-    <string name="kg">kg</string>
-    <string name="lbs">lb</string>
-    <string name="cm">cm</string>
     <string name="title_min_weight">En düşük</string>
     <string name="title_max_weight">En yüksek</string>
     <string name="title_average_weight">Ortalama</string>
@@ -60,6 +56,8 @@
 
     <string name="line_chart">Çizgi</string>
     <string name="bar_chart">Bar</string>
+    <string name="general">Genel</string>
+    <string name="unit">Birim</string>
 
 
 </resources>

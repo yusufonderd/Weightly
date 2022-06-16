@@ -9,6 +9,7 @@ import java.util.*
 data class WeightUIModel(
     var uid: Int,
     var value: Float,
+    var valueWithUnit: String,
     var valueText: String,
     var emoji: String,
     var note: String,

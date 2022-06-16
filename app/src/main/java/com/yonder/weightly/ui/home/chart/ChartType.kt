@@ -5,6 +5,6 @@ enum class ChartType(var value: Int) {
     BAR(1);
 
     companion object {
-        fun valueOf(value: Int): ChartType = values().find { it.value == value } ?: LINE
+        fun findValue(value: Int): ChartType = values().find { it.value == value } ?: LINE
     }
 }

@@ -26,7 +26,8 @@ import javax.inject.Inject
 class AddWeightViewModel @Inject constructor(
     private val weightDao: WeightDao,
     private val saveOrUpdateWeight: SaveOrUpdateWeight,
-    private val deleteWeight: DeleteWeight
+    private val deleteWeight: DeleteWeight,
+    private val mapper: WeightEntityMapper
 ) : ViewModel() {
 
     sealed class Event {
@@ -73,7 +74,7 @@ class AddWeightViewModel @Inject constructor(
                 startDate = date.startOfDay(),
                 endDate = date.endOfDay()
             )
-            val uiModel = WeightEntityMapper.map(weightList.firstOrNull())
+            val uiModel = mapper.map(weightList.firstOrNull())
             _uiState.update {
                 it.copy(currentWeight = uiModel)
             }

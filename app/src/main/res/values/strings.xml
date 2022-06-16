@@ -34,10 +34,11 @@
     <string name="delete">Delete</string>
     <string name="update">Update</string>
     <string name="alert_blank_weight">Please make sure input your weight</string>
-    <string name="kg_format">%1$s kg</string>
-    <string name="kg">kg</string>
-    <string name="lbs">lb</string>
-    <string name="cm">cm</string>
+    <string name="kg_format" translatable="false">%1$s kg</string>
+    <string name="lb_format" translatable="false">%1$s lb</string>
+
+    <string name="kg" translatable="false">kg</string>
+    <string name="lbs" translatable="false">lb</string>
     <string name="title_min_weight">Minimum</string>
     <string name="title_max_weight">Maximum</string>
     <string name="title_average_weight">Average</string>
@@ -60,6 +61,10 @@
 
     <string name="line_chart">Line</string>
     <string name="bar_chart">Bar</string>
+
+    <string name="general">General</string>
+    <string name="unit">Unit</string>
+
 
 
 </resources>

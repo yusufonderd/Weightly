@@ -99,7 +99,7 @@ class HomeViewModel @Inject constructor(
                     barEntries = weightHistories.mapIndexed { index, weight ->
                         BarEntry(index.toFloat(), weight?.value.orZero())
                     },
-                    chartType = ChartType.valueOf(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0)),
+                    chartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0)),
                     shouldShowEmptyView = weightHistories.isEmpty()
                 )
             }
@@ -107,7 +107,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun changeChartType(chartType: ChartType) {
-        val currentChartType = ChartType.valueOf(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0))
+        val currentChartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0))
         if (chartType != currentChartType) {
             Hawk.put(Constants.Prefs.KEY_CHART_TYPE, chartType.value)
             _uiState.update {

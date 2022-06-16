@@ -5,13 +5,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentSettingsBinding
 import com.yonder.weightly.ui.splash.SplashViewModel
+import com.yonder.weightly.uicomponents.MeasureUnit
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 
 @AndroidEntryPoint
@@ -19,7 +23,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private val binding by viewBinding(FragmentSettingsBinding::bind)
 
-    private val viewModel: SplashViewModel by viewModels()
+    private val viewModel: SettingsViewModel by viewModels()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preference, rootKey)
@@ -28,6 +32,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        observe()
+    }
+
+    private fun observe() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.uiState.collect(::setUIState)
+        }
+    }
+
+    private fun setUIState(uiState: SettingsViewModel.UiState) {
+        val unitPreferences = findPreference<ListPreference>("unit")
+        unitPreferences?.value = MeasureUnit.findValue(uiState.unit).value
     }
 
     private fun initViews() {
@@ -46,6 +62,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 openUrl("https://forms.gle/kNxxSE4SS1xy2qRt7")
                 true
             }
+        findPreference<ListPreference>("unit")?.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue is String) {
+                viewModel.updateUnit(newValue)
+            }
+            true
+        }
     }
 
     private fun openUrl(url: String) {

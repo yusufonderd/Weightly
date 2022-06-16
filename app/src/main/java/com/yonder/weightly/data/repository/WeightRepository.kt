@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class WeightRepository @Inject constructor(
-    private val dbDao: WeightDao
+    private val dbDao: WeightDao,
+    private val mapper: WeightEntityMapper
 ) {
     operator fun invoke() = dbDao.getDbAll().map { weightList ->
         weightList.mapIndexed { index, weightEntity ->
@@ -16,7 +17,7 @@ class WeightRepository @Inject constructor(
             if (previousIndex < weightList.size && previousIndex >= 0){
                 previousEntity = weightList[previousIndex]
             }
-            WeightEntityMapper.map(entity = weightEntity, previousEntity = previousEntity)
+            mapper.map(entity = weightEntity, previousEntity = previousEntity)
         }.reversed()
     }
 }
