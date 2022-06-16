@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">Weightly</string>
+    <string name="title_home">Weightly</string>
+    <string name="title_splash">Başlangıç</string>
+    <string name="title_on_boarding">Kurulum</string>
+    <string name="title_settings">Ayarlar</string>
+    <string name="title_history">Geçmiş</string>
+
+    <string name="title_emoji">Emojiler</string>
+
+    <string name="history">Geçmiş</string>
+    <string name="summary">Özet</string>
+    <string name="your_progress">Gelişimin</string>
+
+    <string name="see_all"><u>Tümünü gör</u></string>
+
+    <string name="title_add_weight">Kilo ekle</string>
+    <string name="add_weight">Kilo ekle</string>
+    <string name="select_date">Tarih seç</string>
+    <string name="prev_day">Önceki</string>
+    <string name="next_day">Sonraki</string>
+    <string name="input_weight">Kilo gir</string>
+    <string name="goal_weight">Hedef kilo</string>
+    <string name="current_weight">Mevcut kilo</string>
+    <string name="enter_current_weight">Şu anki kilonu gir</string>
+    <string name="enter_goal_weight">Hedef kilonu gir</string>
+
+    <string name="input_note">Not gir</string>
+    <string name="select_emoji">Emoji seç</string>
+    <string name="select_emoji_with_emoji_format">%1$s Emoji seç</string>
+    <string name="title_no_weight">Sağ üstteki artı butonuna basarak kilo ekleyebilirsin</string>
+    <string name="save">Kaydet</string>
+    <string name="_continue">Devam et</string>
+    <string name="delete">Sil</string>
+    <string name="update">Güncelle</string>
+    <string name="alert_blank_weight">Lütfen kilonu girdiğinden emin ol 🥳</string>
+    <string name="kg_format">%1$s kg</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lb</string>
+    <string name="cm">cm</string>
+    <string name="title_min_weight">En düşük</string>
+    <string name="title_max_weight">En yüksek</string>
+    <string name="title_average_weight">Ortalama</string>
+    <string name="start">Başlangıç</string>
+    <string name="goal">Hedef</string>
+    <string name="current">Mevcut</string>
+    <string name="settings">Ayarlar</string>
+
+    <string name="development">Geliştirme</string>
+    <string name="developer">Geliştirici</string>
+    <string name="source_code">Kaynak Kod</string>
+
+    <string name="feedback">Geri bildirim</string>
+    <string name="send_feedback">Geri bildirim gönder</string>
+    <string name="welcome_to_weightly">Weightly\'e hoşgeldin</string>
+    <string name="welcome_description">Merhaba 🥳 Lütfen başlamadan önce gerekli alanları doldur 🚀</string>
+
+    <string name="alert_current_weight_must_different_with_goal_weight">Hedef kilonla mevcut kilon birbirinden farklı olmalı 🥳 </string>
+    <string name="alert_weight_bigger_than_zero">Kilon 0\'dan büyük olmalı 🥳 </string>
+
+    <string name="line_chart">Çizgi</string>
+    <string name="bar_chart">Bar</string>
+
+
+</resources>

@@ -6,8 +6,6 @@
     <string name="title_settings">Settings</string>
     <string name="title_history">History</string>
 
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_emoji">Emojis</string>
 
     <string name="history">History</string>
@@ -25,8 +23,6 @@
     <string name="goal_weight">Goal weight</string>
     <string name="current_weight">Current weight</string>
     <string name="enter_current_weight">Enter current weight</string>
-    <string name="enter_current_height">Enter current height</string>
-
     <string name="enter_goal_weight">Enter goal/desired weight</string>
 
     <string name="input_note">Input note</string>
