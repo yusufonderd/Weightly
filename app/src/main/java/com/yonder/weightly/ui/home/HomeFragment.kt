@@ -75,6 +75,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     barEntries = uiState.barEntries,
                     context = requireContext()
                 )
+                LimitLineFeeder.addLimitLineToLineChart(
+                    requireContext(),
+                    lineChart,
+                    uiState.averageWeight?.toFloatOrNull(),
+                    uiState.goalWeight?.toFloatOrNull()
+                )
             } else {
                 lineChart.isVisible = false
                 barChart.isVisible = true
@@ -83,6 +89,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     histories = uiState.histories,
                     barEntries = uiState.barEntries,
                     context = requireContext()
+                )
+                LimitLineFeeder.addLimitLineToBarChart(
+                    requireContext(),
+                    barChart,
+                    uiState.averageWeight?.toFloatOrNull(),
+                    uiState.goalWeight?.toFloatOrNull()
                 )
             }
 
@@ -128,18 +140,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     description = R.string.start
                 )
             )
-            LimitLineFeeder.addLimitLineToLineChart(
-                requireContext(),
-                lineChart,
-                uiState.averageWeight?.toFloatOrNull(),
-                uiState.goalWeight?.toFloatOrNull()
-            )
-            LimitLineFeeder.addLimitLineToBarChart(
-                requireContext(),
-                barChart,
-                uiState.averageWeight?.toFloatOrNull(),
-                uiState.goalWeight?.toFloatOrNull()
-            )
+
+            uiState.goalWeight?.toFloatOrNull()?.run {
+                lineChart.axisLeft.axisMinimum = this
+                barChart.axisLeft.axisMinimum = this
+            }
+
         }
     }
 

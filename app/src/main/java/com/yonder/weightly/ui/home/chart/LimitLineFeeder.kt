@@ -20,7 +20,7 @@ object LimitLineFeeder {
         @StringRes title: Int
     ): LimitLine {
         val limitLine = LimitLine(value.orZero(), context.getString(title))
-        limitLine.lineWidth = 4f
+        limitLine.lineWidth = 2f
         limitLine.textColor = ContextCompat.getColor(context, R.color.black)
         limitLine.lineColor = ContextCompat.getColor(context, color)
         limitLine.enableDashedLine(10f, 10f, 0f)
