@@ -29,6 +29,11 @@ object LimitLineFeeder {
         return limitLine
     }
 
+    fun removeLimitLines(lineChart: LineChart, barChart: BarChart) {
+        barChart.axisLeft.removeAllLimitLines()
+        lineChart.axisLeft.removeAllLimitLines()
+    }
+
     fun addLimitLineToLineChart(
         context: Context,
         chart: LineChart,

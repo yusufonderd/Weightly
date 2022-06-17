@@ -64,6 +64,10 @@
 
     <string name="general">General</string>
     <string name="unit">Unit</string>
+    <string name="chart">Chart</string>
+    <string name="show_limit_lines">Show limit lines</string>
+    <string name="show_limit_lines_summary">See goal and average weight on graph chart</string>
+    <string name="rate_us_from_google_play">Rate us from Google Play</string>
 
 
 

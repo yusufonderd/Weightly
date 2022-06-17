@@ -23,17 +23,23 @@ class SettingsViewModel @Inject constructor() : ViewModel() {
     private fun fetchPreferences() {
         val unit = Hawk.get<String>(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT)
         val goalWeight = Hawk.get<Float>(Constants.Prefs.KEY_GOAL_WEIGHT)
+        val shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE, true)
         _uiState.update {
-            it.copy(unit = unit, goalWeight = goalWeight)
+            it.copy(unit = unit, goalWeight = goalWeight, shouldShowLimitLine = shouldShowLimitLine)
         }
     }
 
-    fun updateUnit(unit : String){
-        Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT,MeasureUnit.findValue(unit).value)
+    fun updateUnit(unit: String) {
+        Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT, MeasureUnit.findValue(unit).value)
+    }
+
+    fun updateLimitLine(shouldShowLimitLine: Boolean) {
+        Hawk.put(Constants.Prefs.KEY_CHART_LIMIT_LINE, shouldShowLimitLine)
     }
 
     data class UiState(
         var unit: String? = null,
-        var goalWeight: Float? = null
+        var goalWeight: Float? = null,
+        var shouldShowLimitLine: Boolean = false
     )
 }

@@ -75,12 +75,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     barEntries = uiState.barEntries,
                     context = requireContext()
                 )
-                LimitLineFeeder.addLimitLineToLineChart(
-                    requireContext(),
-                    lineChart,
-                    uiState.averageWeight?.toFloatOrNull(),
-                    uiState.goalWeight?.toFloatOrNull()
-                )
+
             } else {
                 lineChart.isVisible = false
                 barChart.isVisible = true
@@ -90,12 +85,23 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     barEntries = uiState.barEntries,
                     context = requireContext()
                 )
+            }
+
+            if (uiState.shouldShowLimitLine) {
+                LimitLineFeeder.addLimitLineToLineChart(
+                    requireContext(),
+                    lineChart,
+                    uiState.averageWeight?.toFloatOrNull(),
+                    uiState.goalWeight?.toFloatOrNull()
+                )
                 LimitLineFeeder.addLimitLineToBarChart(
                     requireContext(),
                     barChart,
                     uiState.averageWeight?.toFloatOrNull(),
                     uiState.goalWeight?.toFloatOrNull()
                 )
+            }else{
+                LimitLineFeeder.removeLimitLines(lineChart = lineChart, barChart = barChart)
             }
 
             infoCardAverage.render(
@@ -147,6 +153,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getWeightHistories()
     }
 
     private fun initViews() = with(binding) {

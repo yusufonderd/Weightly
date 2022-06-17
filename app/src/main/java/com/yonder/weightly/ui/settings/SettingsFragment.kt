@@ -6,14 +6,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.CheckBoxPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.yonder.weightly.BuildConfig
 import com.yonder.weightly.R
-import com.yonder.weightly.databinding.FragmentSettingsBinding
-import com.yonder.weightly.ui.splash.SplashViewModel
 import com.yonder.weightly.uicomponents.MeasureUnit
-import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -21,7 +20,6 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    private val binding by viewBinding(FragmentSettingsBinding::bind)
 
     private val viewModel: SettingsViewModel by viewModels()
 
@@ -43,6 +41,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun setUIState(uiState: SettingsViewModel.UiState) {
         val unitPreferences = findPreference<ListPreference>("unit")
+        val limitLinePreference = findPreference<CheckBoxPreference>("show_limit_lines")
+        limitLinePreference?.isChecked = uiState.shouldShowLimitLine
         unitPreferences?.value = MeasureUnit.findValue(uiState.unit).value
     }
 
@@ -62,9 +62,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 openUrl("https://forms.gle/kNxxSE4SS1xy2qRt7")
                 true
             }
+        findPreference<Preference>("rate_us")?.onPreferenceClickListener =
+            Preference.OnPreferenceClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
+                    )
+                )
+                true
+            }
         findPreference<ListPreference>("unit")?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue is String) {
                 viewModel.updateUnit(newValue)
+            }
+            true
+        }
+        findPreference<CheckBoxPreference>("show_limit_lines")?.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue is Boolean) {
+                viewModel.updateLimitLine(newValue)
             }
             true
         }

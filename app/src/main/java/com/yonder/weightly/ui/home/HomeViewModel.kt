@@ -30,10 +30,8 @@ class HomeViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState
 
     init {
-        getWeightHistories()
         fetchInsights()
     }
-
     private fun fetchAverage() {
         viewModelScope.launch(Dispatchers.IO) {
             weightDao.getAverage().collectLatest { average ->
@@ -86,7 +84,7 @@ class HomeViewModel @Inject constructor(
         fetchGoal()
     }
 
-    private fun getWeightHistories() = viewModelScope.launch(Dispatchers.IO) {
+     fun getWeightHistories() = viewModelScope.launch(Dispatchers.IO) {
         weightRepository.invoke().collectLatest { weightHistories ->
             _uiState.update {
                 it.copy(
@@ -99,6 +97,7 @@ class HomeViewModel @Inject constructor(
                     barEntries = weightHistories.mapIndexed { index, weight ->
                         BarEntry(index.toFloat(), weight?.value.orZero())
                     },
+                    shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE,true),
                     chartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0)),
                     shouldShowEmptyView = weightHistories.isEmpty()
                 )
@@ -131,6 +130,7 @@ class HomeViewModel @Inject constructor(
         var shouldShowEmptyView: Boolean = false,
         var shouldShowAllWeightButton: Boolean = false,
         var shouldShowInsightView: Boolean = false,
+        var shouldShowLimitLine : Boolean = false,
         var chartType: ChartType = ChartType.LINE
     )
 

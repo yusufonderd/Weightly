@@ -58,6 +58,10 @@
     <string name="bar_chart">Bar</string>
     <string name="general">Genel</string>
     <string name="unit">Birim</string>
+    <string name="chart">Grafik</string>
+    <string name="show_limit_lines">Limitleri göster</string>
+    <string name="show_limit_lines_summary">Hedef kilom ve ortalama kilom grafikte görünsün</string>
+    <string name="rate_us_from_google_play">Bizi Google Play\'de oyla</string>
 
 
 </resources>
