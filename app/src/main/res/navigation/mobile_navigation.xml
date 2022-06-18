@@ -31,6 +31,9 @@
 
         <action
             android:id="@+id/action_navigate_home"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true"
             app:destination="@id/navigation_home" />
 
     </fragment>
