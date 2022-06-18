@@ -7,7 +7,9 @@ import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.data.local.WeightDao
 import com.yonder.weightly.data.repository.WeightRepository
 import com.yonder.weightly.domain.uimodel.WeightUIModel
+import com.yonder.weightly.domain.usecase.GetUserGoal
 import com.yonder.weightly.ui.home.chart.ChartType
+import com.yonder.weightly.uicomponents.MeasureUnit
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.extensions.format
 import com.yonder.weightly.utils.extensions.orZero
@@ -19,11 +21,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.abs
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private var weightRepository: WeightRepository,
-    private val weightDao: WeightDao
+    private val weightDao: WeightDao,
+    private val getUserGoal: GetUserGoal
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -97,6 +101,7 @@ class HomeViewModel @Inject constructor(
                     barEntries = weightHistories.mapIndexed { index, weight ->
                         BarEntry(index.toFloat(), weight?.value.orZero())
                     },
+                    userGoal = getUserGoal(),
                     shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE,true),
                     chartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0)),
                     shouldShowEmptyView = weightHistories.isEmpty()
@@ -131,7 +136,8 @@ class HomeViewModel @Inject constructor(
         var shouldShowAllWeightButton: Boolean = false,
         var shouldShowInsightView: Boolean = false,
         var shouldShowLimitLine : Boolean = false,
-        var chartType: ChartType = ChartType.LINE
+        var chartType: ChartType = ChartType.LINE,
+        var userGoal: String ? = null
     )
 
     companion object {

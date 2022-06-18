@@ -6,6 +6,8 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="green">#4CAF50</color>
+    <color name="purple_200_tra">#3463A4FF</color>
+
     <color name="orange">#EC5E31</color>
     <color name="yellow">#FFEB3B</color>
     <color name="red">#E91E1E</color>
@@ -14,7 +16,6 @@
     <color name="gray_50">#F4F2F2</color>
     <color name="gray_100">#CDCDCD</color>
     <color name="gray_500">#616161</color>
-
     <color name="chart_background">#FFFFFFFF</color>
 
 </resources>

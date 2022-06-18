@@ -65,7 +65,7 @@
             android:layout_height="0dp"
             app:cardElevation="0dp"
             app:cardUseCompatPadding="true"
-            app:layout_constraintBottom_toTopOf="@+id/tvSummary"
+            app:layout_constraintBottom_toTopOf="@+id/cvSummary"
             app:layout_constraintDimensionRatio="16:12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +90,31 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvSummary"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@color/purple_200_tra"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="@dimen/space_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvOutline">
+
+            <TextView
+                android:id="@+id/tvGoalDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/purple_500"
+                android:textStyle="bold"
+                tools:text="Hedefine ulaşmana 10 kilo kaldı">
+
+            </TextView>
+
+        </com.google.android.material.card.MaterialCardView>
+
         <TextView
             android:id="@+id/tvSummary"
             android:layout_width="wrap_content"
@@ -100,7 +125,7 @@
             android:textAppearance="?android:textAppearanceLarge"
             app:layout_constraintBottom_toTopOf="@+id/llContainer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvOutline" />
+            app:layout_constraintTop_toBottomOf="@+id/cvSummary" />
 
         <LinearLayout
             android:id="@+id/llContainer"

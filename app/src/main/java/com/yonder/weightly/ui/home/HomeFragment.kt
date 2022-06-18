@@ -151,7 +151,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 lineChart.axisLeft.axisMinimum = this
                 barChart.axisLeft.axisMinimum = this
             }
-
+            uiState.userGoal?.run(tvGoalDescription::setText)
         }
     }
 
