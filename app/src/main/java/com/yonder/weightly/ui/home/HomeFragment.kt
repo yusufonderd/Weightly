@@ -144,11 +144,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     description = R.string.start
                 )
             )
-
-            uiState.goalWeight?.toFloatOrNull()?.run {
-                lineChart.axisLeft.axisMinimum = this
-                barChart.axisLeft.axisMinimum = this
-            }
             uiState.userGoal?.run(tvGoalDescription::setText)
         }
     }

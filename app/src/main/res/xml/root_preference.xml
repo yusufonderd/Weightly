@@ -15,7 +15,7 @@
             app:entries="@array/chart_type_values"
             app:entryValues="@array/chart_type_entries"
             app:key="chart_type"
-            app:icon="@drawable/ic_baseline_bookmark_24"
+            app:icon="@drawable/ic_baseline_multiline_chart_24"
             app:title="@string/chart_type"
             app:useSimpleSummaryProvider="true" />
 
