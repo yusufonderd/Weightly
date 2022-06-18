@@ -41,9 +41,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun setUIState(uiState: SettingsViewModel.UiState) {
         val unitPreferences = findPreference<ListPreference>("unit")
+        val chartTypePreference = findPreference<ListPreference>("chart_type")
         val limitLinePreference = findPreference<CheckBoxPreference>("show_limit_lines")
         limitLinePreference?.isChecked = uiState.shouldShowLimitLine
         unitPreferences?.value = MeasureUnit.findValue(uiState.unit).value
+        chartTypePreference?.value = "${uiState.chartType.value}"
     }
 
     private fun initViews() {
@@ -75,6 +77,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<ListPreference>("unit")?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue is String) {
                 viewModel.updateUnit(newValue)
+            }
+            true
+        }
+        findPreference<ListPreference>("chart_type")?.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue is String) {
+                viewModel.updateChartType(newValue)
             }
             true
         }

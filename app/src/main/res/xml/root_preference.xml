@@ -11,12 +11,19 @@
             android:summary="@string/show_limit_lines_summary"
             android:key="show_limit_lines" />
 
+        <ListPreference
+            app:entries="@array/chart_type_values"
+            app:entryValues="@array/chart_type_entries"
+            app:key="chart_type"
+            app:icon="@drawable/ic_baseline_bookmark_24"
+            app:title="@string/chart_type"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/general">
 
         <ListPreference
-            app:defaultValue="English"
             app:entries="@array/unit_entries"
             app:entryValues="@array/unit_entries"
             app:key="unit"

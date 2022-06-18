@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.orhanobut.hawk.Hawk
 import com.yonder.statelayout.State
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentHomeBinding
@@ -20,7 +19,6 @@ import com.yonder.weightly.ui.home.chart.ChartInitializer
 import com.yonder.weightly.ui.home.chart.ChartType
 import com.yonder.weightly.ui.home.chart.LimitLineFeeder
 import com.yonder.weightly.uicomponents.InfoCardUIModel
-import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -166,22 +164,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         ChartInitializer.initBarChart(barChart)
         btnSeeAllHistory.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavigateHistory())
-        }
-        toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            if (!isChecked)
-                return@addOnButtonCheckedListener
-            if (checkedId == R.id.btnBarChart) {
-                viewModel.changeChartType(ChartType.BAR)
-            } else {
-                viewModel.changeChartType(ChartType.LINE)
-            }
-        }
-        val currentChartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0))
-
-        if (currentChartType == ChartType.LINE) {
-            toggleButton.check(R.id.btnLineChart)
-        } else {
-            toggleButton.check(R.id.btnBarChart)
         }
     }
 

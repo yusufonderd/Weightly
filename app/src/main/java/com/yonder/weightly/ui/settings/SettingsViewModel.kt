@@ -2,6 +2,7 @@ package com.yonder.weightly.ui.settings
 
 import androidx.lifecycle.ViewModel
 import com.orhanobut.hawk.Hawk
+import com.yonder.weightly.ui.home.chart.ChartType
 import com.yonder.weightly.uicomponents.MeasureUnit
 import com.yonder.weightly.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,9 +24,16 @@ class SettingsViewModel @Inject constructor() : ViewModel() {
     private fun fetchPreferences() {
         val unit = Hawk.get<String>(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT)
         val goalWeight = Hawk.get<Float>(Constants.Prefs.KEY_GOAL_WEIGHT)
+        val chartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0))
+
         val shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE, true)
         _uiState.update {
-            it.copy(unit = unit, goalWeight = goalWeight, shouldShowLimitLine = shouldShowLimitLine)
+            it.copy(
+                unit = unit,
+                goalWeight = goalWeight,
+                shouldShowLimitLine = shouldShowLimitLine,
+                chartType = chartType
+            )
         }
     }
 
@@ -37,9 +45,14 @@ class SettingsViewModel @Inject constructor() : ViewModel() {
         Hawk.put(Constants.Prefs.KEY_CHART_LIMIT_LINE, shouldShowLimitLine)
     }
 
+    fun updateChartType(chartType: String) {
+        Hawk.put(Constants.Prefs.KEY_CHART_TYPE, ChartType.findValue(chartType.toInt()).value)
+    }
+
     data class UiState(
         var unit: String? = null,
         var goalWeight: Float? = null,
+        var chartType: ChartType = ChartType.LINE,
         var shouldShowLimitLine: Boolean = false
     )
 }

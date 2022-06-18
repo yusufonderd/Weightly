@@ -28,35 +28,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/toggleButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_4"
-            app:checkedButton="@+id/btnLineChart"
-            app:layout_constraintBottom_toBottomOf="@+id/tvProgress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvProgress"
-            app:selectionRequired="true"
-            app:singleSelection="true">
-
-            <Button
-                android:id="@+id/btnLineChart"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/line_chart"
-                android:textAppearance="?android:textAppearanceSmall" />
-
-            <Button
-                android:id="@+id/btnBarChart"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bar_chart"
-                android:textAppearance="?android:textAppearanceSmall" />
-
-        </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
         <com.google.android.material.card.MaterialCardView
