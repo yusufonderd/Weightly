@@ -10,14 +10,10 @@ import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.domain.usecase.GetUserGoal
 import com.yonder.weightly.ui.home.chart.ChartType
 import com.yonder.weightly.utils.Constants
-import com.yonder.weightly.utils.extensions.format
 import com.yonder.weightly.utils.extensions.orZero
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,59 +30,22 @@ class HomeViewModel @Inject constructor(
     init {
         fetchInsights()
     }
-    private fun fetchAverage() {
-        viewModelScope.launch(Dispatchers.IO) {
-            weightDao.getAverage().collectLatest { average ->
-                _uiState.update {
-                    it.copy(
-                        averageWeight = "${average?.format(1)}",
-                    )
-                }
-            }
-        }
-    }
-
-    private fun fetchMax() {
-        viewModelScope.launch(Dispatchers.IO) {
-            weightDao.getMax().collectLatest { max ->
-                _uiState.update {
-                    it.copy(
-                        maxWeight = "$max"
-                    )
-                }
-            }
-        }
-    }
-
-    private fun fetchMin() {
-        viewModelScope.launch(Dispatchers.IO) {
-            weightDao.getMin().collectLatest { min ->
-                _uiState.update {
-                    it.copy(
-                        minWeight = "$min"
-                    )
-                }
-            }
-        }
-    }
-
-    private fun fetchGoal() {
-        val goalWeight = "${Hawk.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0)}"
-        _uiState.update {
-            it.copy(
-                goalWeight = goalWeight
-            )
-        }
-    }
 
     private fun fetchInsights() {
-        fetchAverage()
-        fetchMax()
-        fetchMin()
-        fetchGoal()
+        viewModelScope.launch {
+            combine(weightDao.getMax(),weightDao.getMin(),weightDao.getAvg()){ max, min, avg ->
+                _uiState.update {
+                    it.copy(
+                        minWeight = "$min",
+                        maxWeight = "$max",
+                        averageWeight = "$avg"
+                    )
+                }
+            }.stateIn(this)
+        }
     }
 
-     fun getWeightHistories() = viewModelScope.launch(Dispatchers.IO) {
+     fun fetchHome() = viewModelScope.launch(Dispatchers.IO) {
         weightRepository.getAllWeights().collectLatest { weightHistories ->
             _uiState.update {
                 it.copy(
@@ -102,7 +61,8 @@ class HomeViewModel @Inject constructor(
                     userGoal = getUserGoal(),
                     shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE,true),
                     chartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0)),
-                    shouldShowEmptyView = weightHistories.isEmpty()
+                    shouldShowEmptyView = weightHistories.isEmpty(),
+                    goalWeight = "${Hawk.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0)}"
                 )
             }
         }
