@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonder.weightly.data.repository.WeightRepository
 import com.yonder.weightly.domain.uimodel.WeightUIModel
+import com.yonder.weightly.domain.usecase.GetAllWeights
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HistoryViewModel @Inject constructor(private var weightRepository: WeightRepository) :
+class HistoryViewModel @Inject constructor(private var getAllWeights: GetAllWeights) :
     ViewModel() {
 
 
@@ -26,7 +27,7 @@ class HistoryViewModel @Inject constructor(private var weightRepository: WeightR
     }
 
     private fun getWeightHistories() = viewModelScope.launch(Dispatchers.IO) {
-        weightRepository.getAllWeights().collectLatest { weightHistories ->
+        getAllWeights().collectLatest { weightHistories ->
             _uiState.update {
                 it.copy(
                     histories = weightHistories.reversed()

@@ -7,6 +7,7 @@ import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.data.local.WeightDao
 import com.yonder.weightly.data.repository.WeightRepository
 import com.yonder.weightly.domain.uimodel.WeightUIModel
+import com.yonder.weightly.domain.usecase.GetAllWeights
 import com.yonder.weightly.domain.usecase.GetUserGoal
 import com.yonder.weightly.ui.home.chart.ChartType
 import com.yonder.weightly.utils.Constants
@@ -19,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private var weightRepository: WeightRepository,
+    private var getAllWeights: GetAllWeights ,
     private val weightDao: WeightDao,
     private val getUserGoal: GetUserGoal
 ) : ViewModel() {
@@ -32,7 +33,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun fetchInsights() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             combine(weightDao.getMax(),weightDao.getMin(),weightDao.getAvg()){ max, min, avg ->
                 _uiState.update {
                     it.copy(
@@ -46,7 +47,7 @@ class HomeViewModel @Inject constructor(
     }
 
      fun fetchHome() = viewModelScope.launch(Dispatchers.IO) {
-        weightRepository.getAllWeights().collectLatest { weightHistories ->
+        getAllWeights().collectLatest { weightHistories ->
             _uiState.update {
                 it.copy(
                     histories = weightHistories,
