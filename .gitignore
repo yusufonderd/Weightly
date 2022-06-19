@@ -295,3 +295,7 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,java,kotlin,macos,windows
 /buildSrc/build/
+/buildSrc/build/pluginUnderTestMetadata/
+/buildSrc/build/libs/
+/buildSrc/build/source-roots/
+/buildSrc/build/tmp/
