@@ -9,7 +9,6 @@ import com.yonder.weightly.data.repository.WeightRepository
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.domain.usecase.GetUserGoal
 import com.yonder.weightly.ui.home.chart.ChartType
-import com.yonder.weightly.uicomponents.MeasureUnit
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.extensions.format
 import com.yonder.weightly.utils.extensions.orZero
@@ -21,7 +20,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.abs
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -89,7 +87,7 @@ class HomeViewModel @Inject constructor(
     }
 
      fun getWeightHistories() = viewModelScope.launch(Dispatchers.IO) {
-        weightRepository.invoke().collectLatest { weightHistories ->
+        weightRepository.getAllWeights().collectLatest { weightHistories ->
             _uiState.update {
                 it.copy(
                     histories = weightHistories,
@@ -105,18 +103,6 @@ class HomeViewModel @Inject constructor(
                     shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE,true),
                     chartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0)),
                     shouldShowEmptyView = weightHistories.isEmpty()
-                )
-            }
-        }
-    }
-
-    fun changeChartType(chartType: ChartType) {
-        val currentChartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0))
-        if (chartType != currentChartType) {
-            Hawk.put(Constants.Prefs.KEY_CHART_TYPE, chartType.value)
-            _uiState.update {
-                it.copy(
-                    chartType = chartType
                 )
             }
         }

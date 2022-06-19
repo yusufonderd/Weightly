@@ -30,7 +30,10 @@ interface WeightDao {
     suspend fun delete(user: WeightEntity)
 
     @Query("SELECT * FROM weight ORDER BY timestamp DESC")
-    fun getDbAll(): Flow<List<WeightEntity>>
+    fun getAllWeights(): Flow<List<WeightEntity>>
+
+    @Query("SELECT * FROM weight ORDER BY timestamp DESC LIMIT 1")
+    fun getLast5Weights(): Flow<List<WeightEntity>>
 
     @Query("SELECT AVG(value) as average FROM weight where timestamp BETWEEN :startDay AND :endDay ORDER BY timestamp ASC")
     fun getAverageByDateRange(

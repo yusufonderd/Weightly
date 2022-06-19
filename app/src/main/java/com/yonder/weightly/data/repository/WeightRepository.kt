@@ -10,7 +10,7 @@ class WeightRepository @Inject constructor(
     private val dbDao: WeightDao,
     private val mapper: WeightEntityMapper
 ) {
-    operator fun invoke() = dbDao.getDbAll().map { weightList ->
+     fun getAllWeights() = dbDao.getAllWeights().map { weightList ->
         weightList.mapIndexed { index, weightEntity ->
             var previousEntity: WeightEntity? = null
             val previousIndex = index + 1
@@ -20,5 +20,6 @@ class WeightRepository @Inject constructor(
             mapper.map(entity = weightEntity, previousEntity = previousEntity)
         }.reversed()
     }
+
 }
 

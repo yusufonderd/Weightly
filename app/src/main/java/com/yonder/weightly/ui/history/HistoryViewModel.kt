@@ -26,7 +26,7 @@ class HistoryViewModel @Inject constructor(private var weightRepository: WeightR
     }
 
     private fun getWeightHistories() = viewModelScope.launch(Dispatchers.IO) {
-        weightRepository.invoke().collectLatest { weightHistories ->
+        weightRepository.getAllWeights().collectLatest { weightHistories ->
             _uiState.update {
                 it.copy(
                     histories = weightHistories.reversed()
