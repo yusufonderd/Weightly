@@ -5,11 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.github.mikephil.charting.data.BarEntry
 import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.data.local.WeightDao
-import com.yonder.weightly.data.repository.WeightRepository
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.domain.usecase.GetAllWeights
 import com.yonder.weightly.domain.usecase.GetUserGoal
-import com.yonder.weightly.ui.home.chart.ChartType
+import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.extensions.orZero
 import dagger.hilt.android.lifecycle.HiltViewModel

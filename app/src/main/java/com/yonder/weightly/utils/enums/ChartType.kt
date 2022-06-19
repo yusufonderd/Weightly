@@ -1,4 +1,4 @@
-package com.yonder.weightly.ui.home.chart
+package com.yonder.weightly.utils.enums
 
 enum class ChartType(var value: Int) {
     LINE(0),

@@ -4,8 +4,8 @@ import android.content.Context
 import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
 import com.yonder.weightly.data.local.WeightDao
-import com.yonder.weightly.uicomponents.MeasureUnit
 import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.enums.MeasureUnit
 import com.yonder.weightly.utils.extensions.orZero
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

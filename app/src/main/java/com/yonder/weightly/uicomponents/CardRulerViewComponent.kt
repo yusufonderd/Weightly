@@ -8,16 +8,8 @@ import androidx.core.widget.addTextChangedListener
 import com.google.android.material.card.MaterialCardView
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.ViewCardRulerBinding
-import com.yonder.weightly.ui.home.chart.ChartType
+import com.yonder.weightly.utils.enums.MeasureUnit
 
-
-enum class MeasureUnit(var value: String) {
-    KG("kg"),
-    LB("lb");
-    companion object {
-        fun findValue(value: String?): MeasureUnit = values().find { it.value == value } ?: KG
-    }
-}
 
 const val FLOOR_FOR_LB_TO_KG = 2.204f
 

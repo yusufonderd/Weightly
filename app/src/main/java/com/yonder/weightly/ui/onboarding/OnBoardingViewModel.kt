@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
 import com.yonder.weightly.domain.usecase.SaveOrUpdateWeight
-import com.yonder.weightly.uicomponents.MeasureUnit
 import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.enums.MeasureUnit
 import com.yonder.weightly.utils.extensions.EMPTY
 import com.yonder.weightly.utils.extensions.ZERO
 import dagger.hilt.android.lifecycle.HiltViewModel

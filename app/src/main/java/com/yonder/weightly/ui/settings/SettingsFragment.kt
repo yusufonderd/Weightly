@@ -12,7 +12,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.yonder.weightly.BuildConfig
 import com.yonder.weightly.R
-import com.yonder.weightly.uicomponents.MeasureUnit
+import com.yonder.weightly.utils.enums.MeasureUnit
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 

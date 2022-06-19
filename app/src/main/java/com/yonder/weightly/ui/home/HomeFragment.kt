@@ -16,7 +16,7 @@ import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
 import com.yonder.weightly.ui.home.chart.ChartFeeder
 import com.yonder.weightly.ui.home.chart.ChartInitializer
-import com.yonder.weightly.ui.home.chart.ChartType
+import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.ui.home.chart.LimitLineFeeder
 import com.yonder.weightly.uicomponents.InfoCardUIModel
 import com.yonder.weightly.utils.viewBinding

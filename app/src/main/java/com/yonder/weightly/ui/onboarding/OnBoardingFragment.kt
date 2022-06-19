@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentOnBoardingBinding
 import com.yonder.weightly.uicomponents.CardRuler
-import com.yonder.weightly.uicomponents.MeasureUnit
+import com.yonder.weightly.utils.enums.MeasureUnit
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
