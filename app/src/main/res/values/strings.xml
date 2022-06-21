@@ -28,12 +28,12 @@
     <string name="input_note">Input note</string>
     <string name="select_emoji">Select emoji</string>
     <string name="select_emoji_with_emoji_format">%1$s Select emoji</string>
-    <string name="title_no_weight">Add weight from plus button on top right</string>
+    <string name="title_no_weight">Add weight from the plus button on the top right</string>
     <string name="save">Save</string>
     <string name="_continue">Continue</string>
     <string name="delete">Delete</string>
     <string name="update">Update</string>
-    <string name="alert_blank_weight">Please make sure input your weight</string>
+    <string name="alert_blank_weight">Please make sure to input your weight</string>
     <string name="kg_format" translatable="false">%1$s kg</string>
     <string name="lb_format" translatable="false">%1$s lb</string>
 
@@ -54,10 +54,10 @@
     <string name="feedback">Feedback</string>
     <string name="send_feedback">Send feedback</string>
     <string name="welcome_to_weightly">Welcome to Weightly</string>
-    <string name="welcome_description">Hello 🥳 Please fill your information to start 🚀</string>
+    <string name="welcome_description">Hello 🥳 Please fill in your information to start 🚀</string>
 
     <string name="alert_current_weight_must_different_with_goal_weight">Your current weight should be different from your target weight 🥳 </string>
-    <string name="alert_weight_bigger_than_zero">Your weight should bigger than 0 🥳 </string>
+    <string name="alert_weight_bigger_than_zero">Your weight should be greater than 0 🥳 </string>
 
     <string name="line_chart">Line</string>
     <string name="bar_chart">Bar</string>
@@ -68,8 +68,8 @@
     <string name="show_limit_lines">Show limit lines</string>
     <string name="chart_type">Chart type</string>
 
-    <string name="show_limit_lines_summary">See goal and average weight on graph chart</string>
-    <string name="rate_us_from_google_play">Rate us from Google Play</string>
-    <string name="goal_summary_format">%.1f %s left until you reach goal</string>
+    <string name="show_limit_lines_summary">See the goal and the average weight on the graph chart</string>
+    <string name="rate_us_from_google_play">Rate us on Google Play</string>
+    <string name="goal_summary_format">%.1f %s left until you reach the goal</string>
 
 </resources>
