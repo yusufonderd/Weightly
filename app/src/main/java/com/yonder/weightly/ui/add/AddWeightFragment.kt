@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -38,6 +39,11 @@ class AddWeightFragment : BottomSheetDialogFragment() {
 
     private var selectedDate = Date()
     private var emoji: String = String.EMPTY
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogStyle)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
