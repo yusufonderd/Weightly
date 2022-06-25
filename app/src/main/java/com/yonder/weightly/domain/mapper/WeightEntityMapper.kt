@@ -18,28 +18,51 @@ class WeightEntityMapper @Inject constructor(
 ) {
 
     fun map(entity: WeightEntity?, previousEntity: WeightEntity? = null): WeightUIModel? {
-        if (entity == null)
-            return null
-        val date = entity.timestamp ?: Date()
-        val valueText = entity.value?.toString().orEmpty()
-        val emoji = entity.emoji.orEmpty()
-        val difference: Float =
-            differenceDecider.provideValue(current = entity.value, previous = previousEntity?.value)
-        val differenceColor = differenceDecider.provideColor(difference)
-        val differenceText = differenceDecider.provideText(difference)
-        val valueWithUnit = unitFormatDecider.invoke(entity.value)
-        return WeightUIModel(
-            uid = entity.uid.orZero,
-            value = entity.value.orZero(),
-            valueText = valueText,
-            valueWithUnit = valueWithUnit,
-            emoji = emoji,
-            note = entity.note.orEmpty(),
-            date = date,
-            formattedDate = date.toFormat(DATE_FORMAT_CHART),
-            formattedValue = "$emoji $valueText",
-            difference = differenceText,
-            differenceColor = differenceColor
-        )
+        return entity?.toUiModelByComparingWithPreviousWeight(previousEntity)
     }
+
+    private fun WeightEntity.toUiModelByComparingWithPreviousWeight(previousEntity: WeightEntity?) = WeightUIModel(
+        uid = getUi(),
+        value = getValue(),
+        valueText = getValueText(),
+        valueWithUnit = getValueWithUnit(),
+        emoji = getEmoji(),
+        note = getNote(),
+        date = getDate(),
+        formattedDate = getFormattedDate(),
+        formattedValue = getFormattedValue(),
+        difference = getDifferenceText(previousEntity),
+        differenceColor = getDifferenceColor(previousEntity)
+    )
+
+    private fun WeightEntity.getUi() = uid.orZero
+
+    private fun WeightEntity.getValue() = value.orZero()
+
+    private fun WeightEntity.getValueText() = value?.toString().orEmpty()
+
+    private fun WeightEntity.getValueWithUnit() = unitFormatDecider.invoke(value)
+
+    private fun WeightEntity.getEmoji() = emoji.orEmpty()
+
+    private fun WeightEntity.getNote() = note.orEmpty()
+
+    private fun WeightEntity.getDate() = timestamp ?: Date()
+
+    private fun WeightEntity.getFormattedDate() = getDate().toFormat(DATE_FORMAT_CHART)
+
+    private fun WeightEntity.getFormattedValue() = "${getEmoji()} ${getValueText()}"
+
+    private fun WeightEntity.getDifference(previousEntity: WeightEntity?) = differenceDecider.provideValue(
+        current = value,
+        previous = previousEntity?.value
+    )
+
+    private fun WeightEntity.getDifferenceText(previousEntity: WeightEntity?) = differenceDecider.provideText(
+        difference = getDifference(previousEntity)
+    )
+
+    private fun WeightEntity.getDifferenceColor(previousEntity: WeightEntity?) = differenceDecider.provideColor(
+        difference = getDifference(previousEntity)
+    )
 }
