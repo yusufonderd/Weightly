@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentAddWeightBinding
@@ -84,6 +85,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
             val startFrom = calendar.timeInMillis
             val constraints = CalendarConstraints.Builder()
                 .setEnd(startFrom)
+                .setValidator(DateValidatorPointBackward.now())
                 .build()
 
             val datePicker =
