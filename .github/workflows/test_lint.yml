@@ -1,0 +1,48 @@
+name: Test and Lint
+
+on:
+  push:
+    paths:
+      - .github/workflows/test_lint.yml
+      - '*/src/**'
+      - gradle/**
+      - '**.gradle'
+      - gradle.properties
+      - gradlew*
+
+jobs:
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up our JDK environment
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 11
+      - name: Unit tests
+        run: bash ./gradlew test --stacktrace
+      - name: Unit tests results
+        uses: actions/upload-artifact@v1
+        with:
+          name: unit-tests-results
+          path: app/build/reports/tests/testDebugUnitTest/index.html
+
+  lint:
+    name: Lint Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up our JDK environment
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 11
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      - name: Lint debug flavor
+        run: ./gradlew lint --stacktrace
+      - name: Lint results
+        uses: yutailang0119/action-android-lint@v2
+        with:
+          report-path: build/reports/*.xml # Support glob patterns by https://www.npmjs.com/package/@actions/glob
+        continue-on-error: false # If annotations contain error of severity, action-android-lint exit 1.
