@@ -23,13 +23,11 @@
             android:layout_marginVertical="@dimen/space_8"
             android:layout_marginStart="@dimen/space_4"
             android:text="@string/your_progress"
-            android:textStyle="bold"
             android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cvOutline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvOutline"
@@ -58,8 +56,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>
-
-
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -81,10 +77,7 @@
                 android:layout_gravity="center"
                 android:textColor="@color/purple_500"
                 android:textStyle="bold"
-                tools:text="Hedefine ulaşmana 10 kilo kaldı">
-
-            </TextView>
-
+                tools:text="Hedefine ulaşmana 10 kilo kaldı" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
@@ -94,8 +87,8 @@
             android:layout_marginVertical="@dimen/space_8"
             android:layout_marginStart="@dimen/space_4"
             android:text="@string/summary"
-            android:textStyle="bold"
             android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/llContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cvSummary" />
@@ -116,9 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:cardElevation="0dp"
-                app:cardUseCompatPadding="true">
-
-            </com.yonder.weightly.uicomponents.InfoCardView>
+                app:cardUseCompatPadding="true" />
 
             <com.yonder.weightly.uicomponents.InfoCardView
                 android:id="@+id/icCurrent"
@@ -134,10 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:cardElevation="0dp"
-                app:cardUseCompatPadding="true">
-
-            </com.yonder.weightly.uicomponents.InfoCardView>
-
+                app:cardUseCompatPadding="true" />
         </LinearLayout>
 
         <LinearLayout
@@ -154,11 +142,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
                 app:cardElevation="0dp"
-                app:cardUseCompatPadding="true">
-
-            </com.yonder.weightly.uicomponents.InfoCardView>
+                app:cardUseCompatPadding="true" />
 
             <com.yonder.weightly.uicomponents.InfoCardView
                 android:id="@+id/infoCardAverage"
@@ -166,22 +151,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:cardElevation="0dp"
-
-                app:cardUseCompatPadding="true">
-
-            </com.yonder.weightly.uicomponents.InfoCardView>
+                app:cardUseCompatPadding="true" />
 
             <com.yonder.weightly.uicomponents.InfoCardView
                 android:id="@+id/infoCardMin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
                 app:cardElevation="0dp"
-                app:cardUseCompatPadding="true">
-
-            </com.yonder.weightly.uicomponents.InfoCardView>
-
+                app:cardUseCompatPadding="true" />
         </LinearLayout>
 
         <TextView
@@ -192,8 +170,8 @@
             android:layout_marginStart="@dimen/space_4"
             android:layout_marginBottom="8dp"
             android:text="@string/history"
-            android:textStyle="bold"
             android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cvRecyclerview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_insight_view" />
@@ -212,10 +190,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvHistory">
-
-
-        </Button>
+            app:layout_constraintTop_toTopOf="@+id/tvHistory" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvRecyclerview"
@@ -226,7 +201,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvHistory">
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvWeightHistory"
                 android:layout_width="match_parent"
@@ -236,11 +210,6 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:itemCount="10"
                 tools:listitem="@layout/item_weight_history" />
-
         </androidx.cardview.widget.CardView>
-
-
     </com.yonder.statelayout.StateLayoutView>
-
-
 </androidx.core.widget.NestedScrollView>

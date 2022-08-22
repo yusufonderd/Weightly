@@ -65,5 +65,4 @@
     <string name="show_limit_lines_summary">Hedef kilom ve ortalama kilom grafikte görünsün</string>
     <string name="rate_us_from_google_play">Bizi Google Play\'de oyla</string>
     <string name="goal_summary_format">Hedefine ulaşmana %.1f %s kaldı</string>
-
 </resources>
