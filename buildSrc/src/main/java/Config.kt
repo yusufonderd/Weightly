@@ -1,4 +1,3 @@
-
 object Config {
     const val compileSdk = 32
     const val minSdk = 21

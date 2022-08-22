@@ -13,5 +13,4 @@ object Versions {
     const val navigation = "2.4.2"
     const val preference = "1.2.0"
     const val googleServices = "4.3.10"
-
 }
