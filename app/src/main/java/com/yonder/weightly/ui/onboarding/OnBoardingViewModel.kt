@@ -22,7 +22,6 @@ import javax.inject.Inject
 class OnBoardingViewModel @Inject constructor(
     private val saveOrUpdateWeight: SaveOrUpdateWeight
 ) : ViewModel() {
-
     sealed class Event {
         object NavigateToHome : Event()
         data class Message(@StringRes var message: Int) : Event()
@@ -31,13 +30,13 @@ class OnBoardingViewModel @Inject constructor(
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
     val eventsFlow = eventChannel.receiveAsFlow()
 
-    private fun sendEvent(event: Event){
+    private fun sendEvent(event: Event) {
         viewModelScope.launch {
             eventChannel.send(event)
         }
     }
 
-    fun save(currentWeight: Float, goalWeight: Float,unit: MeasureUnit) {
+    fun save(currentWeight: Float, goalWeight: Float, unit: MeasureUnit) {
         if (currentWeight == goalWeight) {
             sendEvent(Event.Message(R.string.alert_current_weight_must_different_with_goal_weight))
             return
@@ -55,5 +54,4 @@ class OnBoardingViewModel @Inject constructor(
             eventChannel.send(Event.NavigateToHome)
         }
     }
-
 }

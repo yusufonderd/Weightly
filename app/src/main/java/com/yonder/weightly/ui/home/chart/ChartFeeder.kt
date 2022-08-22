@@ -11,9 +11,7 @@ import com.yonder.weightly.R
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.utils.extensions.EMPTY
 
-
 object ChartFeeder {
-
     fun setLineChartData(
         chart: LineChart,
         histories: List<WeightUIModel?>,

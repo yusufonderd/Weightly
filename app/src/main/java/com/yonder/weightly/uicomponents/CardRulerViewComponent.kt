@@ -10,7 +10,6 @@ import com.yonder.weightly.R
 import com.yonder.weightly.databinding.ViewCardRulerBinding
 import com.yonder.weightly.utils.enums.MeasureUnit
 
-
 const val FLOOR_FOR_LB_TO_KG = 2.204f
 
 class CardRulerViewComponent @JvmOverloads constructor(
@@ -18,7 +17,6 @@ class CardRulerViewComponent @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : MaterialCardView(context, attrs, defStyleAttr) {
-
     private val binding: ViewCardRulerBinding by lazy {
         ViewCardRulerBinding.inflate(LayoutInflater.from(context), this, true)
     }
@@ -72,11 +70,9 @@ class CardRulerViewComponent @JvmOverloads constructor(
     }
 }
 
-
 data class CardRuler(
     @StringRes var unit: Int,
     @StringRes var hint: Int,
     var num: Float = 75.0f,
     var max: Int = 350
 )
-

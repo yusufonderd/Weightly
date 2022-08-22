@@ -16,7 +16,6 @@ class WeightEntityMapper @Inject constructor(
     private val unitFormatDecider: UnitFormatDecider,
     private val differenceDecider: DifferenceDecider
 ) {
-
     fun map(entity: WeightEntity?, previousEntity: WeightEntity? = null): WeightUIModel? {
         return entity?.toUiModelByComparingWithPreviousWeight(previousEntity)
     }

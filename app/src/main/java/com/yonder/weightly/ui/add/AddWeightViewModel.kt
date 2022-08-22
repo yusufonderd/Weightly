@@ -29,16 +29,13 @@ class AddWeightViewModel @Inject constructor(
     private val deleteWeight: DeleteWeight,
     private val mapper: WeightEntityMapper
 ) : ViewModel() {
-
     sealed class Event {
         object PopBackStack : Event()
         data class ShowToast(@StringRes val textResId: Int) : Event()
     }
 
-
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
-
 
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
     val eventsFlow = eventChannel.receiveAsFlow()

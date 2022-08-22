@@ -16,11 +16,8 @@ import com.yonder.weightly.utils.enums.MeasureUnit
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
-
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
-
-
     private val viewModel: SettingsViewModel by viewModels()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -101,5 +98,4 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
         startActivity(viewIntent)
     }
-
 }

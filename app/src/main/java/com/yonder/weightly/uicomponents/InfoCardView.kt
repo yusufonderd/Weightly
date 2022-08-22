@@ -1,6 +1,5 @@
 package com.yonder.weightly.uicomponents
 
-
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -11,13 +10,11 @@ import com.google.android.material.card.MaterialCardView
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.ViewInfoCardBinding
 
-
 class InfoCardView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : MaterialCardView(context, attrs, defStyleAttr) {
-
     private val binding: ViewInfoCardBinding by lazy {
         ViewInfoCardBinding.inflate(LayoutInflater.from(context), this, true)
     }
@@ -29,9 +26,7 @@ class InfoCardView @JvmOverloads constructor(
         tvDescription.setTextColor(ContextCompat.getColor(context, uiModel.descriptionTextColor))
         clRoot.setBackgroundColor(ContextCompat.getColor(context, uiModel.backgroundColor))
     }
-
 }
-
 
 data class InfoCardUIModel(
     var title: String?,
@@ -39,5 +34,4 @@ data class InfoCardUIModel(
     @ColorRes var backgroundColor: Int = R.color.white,
     @ColorRes var descriptionTextColor: Int = R.color.black,
     @ColorRes var titleTextColor: Int = R.color.black
-
 )

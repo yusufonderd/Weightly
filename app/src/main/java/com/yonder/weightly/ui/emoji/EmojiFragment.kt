@@ -20,7 +20,6 @@ import com.yonder.weightly.R
 
 class EmojiFragment : BottomSheetDialogFragment(), OnEmojiClickListener,
     OnEmojiBackspaceClickListener {
-
     lateinit var emojiView: EmojiView
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -60,7 +59,6 @@ class EmojiFragment : BottomSheetDialogFragment(), OnEmojiClickListener,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_emoji, container, false)
-
 
     override fun onDestroy() {
         super.onDestroy()

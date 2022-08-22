@@ -7,7 +7,6 @@ import java.util.*
 import javax.inject.Inject
 
 class DeleteWeight @Inject constructor(private val weightDao: WeightDao) {
-
     suspend operator fun invoke(date: Date) {
         val weightList = weightDao.fetchBy(
             startDate = date.startOfDay(),

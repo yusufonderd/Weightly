@@ -16,16 +16,15 @@ import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
 import com.yonder.weightly.ui.home.chart.ChartFeeder
 import com.yonder.weightly.ui.home.chart.ChartInitializer
-import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.ui.home.chart.LimitLineFeeder
 import com.yonder.weightly.uicomponents.InfoCardUIModel
+import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
-
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
     private val viewModel: HomeViewModel by viewModels()
@@ -73,7 +72,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     barEntries = uiState.barEntries,
                     context = requireContext()
                 )
-
             } else {
                 lineChart.isVisible = false
                 barChart.isVisible = true
@@ -98,7 +96,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     uiState.averageWeight?.toFloatOrNull(),
                     uiState.goalWeight?.toFloatOrNull()
                 )
-            }else{
+            } else {
                 LimitLineFeeder.removeLimitLines(lineChart = lineChart, barChart = barChart)
             }
 

@@ -26,13 +26,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import java.util.*
 
-
 const val CURRENT_DATE_FORMAT = "dd MMM yyyy"
 const val TAG_DATE_PICKER = "Tag_Date_Picker"
 
 @AndroidEntryPoint
 class AddWeightFragment : BottomSheetDialogFragment() {
-
     private val args: AddWeightFragmentArgs by navArgs()
 
     private val viewModel: AddWeightViewModel by viewModels()
@@ -68,7 +66,6 @@ class AddWeightFragment : BottomSheetDialogFragment() {
     }
 
     private fun initViews() = with(binding) {
-
         btnPrev.setOnClickListener {
             fetchDate(selectedDate.prevDay())
         }
@@ -155,7 +152,6 @@ class AddWeightFragment : BottomSheetDialogFragment() {
             emoji = bundle.getString(EmojiFragment.KEY_BUNDLE_EMOJI).orEmpty()
             binding.btnEmoji.text = getString(R.string.select_emoji_with_emoji_format, emoji)
         }
-
     }
 
     private fun setUIState(uiState: AddWeightViewModel.UiState) = with(binding) {

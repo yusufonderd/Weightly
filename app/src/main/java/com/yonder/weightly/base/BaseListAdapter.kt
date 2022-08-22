@@ -13,7 +13,6 @@ abstract class BaseListAdapter<T>(
     override fun areItemsTheSame(old: T, new: T): Boolean = itemsSame(old, new)
     override fun areContentsTheSame(old: T, new: T): Boolean = contentsSame(old, new)
 }) {
-
     abstract fun onCreateViewHolder(
         parent: ViewGroup,
         inflater: LayoutInflater,

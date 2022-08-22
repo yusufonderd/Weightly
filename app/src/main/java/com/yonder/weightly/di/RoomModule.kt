@@ -15,7 +15,6 @@ const val DATABASE_NAME = "Weight_ly"
 
 @[Module InstallIn(SingletonComponent::class)]
 object RoomModule {
-
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {

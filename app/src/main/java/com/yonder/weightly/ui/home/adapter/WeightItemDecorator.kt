@@ -12,7 +12,6 @@ import com.yonder.weightly.utils.extensions.dpToPx
 private const val ITEM_VERTICAL_MARGIN = 16
 
 class WeightItemDecorator(context: Context) : RecyclerView.ItemDecoration() {
-
     private val marginVertical by lazy {
         ITEM_VERTICAL_MARGIN.dpToPx(context)
     }

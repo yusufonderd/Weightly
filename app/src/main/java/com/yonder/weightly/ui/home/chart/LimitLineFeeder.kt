@@ -12,7 +12,6 @@ import com.yonder.weightly.R
 import com.yonder.weightly.utils.extensions.orZero
 
 object LimitLineFeeder {
-
     private fun createLimitLine(
         context: Context,
         value: Float?,

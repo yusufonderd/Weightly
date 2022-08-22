@@ -4,7 +4,6 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
-import com.yonder.weightly.R
 import com.yonder.weightly.databinding.ItemWeightHistoryBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.utils.extensions.toFormat
@@ -25,11 +24,9 @@ class WeightHistoryViewHolder(
         tvDate.text = uiModel.date.toFormat(DATE_FORMAT)
         tvWeight.text = uiModel.valueWithUnit
         tvDifference.text = uiModel.difference
-        tvDifference.setTextColor(ContextCompat.getColor(binding.root.context,uiModel.differenceColor))
+        tvDifference.setTextColor(ContextCompat.getColor(binding.root.context, uiModel.differenceColor))
         itemView.setOnClickListener {
             onClickWeight?.invoke(uiModel)
         }
     }
 }
-
-

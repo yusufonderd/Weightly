@@ -10,10 +10,8 @@ import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import timber.log.Timber.*
 
-
 @HiltAndroidApp
 class App : Application() {
-
     override fun onCreate() {
         super.onCreate()
         setupTimber()
@@ -22,14 +20,15 @@ class App : Application() {
         initCrashlytics()
     }
 
-    private fun initCrashlytics(){
+    private fun initCrashlytics() {
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
     }
 
-    private fun setupEmojiManager(){
+    private fun setupEmojiManager() {
         EmojiManager.install(GoogleEmojiProvider());
     }
-    private fun setupHawk(){
+
+    private fun setupHawk() {
         Hawk.init(this).build();
     }
 
@@ -38,5 +37,4 @@ class App : Application() {
             Timber.plant(DebugTree())
         }
     }
-
 }

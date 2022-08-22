@@ -8,7 +8,6 @@ import java.util.*
 import javax.inject.Inject
 
 class SaveOrUpdateWeight @Inject constructor(private val weightDao: WeightDao) {
-
     suspend operator fun invoke(weight: String, note: String, emoji: String, date: Date) {
         val weightList = weightDao.fetchBy(
             startDate = date.startOfDay(),

@@ -12,7 +12,6 @@ class WeightHistoryAdapter(private val onClickWeight: ((weight: WeightUIModel) -
         itemsSame = { old, new -> old.uid == new.uid },
         contentsSame = { old, new -> old == new }
     ) {
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         inflater: LayoutInflater,
@@ -31,4 +30,3 @@ class WeightHistoryAdapter(private val onClickWeight: ((weight: WeightUIModel) -
         }
     }
 }
-
