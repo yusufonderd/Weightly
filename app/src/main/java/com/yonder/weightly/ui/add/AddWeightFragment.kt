@@ -101,7 +101,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
                 fetchDate(Date(timestamp))
             }
 
-            datePicker.show(parentFragmentManager, TAG_DATE_PICKER);
+            datePicker.show(parentFragmentManager, TAG_DATE_PICKER)
         }
 
         btnSelectDate.text = selectedDate.toFormat(CURRENT_DATE_FORMAT)

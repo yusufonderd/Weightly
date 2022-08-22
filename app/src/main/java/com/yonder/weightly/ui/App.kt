@@ -25,11 +25,11 @@ class App : Application() {
     }
 
     private fun setupEmojiManager() {
-        EmojiManager.install(GoogleEmojiProvider());
+        EmojiManager.install(GoogleEmojiProvider())
     }
 
     private fun setupHawk() {
-        Hawk.init(this).build();
+        Hawk.init(this).build()
     }
 
     private fun setupTimber() {

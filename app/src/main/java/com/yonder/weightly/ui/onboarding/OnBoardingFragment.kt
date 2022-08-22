@@ -60,7 +60,7 @@ class OnBoardingFragment : Fragment(R.layout.fragment_on_boarding) {
                 unit = unit
             )
         }
-        toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        toggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (!isChecked)
                 return@addOnButtonCheckedListener
             if (checkedId == R.id.button1) {
