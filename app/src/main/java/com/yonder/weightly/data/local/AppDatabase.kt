@@ -13,4 +13,3 @@ import androidx.room.TypeConverters
 abstract class AppDatabase : RoomDatabase() {
     abstract fun weightDao(): WeightDao
 }
-

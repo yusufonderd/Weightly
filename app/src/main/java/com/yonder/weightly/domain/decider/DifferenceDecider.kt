@@ -4,11 +4,9 @@ import com.yonder.weightly.R
 import com.yonder.weightly.domain.mapper.DEFAULT_VALUE_OF_WEIGHT_DIFFERENCE
 import com.yonder.weightly.utils.extensions.format
 import com.yonder.weightly.utils.extensions.orZero
-import java.lang.StringBuilder
 import javax.inject.Inject
 
 class DifferenceDecider @Inject constructor() {
-
     fun provideColor(difference: Float): Int {
         return if (difference == 0.0f) {
             R.color.gray_500

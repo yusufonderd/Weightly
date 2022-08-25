@@ -6,6 +6,5 @@ import javax.inject.Inject
 class WeightRepository @Inject constructor(
     private val dbDao: WeightDao
 ) {
-     fun getAllWeights() = dbDao.getAllWeights()
+    fun getAllWeights() = dbDao.getAllWeights()
 }
-

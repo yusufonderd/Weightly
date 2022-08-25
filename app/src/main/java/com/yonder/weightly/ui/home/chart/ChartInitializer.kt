@@ -8,7 +8,6 @@ import com.yonder.weightly.R
 import com.yonder.weightly.utils.extensions.EMPTY
 
 object ChartInitializer {
-
     fun initLineChart(chart: LineChart) {
         chart.legend.isEnabled = false
         chart.xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM

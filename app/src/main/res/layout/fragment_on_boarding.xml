@@ -14,19 +14,15 @@
         android:text="@string/welcome_to_weightly"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@color/black"
-        android:textStyle="bold">
-
-    </TextView>
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome_description"
         android:gravity="center"
+        android:text="@string/welcome_description"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@color/black">
-
-    </TextView>
+        android:textColor="@color/black" />
 
     <com.yonder.weightly.uicomponents.CardRulerViewComponent
         android:id="@+id/cardRulerCurrent"
@@ -34,18 +30,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_8"
-        app:cardElevation="0dp">
-
-    </com.yonder.weightly.uicomponents.CardRulerViewComponent>
+        app:cardElevation="0dp" />
 
     <com.yonder.weightly.uicomponents.CardRulerViewComponent
         android:id="@+id/cardRulerGoal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/space_8"
-        app:cardElevation="0dp">
-
-    </com.yonder.weightly.uicomponents.CardRulerViewComponent>
+        app:cardElevation="0dp" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggleButton"
@@ -68,9 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lbs" />
-
     </com.google.android.material.button.MaterialButtonToggleGroup>
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnContinue"
@@ -84,6 +74,4 @@
         app:layout_constraintEnd_toEndOf="@+id/btnEmoji"
         app:layout_constraintStart_toStartOf="@+id/btnEmoji"
         app:layout_constraintTop_toBottomOf="@+id/btnEmoji" />
-
-
 </LinearLayout>

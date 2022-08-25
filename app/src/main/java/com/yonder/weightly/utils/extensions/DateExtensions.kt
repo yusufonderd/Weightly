@@ -3,7 +3,6 @@ package com.yonder.weightly.utils.extensions
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 fun Date.toFormat(dateFormat: String): String {
     return SimpleDateFormat(dateFormat, Locale.getDefault()).format(this)
 }
@@ -18,16 +17,16 @@ fun Date.startOfDay(): Date {
 }
 
 fun Date.prevDay(): Date {
-    val cal = Calendar.getInstance();
+    val cal = Calendar.getInstance()
     cal.time = this
-    cal.add(Calendar.DATE, -1);
+    cal.add(Calendar.DATE, -1)
     return cal.time
 }
 
 fun Date.nextDay(): Date {
-    val cal = Calendar.getInstance();
+    val cal = Calendar.getInstance()
     cal.time = this
-    cal.add(Calendar.DATE, 1);
+    cal.add(Calendar.DATE, 1)
     return cal.time
 }
 
@@ -39,4 +38,3 @@ fun Date.endOfDay(): Date {
     calendar.set(Calendar.SECOND, 59)
     return calendar.time
 }
-

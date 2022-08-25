@@ -14,8 +14,7 @@ import com.yonder.weightly.utils.extensions.orZero
 @SuppressLint("ViewConstructor")
 class WeightMarkerView(context: Context, var histories: List<WeightUIModel?>) :
     MarkerView(context, R.layout.marker_view_weight) {
-
-    private val tvMarkerTitle = findViewById<TextView>(R.id.tvMarkerTitle);
+    private val tvMarkerTitle = findViewById<TextView>(R.id.tvMarkerTitle)
 
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
         val history = histories[e?.x.orZero().toInt()]
@@ -25,11 +24,9 @@ class WeightMarkerView(context: Context, var histories: List<WeightUIModel?>) :
         stringBuilder.append(history?.formattedDate)
         tvMarkerTitle.text = stringBuilder.toString()
         super.refreshContent(e, highlight)
-
     }
 
     override fun getOffset(): MPPointF {
         return MPPointF((-(width / 2)).toFloat(), (-height).toFloat())
     }
-
 }

@@ -8,8 +8,8 @@ import com.yonder.weightly.data.local.WeightDao
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.domain.usecase.GetAllWeights
 import com.yonder.weightly.domain.usecase.GetUserGoal
-import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.utils.extensions.orZero
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,11 +19,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private var getAllWeights: GetAllWeights ,
+    private var getAllWeights: GetAllWeights,
     private val weightDao: WeightDao,
     private val getUserGoal: GetUserGoal
 ) : ViewModel() {
-
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
 
@@ -33,7 +32,7 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchInsights() {
         viewModelScope.launch(Dispatchers.IO) {
-            combine(weightDao.getMax(),weightDao.getMin(),weightDao.getAvg()){ max, min, avg ->
+            combine(weightDao.getMax(), weightDao.getMin(), weightDao.getAvg()) { max, min, avg ->
                 _uiState.update {
                     it.copy(
                         minWeight = "$min",
@@ -45,7 +44,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-     fun fetchHome() = viewModelScope.launch(Dispatchers.IO) {
+    fun fetchHome() = viewModelScope.launch(Dispatchers.IO) {
         getAllWeights().collectLatest { weightHistories ->
             _uiState.update {
                 it.copy(
@@ -59,7 +58,7 @@ class HomeViewModel @Inject constructor(
                         BarEntry(index.toFloat(), weight?.value.orZero())
                     },
                     userGoal = getUserGoal(),
-                    shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE,true),
+                    shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE, true),
                     chartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0)),
                     shouldShowEmptyView = weightHistories.isEmpty(),
                     goalWeight = "${Hawk.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0)}"
@@ -81,9 +80,9 @@ class HomeViewModel @Inject constructor(
         var shouldShowEmptyView: Boolean = false,
         var shouldShowAllWeightButton: Boolean = false,
         var shouldShowInsightView: Boolean = false,
-        var shouldShowLimitLine : Boolean = false,
+        var shouldShowLimitLine: Boolean = false,
         var chartType: ChartType = ChartType.LINE,
-        var userGoal: String ? = null
+        var userGoal: String? = null
     )
 
     companion object {

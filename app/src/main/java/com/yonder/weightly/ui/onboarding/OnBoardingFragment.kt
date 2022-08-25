@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class OnBoardingFragment : Fragment(R.layout.fragment_on_boarding) {
-
     private val binding by viewBinding(FragmentOnBoardingBinding::bind)
 
     private val viewModel: OnBoardingViewModel by viewModels()
@@ -61,7 +60,7 @@ class OnBoardingFragment : Fragment(R.layout.fragment_on_boarding) {
                 unit = unit
             )
         }
-        toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        toggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (!isChecked)
                 return@addOnButtonCheckedListener
             if (checkedId == R.id.button1) {

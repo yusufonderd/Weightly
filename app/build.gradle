@@ -74,7 +74,7 @@ dependencies {
     kapt Libs.Room.compiler
 
     // Chart library
-    implementation  Libs.chart
+    implementation Libs.chart
 
     // Emoji library
     implementation Libs.emoji

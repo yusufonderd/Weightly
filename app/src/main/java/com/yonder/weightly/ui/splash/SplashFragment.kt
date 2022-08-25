@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
-
     private val binding by viewBinding(FragmentSplashBinding::bind)
 
     private val viewModel: SplashViewModel by viewModels()

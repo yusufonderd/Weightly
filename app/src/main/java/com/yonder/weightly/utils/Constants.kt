@@ -1,7 +1,6 @@
 package com.yonder.weightly.utils
 
 object Constants {
-
     // For shared prefs
     object Prefs {
         const val KEY_CHART_TYPE = "key_chart_type"

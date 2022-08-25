@@ -26,9 +26,7 @@
                 android:gravity="center"
                 android:inputType="numberDecimal"
                 android:maxLength="5" />
-
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.neobaran.open.android.nruler.RulerView
             android:id="@+id/rulerViewCurrent"
@@ -48,8 +46,5 @@
             app:sideLineHeight="8dp"
             app:textSize="12sp"
             app:textSpaceHeight="6dp" />
-
     </LinearLayout>
-
-
 </com.google.android.material.card.MaterialCardView>

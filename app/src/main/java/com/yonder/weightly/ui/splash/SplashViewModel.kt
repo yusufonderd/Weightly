@@ -13,7 +13,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor() : ViewModel() {
-
     sealed class Event {
         object NavigateToHome : Event()
         object NavigateToOnBoardingScreen : Event()

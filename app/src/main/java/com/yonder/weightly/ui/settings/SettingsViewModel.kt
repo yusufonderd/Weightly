@@ -2,8 +2,8 @@ package com.yonder.weightly.ui.settings
 
 import androidx.lifecycle.ViewModel
 import com.orhanobut.hawk.Hawk
-import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.utils.enums.MeasureUnit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor() : ViewModel() {
-
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
 

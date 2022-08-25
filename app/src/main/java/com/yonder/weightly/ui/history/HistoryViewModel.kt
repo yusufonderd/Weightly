@@ -2,7 +2,6 @@ package com.yonder.weightly.ui.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yonder.weightly.data.repository.WeightRepository
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.domain.usecase.GetAllWeights
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +16,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HistoryViewModel @Inject constructor(private var getAllWeights: GetAllWeights) :
     ViewModel() {
-
-
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
 

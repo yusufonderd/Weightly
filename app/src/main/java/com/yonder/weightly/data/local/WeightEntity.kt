@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-
 @Entity(tableName = "weight")
 data class WeightEntity(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,

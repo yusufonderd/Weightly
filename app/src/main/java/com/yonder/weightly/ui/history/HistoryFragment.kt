@@ -20,7 +20,6 @@ import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class HistoryFragment : BottomSheetDialogFragment() {
-
     private val viewModel: HistoryViewModel by viewModels()
 
     private val binding by viewBinding(FragmentHistoryBinding::bind)
@@ -34,7 +33,6 @@ class HistoryFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_history, container, false)
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
