@@ -43,7 +43,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
     private val viewModel: CalendarViewModel by viewModels()
 
-    lateinit var adRequest: AdRequest
+    private lateinit var adRequest: AdRequest
 
     private val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
     private val daysOfWeek = daysOfWeek()
@@ -195,9 +195,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
             viewModel.selectedLocalDate = date
             oldDate?.let { binding.calendarView.notifyDateChanged(it) }
             binding.calendarView.notifyDateChanged(date)
-            viewModel.getWeightByDate(
-                date = date.toDate()
-            )
+            viewModel.getWeightByDate(date = date.toDate())
         }
     }
 

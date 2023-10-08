@@ -5,21 +5,22 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.orhanobut.hawk.Hawk
-import com.yonder.weightly.BuildConfig
 import com.yonder.weightly.billing.BillingHelper
 import com.yonder.weightly.domain.usecase.DeleteAllWeights
 import com.yonder.weightly.domain.usecase.GetGoalWeight
-import com.yonder.weightly.domain.usecase.GetUserGoal
-import com.yonder.weightly.ui.splash.SplashViewModel
-import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.coroutines.CoroutineDispatchers
+import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.utils.enums.MeasureUnit
 import com.yonder.weightly.utils.enums.ThemeType
 import com.yonder.weightly.utils.extensions.orZero
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +28,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val billingHelper: BillingHelper,
     private val getGoalWeight: GetGoalWeight,
-    private val deleteAllWeights: DeleteAllWeights
+    private val deleteAllWeights: DeleteAllWeights,
+    private val dispatcher: CoroutineDispatchers
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -141,7 +143,7 @@ class SettingsViewModel @Inject constructor(
 
     fun deleteAllData(){
         Hawk.deleteAll()
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher.io) {
             deleteAllWeights()
             eventChannel.send(Event.NavigateToSplash)
         }

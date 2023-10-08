@@ -9,16 +9,20 @@ import com.yonder.weightly.domain.uimodel.WeightDateModel
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.domain.usecase.GetAllWeights
 import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.coroutines.CoroutineDispatchers
 import com.yonder.weightly.utils.extensions.endOfDay
 import com.yonder.weightly.utils.extensions.startOfDay
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 
@@ -27,9 +31,9 @@ class CalendarViewModel @Inject constructor(
     private val getAllWeights: GetAllWeights,
     private val billingHelper: BillingHelper,
     private val weightDao: WeightDao,
-    private val mapper: WeightEntityMapper
-) :
-    ViewModel() {
+    private val mapper: WeightEntityMapper,
+    private val dispatcher: CoroutineDispatchers
+) : ViewModel() {
 
     sealed class Event {
         data class NavigateToWeight(var model: WeightUIModel) : Event()
@@ -62,15 +66,16 @@ class CalendarViewModel @Inject constructor(
     }
 
     fun getWeightByDate(date: Date) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher.io) {
             val weightList = weightDao.fetchBy(
                 startDate = date.startOfDay(),
                 endDate = date.endOfDay()
             )
             val weightEntity = weightList.firstOrNull()
-            if (weightEntity != null){
-                eventChannel.send(Event.NavigateToWeight(mapper.map(weightEntity)!!))
-            }else{
+            if (weightEntity != null) {
+                val weightUIModel = mapper.map(weightEntity) ?: return@launch
+                eventChannel.send(Event.NavigateToWeight(weightUIModel))
+            } else {
                 eventChannel.send(Event.NavigateToNewWeight(WeightDateModel(date)))
             }
         }
@@ -78,7 +83,7 @@ class CalendarViewModel @Inject constructor(
 
 
     fun getWeightHistories() {
-        job = viewModelScope.launch(Dispatchers.IO) {
+        job = viewModelScope.launch(dispatcher.io) {
             getAllWeights().collectLatest { weightHistories ->
                 _uiState.update {
                     it.copy(

@@ -12,9 +12,9 @@ import com.yonder.weightly.domain.usecase.GetAllWeights
 import com.yonder.weightly.domain.usecase.GetUserGoal
 import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.coroutines.CoroutineDispatchers
 import com.yonder.weightly.utils.extensions.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -28,15 +28,16 @@ class HomeViewModel @Inject constructor(
     private var getAllWeights: GetAllWeights,
     private val weightDao: WeightDao,
     private val getUserGoal: GetUserGoal,
-    private val billingHelper: BillingHelper
+    private val billingHelper: BillingHelper,
+    private val dispatcher: CoroutineDispatchers
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
 
-    var job: Job? = null
-    var billingJob: Job? = null
-    var insightsJob: Job? = null
+    private var job: Job? = null
+    private var billingJob: Job? = null
+    private var insightsJob: Job? = null
 
 
     fun startBilling(activity: Activity) {
@@ -45,7 +46,7 @@ class HomeViewModel @Inject constructor(
 
     fun hasUserWeightForToday() {
         val today = Date()
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher.io) {
             val weights =
                 weightDao.fetchBy(
                     startDate = today.startOfDay(),
@@ -72,7 +73,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchInsights() {
-        insightsJob = viewModelScope.launch(Dispatchers.IO) {
+        insightsJob = viewModelScope.launch(dispatcher.io) {
             combine(weightDao.getMax(), weightDao.getMin(), weightDao.getAvg()) { max, min, avg ->
                 _uiState.update {
                     it.copy(
@@ -92,7 +93,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchHome() {
-        job = viewModelScope.launch(Dispatchers.IO) {
+        job = viewModelScope.launch(dispatcher.io) {
             getAllWeights().collectLatest { weightHistories ->
                 if (weightHistories.size > 1) {
                     fetchInsights()
@@ -146,7 +147,6 @@ class HomeViewModel @Inject constructor(
         var userGoal: String? = null,
         var shouldShowAds: Boolean = true
     )
-
 
 
 }

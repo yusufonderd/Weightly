@@ -12,6 +12,7 @@ import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.domain.usecase.DeleteWeight
 import com.yonder.weightly.domain.usecase.SaveOrUpdateWeight
 import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.coroutines.CoroutineDispatchers
 import com.yonder.weightly.utils.extensions.EMPTY
 import com.yonder.weightly.utils.extensions.ZERO
 import com.yonder.weightly.utils.extensions.endOfDay
@@ -31,7 +32,8 @@ class AddWeightViewModel @Inject constructor(
     private val saveOrUpdateWeight: SaveOrUpdateWeight,
     private val deleteWeight: DeleteWeight,
     private val mapper: WeightEntityMapper,
-    private val billingHelper: BillingHelper
+    private val billingHelper: BillingHelper,
+    private val dispatcher: CoroutineDispatchers
 ) : ViewModel() {
     sealed class Event {
         object ShowInterstitialAd : Event()
@@ -64,20 +66,22 @@ class AddWeightViewModel @Inject constructor(
     }
 
     fun delete(date: Date) {
-        viewModelScope.launch(Dispatchers.IO) {
-            deleteWeight.invoke(date)
+        viewModelScope.launch(dispatcher.io) {
+            deleteWeight(date)
         }
     }
 
     fun saveOrUpdateWeight(weight: String, note: String, emoji: String, date: Date) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher.io) {
             when {
                 (weight.toFloatOrNull() == Float.ZERO) -> {
                     eventChannel.send(Event.ShowToast(R.string.alert_weight_bigger_than_zero))
                 }
+
                 weight.isBlank() -> {
                     eventChannel.send(Event.ShowToast(R.string.alert_blank_weight))
                 }
+
                 else -> {
                     saveOrUpdateWeight.invoke(
                         weight = weight,
@@ -96,7 +100,7 @@ class AddWeightViewModel @Inject constructor(
     }
 
     fun fetchDate(date: Date) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher.io) {
             val weightList = weightDao.fetchBy(
                 startDate = date.startOfDay(),
                 endDate = date.endOfDay()
@@ -107,12 +111,18 @@ class AddWeightViewModel @Inject constructor(
                     weightDao.fetchLastWeight().firstOrNull()
                 )?.copy(emoji = String.EMPTY, note = String.EMPTY)
                 _uiState.update {
-                    it.copy(currentWeight = uiModel,
-                    shouldShowSaveButton = true)
+                    it.copy(
+                        currentWeight = uiModel,
+                        shouldShowSaveButton = true
+                    )
                 }
             } else {
-                _uiState.update { it.copy(currentWeight = uiModel,
-                    shouldShowSaveButton = false) }
+                _uiState.update {
+                    it.copy(
+                        currentWeight = uiModel,
+                        shouldShowSaveButton = false
+                    )
+                }
 
             }
         }
