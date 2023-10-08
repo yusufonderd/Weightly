@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_8"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3586001333170518/2395094787"
+        ads:adUnitId=""
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toBottomOf="@+id/btnSelectDate" />
