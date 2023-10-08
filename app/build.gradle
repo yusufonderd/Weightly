@@ -36,9 +36,9 @@ android {
         def adIdHome = properties.getProperty('HOME_AD_ID')
 
         debug {
-            buildConfigField "String", "PLAY_PUBLIC_KEY", play_public_key
-            buildConfigField "String", "BASE_URL", base_url
-            buildConfigField "String", "FULL_SCREEN_AD_ID", full_screen_ad_id
+            buildConfigField "String", "PLAY_PUBLIC_KEY", "${play_public_key}"
+            buildConfigField "String", "BASE_URL", "${base_url}"
+            buildConfigField "String", "FULL_SCREEN_AD_ID", "${full_screen_ad_id}"
             minifyEnabled false
             resValue("string", "home_ad_id", "${adIdHome}")
             resValue("string", "add_weight_ad_id", "${adIdAddWeight}")
@@ -47,9 +47,9 @@ android {
         }
 
         release {
-            buildConfigField "String", "PLAY_PUBLIC_KEY", play_public_key
-            buildConfigField "String", "BASE_URL", base_url
-            buildConfigField "String", "FULL_SCREEN_AD_ID", full_screen_ad_id
+            buildConfigField "String", "PLAY_PUBLIC_KEY", "${play_public_key}"
+            buildConfigField "String", "BASE_URL", "${base_url}"
+            buildConfigField "String", "FULL_SCREEN_AD_ID", "${full_screen_ad_id}"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             resValue("string", "home_ad_id", "${adIdHome}")
