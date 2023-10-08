@@ -27,14 +27,13 @@ android {
     buildTypes {
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        def play_public_key = properties.getProperty('play_public_key')
-        def base_url = properties.getProperty('base_url')
-        def full_screen_ad_id = properties.getProperty('full_screen_ad_id')
-        def adIdProject = properties.getProperty('ad_id_project')
-        def adIdAddWeight = properties.getProperty('ad_id_add_weight_screen')
-        def adIdCalendar = properties.getProperty('ad_id_calendar_screen')
-        def adIdHome = properties.getProperty('ad_id_home_screen')
-
+        def play_public_key = properties.getProperty('PLAY_PUBLIC_KEY')
+        def base_url = properties.getProperty('BASE_URL')
+        def full_screen_ad_id = properties.getProperty('FULL_SCREEN_AD_ID')
+        def adIdProject = properties.getProperty('AD_ID_PROJECT')
+        def adIdAddWeight = properties.getProperty('ADD_WEIGHT_AD_ID')
+        def adIdCalendar = properties.getProperty('CALENDAR_AD_ID')
+        def adIdHome = properties.getProperty('HOME_AD_ID')
 
         debug {
             buildConfigField "String", "PLAY_PUBLIC_KEY", play_public_key
