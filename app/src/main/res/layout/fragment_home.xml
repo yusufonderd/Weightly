@@ -11,35 +11,41 @@
         android:id="@+id/stateLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_50"
         android:padding="@dimen/space_8"
         app:textEmpty="@string/title_no_weight"
         tools:context=".ui.home.HomeFragment">
 
-        <TextView
-            android:id="@+id/tvProgress"
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRemoveAds"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/space_8"
-            android:layout_marginStart="@dimen/space_4"
-            android:text="@string/your_progress"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/cvOutline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:drawablePadding="@dimen/space_8"
+            android:fontFamily="@font/poppins"
+            android:text="@string/be_premium_description"
+            android:textAllCaps="false"
+            android:textAppearance="?android:textAppearanceSmall"
+            app:icon="@drawable/ic_baseline_stars_24"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSummary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvSummary">
+
+        </com.google.android.material.button.MaterialButton>
+
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvOutline"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:cardCornerRadius="@dimen/space_12"
             app:cardElevation="0dp"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toTopOf="@+id/cvSummary"
             app:layout_constraintDimensionRatio="16:12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProgress">
+            app:layout_constraintTop_toTopOf="parent">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -56,13 +62,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>
+
+
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cvSummary"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:cardBackgroundColor="@color/purple_200_tra"
+            app:cardBackgroundColor="@color/purple_200"
+            app:cardCornerRadius="@dimen/space_8"
             app:cardElevation="0dp"
             app:cardUseCompatPadding="true"
             app:contentPadding="@dimen/space_8"
@@ -70,15 +79,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cvOutline">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvGoalDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/purple_500"
-                android:textStyle="bold"
-                tools:text="Hedefine ulaşmana 10 kilo kaldı" />
-        </com.google.android.material.card.MaterialCardView>
+                android:drawablePadding="@dimen/space_8"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:textColor="@color/white"
+                app:drawableLeftCompat="@drawable/ic_baseline_info_24"
+                tools:text="Hedefine ulaşmana 10 kilo kaldı">
+
+            </androidx.appcompat.widget.AppCompatTextView>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <Button
+            android:id="@+id/btnAddWeightForToday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_4"
+            android:text="@string/add_weight_for_today"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvSummary">
+
+        </Button>
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3586001333170518/5464095348"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnAddWeightForToday" />
 
         <TextView
             android:id="@+id/tvSummary"
@@ -86,130 +125,27 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/space_8"
             android:layout_marginStart="@dimen/space_4"
-            android:text="@string/summary"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/dashboard"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/llContainer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvSummary" />
+            app:layout_constraintTop_toBottomOf="@+id/adView" />
 
-        <LinearLayout
-            android:id="@+id/llContainer"
-            android:layout_width="match_parent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvInfoCard"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:weightSum="3"
+            tools:listitem="@layout/item_home_info_card"
+            tools:itemCount="6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSummary">
 
-            <com.yonder.weightly.uicomponents.InfoCardView
-                android:id="@+id/icStart"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cardElevation="0dp"
-                app:cardUseCompatPadding="true" />
+        </androidx.recyclerview.widget.RecyclerView>
 
-            <com.yonder.weightly.uicomponents.InfoCardView
-                android:id="@+id/icCurrent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cardElevation="0dp"
-                app:cardUseCompatPadding="true" />
-
-            <com.yonder.weightly.uicomponents.InfoCardView
-                android:id="@+id/icGoal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cardElevation="0dp"
-                app:cardUseCompatPadding="true" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_insight_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/llContainer">
-
-            <com.yonder.weightly.uicomponents.InfoCardView
-                android:id="@+id/infoCardMax"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cardElevation="0dp"
-                app:cardUseCompatPadding="true" />
-
-            <com.yonder.weightly.uicomponents.InfoCardView
-                android:id="@+id/infoCardAverage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cardElevation="0dp"
-                app:cardUseCompatPadding="true" />
-
-            <com.yonder.weightly.uicomponents.InfoCardView
-                android:id="@+id/infoCardMin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cardElevation="0dp"
-                app:cardUseCompatPadding="true" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/space_8"
-            android:layout_marginStart="@dimen/space_4"
-            android:layout_marginBottom="8dp"
-            android:text="@string/history"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/cvRecyclerview"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_insight_view" />
-
-        <Button
-            android:id="@+id/btnSeeAllHistory"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/space_8"
-            android:layout_marginEnd="@dimen/space_8"
-            android:gravity="end|center"
-            android:text="@string/see_all"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/purple_500"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvHistory" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvRecyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHistory">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvWeightHistory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/space_4"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:itemCount="10"
-                tools:listitem="@layout/item_weight_history" />
-        </androidx.cardview.widget.CardView>
     </com.yonder.statelayout.StateLayoutView>
+
+
 </androidx.core.widget.NestedScrollView>

@@ -4,79 +4,127 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_splash">
+
     <fragment
         android:id="@+id/navigation_splash"
         android:name="com.yonder.weightly.ui.splash.SplashFragment"
         android:label="@string/title_splash"
         tools:layout="@layout/fragment_splash">
+
         <action
             android:id="@+id/action_navigate_home"
-            app:destination="@id/navigation_home"
             app:launchSingleTop="true"
             app:popUpTo="@+id/mobile_navigation"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:destination="@id/navigation_home" />
+
         <action
             android:id="@+id/action_navigate_on_boarding"
             app:destination="@id/navigation_on_boarding" />
-    </fragment>
 
+        <action
+            android:id="@+id/action_navigate_to_open_lock"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true"
+            app:destination="@id/navigation_open_lock" />
+
+    </fragment>
     <fragment
         android:id="@+id/navigation_on_boarding"
         android:name="com.yonder.weightly.ui.onboarding.OnBoardingFragment"
         android:label="@string/title_on_boarding"
         tools:layout="@layout/fragment_on_boarding">
+
         <action
             android:id="@+id/action_navigate_home"
-            app:destination="@id/navigation_home"
             app:launchSingleTop="true"
             app:popUpTo="@+id/mobile_navigation"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:destination="@id/navigation_home" />
+
     </fragment>
+
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.yonder.weightly.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
+
         <action
             android:id="@+id/action_navigate_add_weight"
             app:destination="@id/navigation_add_weight" />
+
         <action
             android:id="@+id/action_navigate_history"
             app:destination="@id/navigation_history" />
+
         <action
             android:id="@+id/action_navigate_settings"
             app:destination="@id/navigation_settings" />
+
     </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.yonder.weightly.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
 
-    <dialog
+        <action
+            android:id="@+id/action_navigate_splash"
+            app:destination="@id/navigation_splash" />
+
+        <action
+            android:id="@+id/action_navigate_to_set_lock"
+            app:destination="@id/navigation_set_lock" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_calendar"
+        android:name="com.yonder.weightly.ui.calendar.CalendarFragment"
+        android:label="@string/title_calendar"
+        tools:layout="@layout/fragment_calendar" >
+
+        <action
+            android:id="@+id/action_navigate_add_weight"
+            app:destination="@id/navigation_add_weight" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_history"
         android:name="com.yonder.weightly.ui.history.HistoryFragment"
         android:label="@string/title_history"
         tools:layout="@layout/fragment_history">
+
         <action
             android:id="@+id/action_navigate_add_weight"
             app:destination="@id/navigation_add_weight" />
-    </dialog>
+    </fragment>
 
     <dialog
         android:id="@+id/navigation_add_weight"
         android:name="com.yonder.weightly.ui.add.AddWeightFragment"
         android:label="@string/title_add_weight"
         tools:layout="@layout/fragment_add_weight">
+
+        <argument
+            android:name="selectedDate"
+            app:argType="com.yonder.weightly.domain.uimodel.WeightDateModel"
+            app:nullable="true" />
+
         <argument
             android:name="weight"
             app:argType="com.yonder.weightly.domain.uimodel.WeightUIModel"
             app:nullable="true" />
+
         <action
             android:id="@+id/action_navigate_emoji"
-            app:destination="@id/navigation_emoji" />
+            app:destination="@id/navigation_emoji"/>
+
     </dialog>
 
     <dialog
@@ -84,4 +132,29 @@
         android:name="com.yonder.weightly.ui.emoji.EmojiFragment"
         android:label="@string/title_emoji"
         tools:layout="@layout/fragment_emoji" />
+
+
+    <fragment
+        android:id="@+id/navigation_set_lock"
+        android:name="com.yonder.weightly.ui.setlock.SetLockFragment"
+        android:label="@string/title_set_lock"
+        tools:layout="@layout/fragment_set_lock">
+
+        <action
+            android:id="@+id/action_navigate_splash"
+            app:destination="@id/navigation_splash" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_open_lock"
+        android:name="com.yonder.weightly.ui.openlock.OpenLockFragment"
+        android:label="@string/title_open_lock"
+        tools:layout="@layout/fragment_open_lock">
+
+        <action
+            android:id="@+id/action_navigate_home"
+            app:destination="@id/navigation_home" />
+
+    </fragment>
 </navigation>

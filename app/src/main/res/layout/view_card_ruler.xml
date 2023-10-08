@@ -16,6 +16,8 @@
             android:id="@+id/tfInputCurrentWeight"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
+            app:hintTextColor="@color/gray_500"
+            app:boxBackgroundColor="@color/white"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -24,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:fontFamily="@font/poppins_medium"
                 android:inputType="numberDecimal"
                 android:maxLength="5" />
         </com.google.android.material.textfield.TextInputLayout>

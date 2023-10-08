@@ -1,10 +1,7 @@
 package com.yonder.weightly.utils
 
-import android.view.LayoutInflater
+
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
@@ -13,11 +10,6 @@ import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-/** Activity binding delegate, may be used since onCreate up to onDestroy (inclusive) */
-inline fun <T : ViewBinding> AppCompatActivity.viewBinding(crossinline factory: (LayoutInflater) -> T) =
-    lazy(LazyThreadSafetyMode.NONE) {
-        factory(layoutInflater)
-    }
 
 /** Fragment binding delegate, may be used since onViewCreated up to onDestroyView (inclusive) */
 fun <T : ViewBinding> Fragment.viewBinding(factory: (View) -> T): ReadOnlyProperty<Fragment, T> =
@@ -37,14 +29,3 @@ fun <T : ViewBinding> Fragment.viewBinding(factory: (View) -> T): ReadOnlyProper
             binding = null
         }
     }
-
-/** Binding delegate for DialogFragments implementing onCreateDialog (like Activities, they don't
- *  have a separate view lifecycle), may be used since onCreateDialog up to onDestroy (inclusive) */
-inline fun <T : ViewBinding> DialogFragment.viewBinding(crossinline factory: (LayoutInflater) -> T) =
-    lazy(LazyThreadSafetyMode.NONE) {
-        factory(layoutInflater)
-    }
-
-/** Not really a delegate, just a small helper for RecyclerView.ViewHolders */
-inline fun <T : ViewBinding> ViewGroup.viewBinding(factory: (LayoutInflater, ViewGroup, Boolean) -> T) =
-    factory(LayoutInflater.from(context), this, false)

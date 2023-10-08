@@ -24,15 +24,35 @@ android {
     }
 
     buildTypes {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def play_public_key = properties.getProperty('play_public_key')
+        def base_url = properties.getProperty('base_url')
+        def full_screen_ad_id = properties.getProperty('full_screen_ad_id')
+
+        debug {
+            minifyEnabled false
+            buildConfigField "String", "PLAY_PUBLIC_KEY", play_public_key
+            buildConfigField "String", "BASE_URL", base_url
+            buildConfigField "String", "FULL_SCREEN_AD_ID", full_screen_ad_id
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "PLAY_PUBLIC_KEY", play_public_key
+            buildConfigField "String", "BASE_URL", base_url
+            buildConfigField "String", "FULL_SCREEN_AD_ID", full_screen_ad_id
         }
+
     }
+
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -47,7 +67,8 @@ android {
 dependencies {
     implementation Libs.AndroidX.core
     implementation Libs.AndroidX.appCompat
-    implementation Libs.Google.material
+    implementation "com.android.billingclient:billing-ktx:5.0.0"
+
     implementation Libs.AndroidX.constraintLayout
     implementation Libs.AndroidX.vmLifeCycle
     implementation Libs.AndroidX.navigation
@@ -86,4 +107,21 @@ dependencies {
     implementation platform(Libs.Firebase.boom)
     implementation Libs.Firebase.analytics
     implementation Libs.Firebase.crashlytics
+    implementation Libs.Firebase.ads
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    implementation 'com.kizitonwose.calendar:view:2.0.0'
+    implementation 'com.google.android.material:material:1.7.0-alpha02'
+
+    implementation 'com.codemybrainsout.rating:ratingdialog:2.0.0'
+
+    implementation Libs.Network.gson
+    implementation Libs.Network.retrofit
+    implementation Libs.Network.converter
+    implementation Libs.Network.okhttp
+    implementation Libs.Network.interceptor
+
+
+
 }

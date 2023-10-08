@@ -3,11 +3,8 @@
     <color name="purple_200">#63a4ff</color>
     <color name="purple_500">#1976d2</color>
     <color name="purple_700">#004ba0</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="purple_500_tra">#171976D2</color>
     <color name="green">#4CAF50</color>
-    <color name="purple_200_tra">#3463A4FF</color>
-
     <color name="orange">#EC5E31</color>
     <color name="yellow">#FFEB3B</color>
     <color name="red">#E91E1E</color>
@@ -15,6 +12,16 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray_50">#F4F2F2</color>
     <color name="gray_100">#CDCDCD</color>
+    <color name="gray_200">#659C9C9C</color>
     <color name="gray_500">#616161</color>
     <color name="chart_background">#FFFFFFFF</color>
+
+    <color name="white_allways">#FFFFFFFF</color>
+
+    <color name="primary">#36A6BF</color>
+    <color name="secondary">#398CBF</color>
+    <color name="feedbackTextColor">#000000</color>
+    <color name="ratingBarColor">#FFD600</color>
+    <color name="cardStrokeColor">#616161</color>
+
 </resources>

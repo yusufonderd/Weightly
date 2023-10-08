@@ -1,6 +1,7 @@
 package com.yonder.weightly.ui
 
 import android.app.Application
+import com.google.android.material.color.DynamicColors
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.orhanobut.hawk.Hawk
 import com.vanniktech.emoji.EmojiManager
@@ -18,6 +19,7 @@ class App : Application() {
         setupHawk()
         setupEmojiManager()
         initCrashlytics()
+        DynamicColors.applyToActivitiesIfAvailable(this);
     }
 
     private fun initCrashlytics() {

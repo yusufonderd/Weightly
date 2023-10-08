@@ -9,21 +9,27 @@
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
+        android:fontFamily="@font/poppins_medium"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceMedium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="07 May 2022" />
+        tools:text="07 May 2022">
+
+    </TextView>
 
     <TextView
         android:id="@+id/tvNote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
+        android:fontFamily="@font/poppins"
         app:layout_constraintEnd_toStartOf="@+id/tvEmoji"
+        android:textAppearance="?android:textAppearanceSmall"
         app:layout_constraintStart_toStartOf="@+id/tvDate"
         app:layout_constraintTop_toBottomOf="@+id/tvDate"
-        tools:text="@tools:sample/lorem" />
+        tools:text="@tools:sample/lorem">
+
+    </TextView>
 
     <TextView
         android:id="@+id/tvEmoji"
@@ -42,9 +48,10 @@
         android:id="@+id/tvWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/space_8"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@color/black"
+        android:layout_marginEnd="@dimen/space_8"
+        android:fontFamily="@font/poppins"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvDifference"
         app:layout_constraintTop_toTopOf="parent"
@@ -54,7 +61,9 @@
         android:id="@+id/tvDifference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
         app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="+10 " />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

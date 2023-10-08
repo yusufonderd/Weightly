@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/space_8"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3586001333170518/8201298690"
+        ads:layout_constraintTop_toTopOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"/>
+
+
+    <com.kizitonwose.calendar.view.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cv_dayViewResource="@layout/example_3_calendar_day"
+        app:cv_monthHeaderResource="@layout/example_3_calendar_header"
+        app:cv_orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adView"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

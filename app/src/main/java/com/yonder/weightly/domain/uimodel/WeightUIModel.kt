@@ -19,3 +19,8 @@ data class WeightUIModel(
     var difference: String,
     @ColorRes var differenceColor: Int
 ) : Parcelable
+
+@Parcelize
+data class WeightDateModel(
+    var selectedDate: Date
+): Parcelable

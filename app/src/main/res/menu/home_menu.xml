@@ -6,9 +6,5 @@
         android:icon="@drawable/ic_baseline_add_24"
         android:title="@string/add_weight"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:title="@string/settings"
-        app:showAsAction="ifRoom" />
+
 </menu>

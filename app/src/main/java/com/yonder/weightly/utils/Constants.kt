@@ -1,6 +1,9 @@
 package com.yonder.weightly.utils
 
 object Constants {
+
+    const val PREMIUM_ACCOUNT = "premium_account"
+
     // For shared prefs
     object Prefs {
         const val KEY_CHART_TYPE = "key_chart_type"
@@ -9,5 +12,22 @@ object Constants {
         const val KEY_GOAL_WEIGHT_DATE = "key_goal_weight_date"
         const val KEY_SHOULD_SHOW_ON_BOARDING = "key_pref_on_boarding"
         const val KEY_CHART_LIMIT_LINE = "key_chart_limit_line"
+        const val THEME_TYPE = "key_theme_type"
+        const val KEY_IS_SCHEDULE_NOTIFICATION = "KEY_IS_SCHEDULE_NOTIFICATION"
+        const val IS_APP_LOCKED = "IS_APP_LOCKED"
+        const val APP_LOCK_PASSWORD = "APP_LOCK_PASSWORD"
+        const val RECOVERY_EMAIL = "RECOVERY_EMAIL"
+        const val APP_LOCK_HINT = "APP_LOCK_HINT"
+
+    }
+
+    object Notification {
+        const val KEY_HOUR = "key_hour"
+        const val KEY_MINUTE = "key_minute"
+    }
+
+    object Defaults {
+        const val NOTIFICATION_HOUR = 10
+        const val NOTIFICATION_MINUTE = 30
     }
 }

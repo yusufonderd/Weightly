@@ -1,15 +1,21 @@
 <resources>
     <string name="app_name">Weightly</string>
-    <string name="title_home">Weightly</string>
+    <string name="title_home">Summary</string>
     <string name="title_splash">Splash</string>
     <string name="title_on_boarding">On Boarding</string>
     <string name="title_settings">Settings</string>
+    <string name="title_calendar">Calendar</string>
+
     <string name="title_history">History</string>
+    <string name="title_set_lock">Set lock</string>
+    <string name="title_open_lock">Open lock</string>
 
     <string name="title_emoji">Emojis</string>
 
     <string name="history">History</string>
     <string name="summary">Summary</string>
+    <string name="dashboard">Dashboard</string>
+
     <string name="your_progress">Your progress</string>
 
     <string name="see_all"><u>See All</u></string>
@@ -19,7 +25,7 @@
     <string name="select_date">Select date</string>
     <string name="prev_day">Previous</string>
     <string name="next_day">Next</string>
-    <string name="input_weight">Input weight</string>
+    <string name="input_weight">Input your weight</string>
     <string name="goal_weight">Goal weight</string>
     <string name="current_weight">Current weight</string>
     <string name="enter_current_weight">Enter current weight</string>
@@ -56,8 +62,8 @@
     <string name="welcome_to_weightly">Welcome to Weightly</string>
     <string name="welcome_description">Hello 🥳 Please fill in your information to start 🚀</string>
 
-    <string name="alert_current_weight_must_different_with_goal_weight">Your current weight should be different from your target weight 🥳 </string>
-    <string name="alert_weight_bigger_than_zero">Your weight should be greater than 0 🥳 </string>
+    <string name="alert_current_weight_must_different_with_goal_weight">Your current weight should be different from your goal weight 🥳 </string>
+    <string name="alert_weight_bigger_than_zero">Your weight should be greater than 0 🥳</string>
 
     <string name="line_chart">Line</string>
     <string name="bar_chart">Bar</string>
@@ -71,4 +77,66 @@
     <string name="show_limit_lines_summary">See the goal and the average weight on the graph chart</string>
     <string name="rate_us_from_google_play">Rate us on Google Play</string>
     <string name="goal_summary_format">%.1f %s left until you reach the goal</string>
+
+    <string name="be_premium">Be premium</string>
+    <string name="be_premium_description">Remove ads</string>
+    <string name="premium_user">Premium User</string>
+
+    <string name="theme">Theme</string>
+    <string name="dark_mode">Dark Theme</string>
+    <string name="light_mode">Light Theme</string>
+    <string name="default_mode">Default</string>
+    <string name="passcode_protection">Passcode Protection</string>
+    <string name="every_day_notification_description">Receive a reminder notification every day in the same time.</string>
+    <string name="every_day_notification">Notifications</string>
+    <string name="every_day_notification_time">Notification hour</string>
+    <string name="select_notification_time">Select notification hour</string>
+    <string name="notification_title">Weightly Reminder</string>
+    <string name="notification_content">Hey. Did you weigh in today ? 🥳</string>
+    <string name="notification_closed">Reminder notification closed</string>
+    <string name="notification_activated">Reminder notification activated</string>
+    <string name="you_reach_the_goal_weight">Congratulations, You\'ve reached your goal weight 🥳</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="share_with_friends">Invite Friends</string>
+    <string name="reset_all_data">Reset all app data</string>
+    <string name="reset_all_data_title">Are you sure want to reset all data ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="rating_dialog_experience">How was your experience with us?</string>
+    <string name="rating_dialog_maybe_later">Maybe later</string>
+    <string name="rating_dialog_never">Never</string>
+    <string name="rating_dialog_feedback_title">Feedback</string>
+    <string name="rating_dialog_submit">Submit</string>
+    <string name="rating_dialog_cancel">Cancel</string>
+    <string name="rating_dialog_suggestions">Suggest us what went wrong and we\'ll work on it!</string>
+    <string name="submit_feedback">Submit Feedback</string>
+    <string name="add_weight_for_today">Add weight for today</string>
+    <string name="lock">Lock app</string>
+    <string name="unlock">Open lock</string>
+    <string name="password">Password</string>
+    <string name="password_again">Password again</string>
+    <string name="password_hint">Password hint</string>
+    <string name="recovery_email_hint">Recovery email</string>
+    <string name="hint">Password hint: %s</string>
+
+    <string name="done">Done</string>
+    <string name="please_make_sure_to_fill_all_fields">Please make sure to fill all fields</string>
+    <string name="invalid_email_address">Invalid email address</string>
+
+    <string name="password_does_not_match">Passwords doesn\'t match with the each other</string>
+    <string name="forgot_password">Forgot password ?</string>
+    <string name="wrong_password">Wrong password </string>
+    <string name="remove_app_lock_dialog_title">Are you sure want to open lock ? </string>
+
+    <string name="send_password_to_recovery_email">Send password to recovery email ?</string>
+    <string name="recovery_email_sent_successfully">Recovery email sent successfully</string>
+
+    <string name="error_occurred">Error occurred</string>
+
+    <string name="app_notification_channel_title">Weightly App Notifications</string>
+    <string name="app_notification_channel_description">Weightly reminders</string>
+
+
 </resources>
