@@ -97,14 +97,5 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-<!--
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_8"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3586001333170518/3120023094" />
-        -->
 
 </LinearLayout>

@@ -19,7 +19,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3586001333170518~4917300437"/>
+            android:value=""/>
 
         <meta-data
             android:name="preloaded_fonts"
