@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="0dp"
     tools:layout_height="wrap_content"
     tools:layout_width="wrap_content">
 
@@ -20,6 +19,7 @@
             android:ellipsize="end"
             android:lines="1"
             android:padding="@dimen/space_8"
+            android:fontFamily="@font/poppins_medium"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -36,12 +36,14 @@
             android:layout_marginBottom="@dimen/space_8"
             android:ellipsize="end"
             android:lines="1"
-            android:padding="@dimen/space_4"
+            android:fontFamily="@font/poppins"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="En yüksek kilo" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+
+</androidx.cardview.widget.CardView>

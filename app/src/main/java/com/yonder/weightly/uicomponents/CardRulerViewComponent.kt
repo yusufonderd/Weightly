@@ -9,6 +9,7 @@ import com.google.android.material.card.MaterialCardView
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.ViewCardRulerBinding
 import com.yonder.weightly.utils.enums.MeasureUnit
+import com.yonder.weightly.utils.extensions.orZero
 
 const val FLOOR_FOR_LB_TO_KG = 2.204f
 
@@ -23,34 +24,44 @@ class CardRulerViewComponent @JvmOverloads constructor(
 
     private var shouldChangeRulerView = true
 
-    var value: Float = 0.0f
+    var mValue: Float = 0.0f
 
     var currentUnit = MeasureUnit.KG
 
     fun setUnit(unit: MeasureUnit) {
         if (unit == MeasureUnit.LB) {
             if (currentUnit == MeasureUnit.KG) {
-                value *= FLOOR_FOR_LB_TO_KG
+                mValue *= FLOOR_FOR_LB_TO_KG
             }
             binding.rulerViewCurrent.setUnitStr(context.getString(R.string.lbs))
         } else {
             if (currentUnit == MeasureUnit.LB) {
-                value /= FLOOR_FOR_LB_TO_KG
+                mValue /= FLOOR_FOR_LB_TO_KG
             }
             binding.rulerViewCurrent.setUnitStr(context.getString(R.string.kg))
         }
         currentUnit = unit
-        binding.tilInputCurrentWeight.setText(context.getString(R.string.kg_format, value))
-        binding.rulerViewCurrent.setValue(value)
+        binding.tilInputCurrentWeight.setText(context.getString(R.string.kg_format, mValue))
+        binding.rulerViewCurrent.setValue(mValue)
     }
 
+    fun setValue(value: Float?)= with(binding) {
+        mValue = value.orZero()
+        if (value != null){
+            rulerViewCurrent.setValue(value)
+            tilInputCurrentWeight.setText(context.getString(R.string.kg_format, value))
+        }else{
+            rulerViewCurrent.setValue(0f)
+            tilInputCurrentWeight.setText("")
+        }
+    }
     fun render(cardRuler: CardRuler) = with(binding) {
         val context = binding.root.context
         rulerViewCurrent.setUnitStr(context.getString(cardRuler.unit))
         tfInputCurrentWeight.setHint(cardRuler.hint)
         rulerViewCurrent.setValueListener {
             shouldChangeRulerView = false
-            value = it
+            mValue = it
             tilInputCurrentWeight.setText(context.getString(R.string.kg_format, it))
         }
 
@@ -62,7 +73,7 @@ class CardRulerViewComponent @JvmOverloads constructor(
                 val weight = it.toString().trim().toFloatOrNull()
                 weight?.run {
                     rulerViewCurrent.setValue(this)
-                    value = this
+                    mValue = this
                 }
             }
             shouldChangeRulerView = true

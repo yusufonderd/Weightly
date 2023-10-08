@@ -27,6 +27,9 @@ interface WeightDao {
     @Delete
     suspend fun delete(user: WeightEntity)
 
+    @Query("DELETE FROM weight")
+    suspend fun deleteAll()
+
     @Query("SELECT * FROM weight ORDER BY timestamp DESC")
     fun getAllWeights(): Flow<List<WeightEntity>>
 

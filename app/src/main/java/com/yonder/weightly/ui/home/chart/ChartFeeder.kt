@@ -1,7 +1,9 @@
 package com.yonder.weightly.ui.home.chart
 
 import android.content.Context
+import android.graphics.Typeface
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.*
@@ -18,13 +20,15 @@ object ChartFeeder {
         barEntries: List<BarEntry>,
         context: Context
     ) {
+        val  font = ResourcesCompat.getFont(context, R.font.poppins)
         val set1 = LineDataSet(barEntries, String.EMPTY)
         set1.valueFormatter = WeightValueFormatter(histories)
-        set1.valueTextSize = 9f
-        set1.setDrawFilled(true)
+        set1.valueTextSize = 10f
+        set1.valueTypeface = font
+        set1.lineWidth = 2.5f
+        set1.circleRadius = 5f
+        set1.circleHoleRadius = 2.5f
         set1.valueTextColor = ContextCompat.getColor(context, R.color.black)
-        set1.fillColor = ContextCompat.getColor(context, R.color.purple_200)
-        set1.fillAlpha = 150
         set1.setCircleColor(ContextCompat.getColor(context, R.color.purple_200))
         val xAxis = chart.xAxis
         xAxis.textColor = ContextCompat.getColor(context, R.color.black)
@@ -39,6 +43,10 @@ object ChartFeeder {
         markerView.chartView = chart
         chart.marker = markerView
 
+        chart.axisLeft.typeface = font
+        chart.axisRight.typeface = font
+        chart.xAxis.typeface = font
+
         chart.invalidate()
     }
 
@@ -48,9 +56,11 @@ object ChartFeeder {
         barEntries: List<BarEntry>,
         context: Context
     ) {
+        val  font = ResourcesCompat.getFont(context, R.font.poppins)
         val set1 = BarDataSet(barEntries, String.EMPTY)
         set1.valueFormatter = WeightValueFormatter(histories)
         set1.valueTextSize = 9f
+        set1.valueTypeface = font
         set1.valueTextColor = ContextCompat.getColor(context, R.color.black)
         val xAxis = chart.xAxis
         xAxis.valueFormatter = XAxisValueDateFormatter(histories)
@@ -64,6 +74,10 @@ object ChartFeeder {
         val markerView = WeightMarkerView(context, histories)
         markerView.chartView = chart
         chart.marker = markerView
+
+        chart.axisLeft.typeface = font
+        chart.axisRight.typeface = font
+        chart.xAxis.typeface = font
 
         chart.invalidate()
     }

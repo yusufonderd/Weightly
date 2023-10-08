@@ -24,7 +24,6 @@ class InfoCardView @JvmOverloads constructor(
         tvValue.text = uiModel.title
         tvValue.setTextColor(ContextCompat.getColor(context, uiModel.titleTextColor))
         tvDescription.setTextColor(ContextCompat.getColor(context, uiModel.descriptionTextColor))
-        clRoot.setBackgroundColor(ContextCompat.getColor(context, uiModel.backgroundColor))
     }
 }
 

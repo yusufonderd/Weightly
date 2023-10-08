@@ -7,30 +7,31 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.gms.ads.AdRequest
 import com.yonder.statelayout.State
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentHomeBinding
-import com.yonder.weightly.domain.uimodel.WeightUIModel
-import com.yonder.weightly.ui.home.adapter.WeightHistoryAdapter
-import com.yonder.weightly.ui.home.adapter.WeightItemDecorator
+import com.yonder.weightly.ui.home.adapter.HomeInfoCardAdapter
+import com.yonder.weightly.ui.home.adapter.HomeInfoCardCreator
 import com.yonder.weightly.ui.home.chart.ChartFeeder
 import com.yonder.weightly.ui.home.chart.ChartInitializer
 import com.yonder.weightly.ui.home.chart.LimitLineFeeder
-import com.yonder.weightly.uicomponents.InfoCardUIModel
 import com.yonder.weightly.utils.enums.ChartType
+import com.yonder.weightly.utils.setSafeOnClickListener
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
+
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
     private val viewModel: HomeViewModel by viewModels()
 
-    private val adapterWeightHistory: WeightHistoryAdapter by lazy {
-        WeightHistoryAdapter(::onClickWeight)
+    private val adapter: HomeInfoCardAdapter by lazy {
+        HomeInfoCardAdapter()
     }
 
     override fun onCreateView(
@@ -46,10 +47,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observe()
+        initAdListener()
     }
 
     private fun observe() {
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect(::setUIState)
         }
     }
@@ -59,10 +61,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             stateLayout.setState(State.EMPTY)
         } else {
             stateLayout.setState(State.CONTENT)
-            llInsightView.isVisible = uiState.shouldShowInsightView
-            btnSeeAllHistory.isVisible = uiState.shouldShowAllWeightButton
-            adapterWeightHistory.submitList(uiState.reversedHistories)
-
+            binding.adView.isVisible = uiState.shouldShowAds
+            btnRemoveAds.isVisible = uiState.shouldShowAds
+            binding.btnAddWeightForToday.isVisible = uiState.shouldShowAddWeightForTodayButton
             if (uiState.chartType == ChartType.LINE) {
                 lineChart.isVisible = true
                 barChart.isVisible = false
@@ -72,6 +73,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     barEntries = uiState.barEntries,
                     context = requireContext()
                 )
+
             } else {
                 lineChart.isVisible = false
                 barChart.isVisible = true
@@ -99,49 +101,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             } else {
                 LimitLineFeeder.removeLimitLines(lineChart = lineChart, barChart = barChart)
             }
-
-            infoCardAverage.render(
-                InfoCardUIModel(
-                    title = uiState.averageWeight,
-                    description = R.string.title_average_weight,
-                    titleTextColor = R.color.orange
-                )
-            )
-            infoCardMax.render(
-                InfoCardUIModel(
-                    title = uiState.maxWeight,
-                    description = R.string.title_max_weight,
-                    titleTextColor = R.color.red
-                )
-            )
-            infoCardMin.render(
-                InfoCardUIModel(
-                    title = uiState.minWeight,
-                    description = R.string.title_min_weight,
-                    titleTextColor = R.color.green
-
-                )
-            )
-            icCurrent.render(
-                InfoCardUIModel(
-                    title = uiState.currentWeight,
-                    description = R.string.current,
-                    titleTextColor = R.color.purple_500
-                )
-            )
-            icGoal.render(
-                InfoCardUIModel(
-                    title = uiState.goalWeight,
-                    description = R.string.goal
-                )
-            )
-
-            icStart.render(
-                InfoCardUIModel(
-                    title = uiState.startWeight,
-                    description = R.string.start
-                )
-            )
+            val infoCardList = HomeInfoCardCreator.create(uiState)
+            adapter.submitList(infoCardList)
             uiState.userGoal?.run(tvGoalDescription::setText)
         }
     }
@@ -149,44 +110,56 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onResume() {
         super.onResume()
         viewModel.fetchHome()
+        viewModel.checkIsPremiumUser()
+        viewModel.hasUserWeightForToday()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.cancelJobs()
     }
 
     private fun initViews() = with(binding) {
-        initWeightRecyclerview()
+
+        with(rvInfoCard){
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            adapter = this@HomeFragment.adapter
+            itemAnimator = null
+        }
+
         ChartInitializer.initLineChart(lineChart)
         ChartInitializer.initBarChart(barChart)
-        btnSeeAllHistory.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionNavigateHistory())
+        btnRemoveAds.setSafeOnClickListener {
+            viewModel.startBilling(requireActivity())
         }
-    }
-
-    private fun initWeightRecyclerview() = with(binding.rvWeightHistory) {
-        adapter = adapterWeightHistory
-        addItemDecoration(WeightItemDecorator(requireContext()))
-        addItemDecoration(
-            DividerItemDecoration(
-                context,
-                DividerItemDecoration.VERTICAL
+        btnAddWeightForToday.setSafeOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionNavigateAddWeight(
+                    selectedDate = null,
+                    weight = null
+                )
             )
-        )
-    }
-
-    private fun onClickWeight(weight: WeightUIModel) {
-        findNavController().navigate(HomeFragmentDirections.actionNavigateAddWeight(weight))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home_menu, menu)
     }
 
+    private fun initAdListener() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_add -> {
-                findNavController().navigate(HomeFragmentDirections.actionNavigateAddWeight(null))
-                true
-            }
-            R.id.action_settings -> {
-                findNavController().navigate(HomeFragmentDirections.actionNavigateSettings())
+                findNavController().navigate(
+                    HomeFragmentDirections.actionNavigateAddWeight(
+                        null,
+                        null
+                    )
+                )
                 true
             }
             else -> super.onOptionsItemSelected(item)

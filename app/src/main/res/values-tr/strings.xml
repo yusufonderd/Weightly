@@ -1,15 +1,26 @@
 <resources>
     <string name="app_name">Weightly</string>
-    <string name="title_home">Weightly</string>
+    <string name="title_home">Özet</string>
     <string name="title_splash">Başlangıç</string>
     <string name="title_on_boarding">Kurulum</string>
     <string name="title_settings">Ayarlar</string>
+    <string name="title_calendar">Takvim</string>
     <string name="title_history">Geçmiş</string>
-
     <string name="title_emoji">Emojiler</string>
+    <string name="title_set_lock">Uygulamayı kilitle</string>
+    <string name="title_open_lock">Kilidi aç</string>
+
+
+    <string name="kg_format" >%1$s kg</string>
+    <string name="lb_format" >%1$s lb</string>
+
+    <string name="kg">kg</string>
+    <string name="lbs" >lb</string>
 
     <string name="history">Geçmiş</string>
     <string name="summary">Özet</string>
+    <string name="dashboard">Göstergeler</string>
+
     <string name="your_progress">Gelişimin</string>
 
     <string name="see_all"><u>Tümünü gör</u></string>
@@ -25,7 +36,7 @@
     <string name="enter_current_weight">Şu anki kilonu gir</string>
     <string name="enter_goal_weight">Hedef kilonu gir</string>
 
-    <string name="input_note">Not gir</string>
+    <string name="input_note">Not girebilirsin</string>
     <string name="select_emoji">Emoji seç</string>
     <string name="select_emoji_with_emoji_format">%1$s Emoji seç</string>
     <string name="title_no_weight">Sağ üstteki artı butonuna basarak kilo ekleyebilirsin</string>
@@ -65,4 +76,67 @@
     <string name="show_limit_lines_summary">Hedef kilom ve ortalama kilom grafikte görünsün</string>
     <string name="rate_us_from_google_play">Bizi Google Play\'de oyla</string>
     <string name="goal_summary_format">Hedefine ulaşmana %.1f %s kaldı</string>
+
+    <string name="be_premium">Premium ol</string>
+    <string name="be_premium_description">Reklamları kaldır</string>
+    <string name="premium_user">Premium Kullanıcı</string>
+
+    <string name="theme">Tema</string>
+    <string name="dark_mode">Koyu Tema</string>
+    <string name="light_mode">Açık Tema</string>
+    <string name="default_mode">Varsayılan</string>
+
+    <string name="passcode_protection">Güvenlik Parolası</string>
+
+    <string name="every_day_notification_description">Kilonuzu girmeniz için size her gün aynı saatte hatırlatma bildirimi gönderiyoruz.</string>
+    <string name="every_day_notification">Bildirimler</string>
+    <string name="every_day_notification_time">Bildirim saati</string>
+    <string name="select_notification_time">Bildirim saati seç</string>
+    <string name="notification_title">Kilo Hatırlatıcı</string>
+    <string name="notification_content">Hey şimdi tartılmaya ne dersin ? 🥳</string>
+    <string name="notification_closed">Hatırlatma bildirimi kapatıldı</string>
+    <string name="notification_activated">Hatırlatma bildirimi aktifleştirildi</string>
+
+    <string name="you_reach_the_goal_weight">Tebrikler Hedef kilona ulaştın 🥳</string>
+
+    <string name="ok">Tamam</string>
+    <string name="cancel">İptal</string>
+    <string name="share_with_friends">Arkadaşlarını davet et</string>
+    <string name="reset_all_data">Tüm verileri temizle</string>
+    <string name="reset_all_data_title">Tüm verileri sıfırlamak istediğinizden emin misiniz ?</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+
+    <string name="rating_dialog_experience">Uygulamamızı değerlendirmek ister misiniz ?</string>
+    <string name="rating_dialog_maybe_later">Belki sonra</string>
+    <string name="rating_dialog_never">Hayır</string>
+    <string name="rating_dialog_feedback_title">Geri bildirim</string>
+    <string name="rating_dialog_submit">Gönder</string>
+    <string name="rating_dialog_cancel">İptal</string>
+    <string name="rating_dialog_suggestions">Bize neyin yanlış gittiğini söyleyin. Üzerinde çalışacağız…</string>
+    <string name="submit_feedback">Geri bildirim gönder</string>
+    <string name="add_weight_for_today">Bugün için kilo ekle</string>
+
+    <string name="lock">Kilitle</string>
+    <string name="unlock">Kilidi aç</string>
+    <string name="password">Parola</string>
+    <string name="password_again">Parola tekrar</string>
+    <string name="password_hint">Parola ipucu</string>
+    <string name="recovery_email_hint">Kurtarma e-postası</string>
+    <string name="hint">Parola ipucu: %s</string>
+    <string name="done">Tamam</string>
+    <string name="please_make_sure_to_fill_all_fields">Lütfen tüm gerekli alanları doldurunuz</string>
+    <string name="invalid_email_address">Hatalı e-posta adresi</string>
+    <string name="password_does_not_match">Şifre ile şifre tekrarı birbiri ile uyuşmuyor</string>
+    <string name="forgot_password">Şifreni mi unuttun ?</string>
+    <string name="wrong_password">Hatalı parola</string>
+    <string name="remove_app_lock_dialog_title">Şifreyi kaldırmak istediğinizden emin misiniz ?</string>
+    <string name="send_password_to_recovery_email">Parolanı kurtarma e-postası\'na gönderelim mi ? </string>
+    <string name="recovery_email_sent_successfully">Kurtarma e-postası gönderildi.</string>
+    <string name="error_occurred">Bir hata oluştu</string>
+
+    <string name="app_notification_channel_title">Weightly Bildirimleri</string>
+    <string name="app_notification_channel_description">Weightly kilo takip hatırlatıcısı</string>
+
+
 </resources>

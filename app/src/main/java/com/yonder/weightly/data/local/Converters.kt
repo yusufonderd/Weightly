@@ -1,12 +1,12 @@
 package com.yonder.weightly.data.local
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.util.Date
 
 class Converters {
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+        return value?.let(::Date)
     }
 
     @TypeConverter

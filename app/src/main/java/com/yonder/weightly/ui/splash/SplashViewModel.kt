@@ -15,6 +15,7 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor() : ViewModel() {
     sealed class Event {
         object NavigateToHome : Event()
+        object NavigateToOpenLockScreen : Event()
         object NavigateToOnBoardingScreen : Event()
     }
 
@@ -26,6 +27,8 @@ class SplashViewModel @Inject constructor() : ViewModel() {
         val shouldShowOnBoardingScreen = Hawk.get(Constants.Prefs.KEY_SHOULD_SHOW_ON_BOARDING, true)
         if (shouldShowOnBoardingScreen) {
             eventChannel.send(Event.NavigateToOnBoardingScreen)
+        } else if (Hawk.get(Constants.Prefs.IS_APP_LOCKED, false)) {
+            eventChannel.send(Event.NavigateToOpenLockScreen)
         } else {
             eventChannel.send(Event.NavigateToHome)
         }

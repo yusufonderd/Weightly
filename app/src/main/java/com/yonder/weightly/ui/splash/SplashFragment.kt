@@ -34,6 +34,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                     SplashViewModel.Event.NavigateToHome -> {
                         findNavController().navigate(SplashFragmentDirections.actionNavigateHome())
                     }
+                    SplashViewModel.Event.NavigateToOpenLockScreen -> {
+                        findNavController().navigate(SplashFragmentDirections.actionNavigateToOpenLock())
+                    }
                 }
             }
         }

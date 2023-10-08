@@ -1,51 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:icon="@drawable/ic_baseline_stars_24"
+        app:key="premium"
+        android:summary="@string/be_premium_description"
+        app:title="@string/be_premium" />
+
     <PreferenceCategory app:title="@string/chart">
+
         <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="show_limit_lines"
-            android:summary="@string/show_limit_lines_summary"
             android:title="@string/show_limit_lines"
-            app:icon="@drawable/ic_baseline_show_chart_24" />
+            android:defaultValue="true"
+            app:icon="@drawable/ic_baseline_show_chart_24"
+            android:summary="@string/show_limit_lines_summary"
+            android:key="show_limit_lines" />
+
         <ListPreference
             app:entries="@array/chart_type_values"
             app:entryValues="@array/chart_type_entries"
-            app:icon="@drawable/ic_baseline_multiline_chart_24"
             app:key="chart_type"
+            app:icon="@drawable/ic_baseline_multiline_chart_24"
             app:title="@string/chart_type"
             app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/general">
+
+        <!--
+        <CheckBoxPreference
+            android:title="@string/every_day_notification"
+            android:defaultValue="true"
+            app:icon="@drawable/ic_baseline_notifications_24"
+            android:summary="@string/every_day_notification_description"
+            android:key="notification" />
+
+        <Preference
+            app:dependency="notification"
+            app:icon="@drawable/ic_baseline_access_time_filled_24"
+            app:key="notification_time"
+            app:title="@string/every_day_notification_time" />
+            -->
+
+        <ListPreference
+            app:entries="@array/theme_values"
+            app:entryValues="@array/theme_entries"
+            app:key="theme"
+            app:icon="@drawable/ic_baseline_dark_mode_24"
+            app:title="@string/theme"
+            app:useSimpleSummaryProvider="true" />
+
         <ListPreference
             app:entries="@array/unit_entries"
             app:entryValues="@array/unit_entries"
-            app:icon="@drawable/ic_baseline_bookmark_24"
             app:key="unit"
+            app:icon="@drawable/ic_baseline_bookmark_24"
             app:title="@string/unit"
             app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            app:icon="@drawable/ic_baseline_monitor_weight_24"
+            app:key="goal_weight"
+            app:title="@string/goal_weight" />
+
+
+        <Preference
+            app:icon="@drawable/ic_baseline_lock_24"
+            app:key="set_lock"
+            app:title="@string/lock" />
+
+        <com.yonder.weightly.ui.settings.TextColorPreference
+            app:icon="@drawable/ic_baseline_delete_outline_red_24"
+            app:key="reset_all_data"
+            app:iconSpaceReserved="false"
+            app:title="@string/reset_all_data"/>
+
+
     </PreferenceCategory>
 
+
     <PreferenceCategory app:title="@string/feedback">
+
         <Preference
             app:icon="@drawable/ic_baseline_feedback_24"
             app:key="send_feedback"
             app:title="@string/send_feedback" />
+
+
         <Preference
             app:icon="@drawable/ic_baseline_rate_review_24"
             app:key="rate_us"
             app:title="@string/rate_us_from_google_play" />
+
+        <Preference
+            app:icon="@drawable/ic_baseline_share_24"
+            app:key="share_with_friends"
+            app:title="@string/share_with_friends" />
+
     </PreferenceCategory>
 
+
     <PreferenceCategory app:title="@string/development">
+
         <Preference
             app:icon="@drawable/ic_baseline_person_outline_24"
             app:key="developer"
             app:title="@string/developer" />
+
         <Preference
             app:icon="@drawable/ic_baseline_code_24"
             app:key="source_code"
             app:title="@string/source_code" />
+
     </PreferenceCategory>
+
 </PreferenceScreen>

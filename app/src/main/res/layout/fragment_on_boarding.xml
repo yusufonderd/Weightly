@@ -12,17 +12,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome_to_weightly"
+        android:fontFamily="@font/poppins_medium"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@color/black"
-        android:textStyle="bold" />
+        android:textStyle="bold">
+
+    </TextView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:text="@string/welcome_description"
+        android:gravity="center"
+        android:fontFamily="@font/poppins"
+
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@color/black" />
+        android:textColor="@color/black">
+
+    </TextView>
 
     <com.yonder.weightly.uicomponents.CardRulerViewComponent
         android:id="@+id/cardRulerCurrent"
@@ -30,48 +37,74 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_8"
-        app:cardElevation="0dp" />
+        app:cardElevation="0dp">
+
+    </com.yonder.weightly.uicomponents.CardRulerViewComponent>
 
     <com.yonder.weightly.uicomponents.CardRulerViewComponent
         android:id="@+id/cardRulerGoal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/space_8"
-        app:cardElevation="0dp" />
+        app:cardElevation="0dp">
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/toggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:checkedButton="@+id/button1"
-        app:selectionRequired="true"
-        app:singleSelection="true">
+    </com.yonder.weightly.uicomponents.CardRulerViewComponent>
 
-        <Button
-            android:id="@+id/button1"
-            style="?attr/materialButtonOutlinedStyle"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/kg" />
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:checkedButton="@+id/button1"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <Button
+                android:id="@+id/button1"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/kg" />
+
+            <Button
+                android:id="@+id/button2"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_height="wrap_content"
+                android:text="@string/lbs" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <Button
-            android:id="@+id/button2"
-            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/btnContinue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lbs" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+            android:layout_marginVertical="@dimen/space_8"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/_continue"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnContinue"
-        style="@style/Widget.MaterialComponents.Button.Icon"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/space_8"
         android:layout_marginTop="@dimen/space_8"
-        android:text="@string/_continue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnEmoji"
-        app:layout_constraintStart_toStartOf="@+id/btnEmoji"
-        app:layout_constraintTop_toBottomOf="@+id/btnEmoji" />
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3586001333170518/3120023094" />
+        -->
+
 </LinearLayout>

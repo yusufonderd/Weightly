@@ -6,31 +6,44 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
-import androidx.fragment.app.DialogFragment
+import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.orhanobut.hawk.Hawk
+import com.yonder.weightly.BuildConfig
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentAddWeightBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.ui.emoji.EmojiFragment
+import com.yonder.weightly.uicomponents.CardRuler
+import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.enums.MeasureUnit
 import com.yonder.weightly.utils.extensions.*
+import com.yonder.weightly.utils.setSafeOnClickListener
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import java.util.*
+
 
 const val CURRENT_DATE_FORMAT = "dd MMM yyyy"
 const val TAG_DATE_PICKER = "Tag_Date_Picker"
 
 @AndroidEntryPoint
 class AddWeightFragment : BottomSheetDialogFragment() {
+
     private val args: AddWeightFragmentArgs by navArgs()
 
     private val viewModel: AddWeightViewModel by viewModels()
@@ -38,16 +51,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
     private var selectedDate = Date()
     private var emoji: String = String.EMPTY
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogStyle)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_add_weight, container, false)
+    lateinit var adRequest: AdRequest
 
     private val binding by viewBinding(FragmentAddWeightBinding::bind)
 
@@ -56,34 +60,75 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         initViews()
         observe()
         val argWeight = args.weight
+        val selectedDateModel = args.selectedDate
         if (argWeight != null) {
             fetchDate(argWeight.date)
         } else {
-            //fetch current date
-            binding.btnNext.isGone = true
-            viewModel.fetchDate(selectedDate)
+            if (selectedDateModel != null) {
+                fetchDate(selectedDateModel.selectedDate)
+            } else {
+                //fetch current date
+                binding.btnNext.isEnabled = false
+                viewModel.fetchDate(selectedDate)
+            }
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_add_weight, container, false)
+
+
+    private fun initAdListener() {
+        adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(requireContext(),
+            BuildConfig.FULL_SCREEN_AD_ID,
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(p0: InterstitialAd) {
+                    mInterstitialAd = p0
+                }
+
+                override fun onAdFailedToLoad(p0: LoadAdError) {
+                    mInterstitialAd = null
+                }
+            })
+        binding.adView.loadAd(adRequest)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.checkIsPremiumUser()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.cancelJobs()
+    }
+
     private fun initViews() = with(binding) {
-        btnPrev.setOnClickListener {
+
+        initAdListener()
+        btnPrev.setSafeOnClickListener {
             fetchDate(selectedDate.prevDay())
         }
 
-        btnNext.setOnClickListener {
+        btnNext.setSafeOnClickListener {
             fetchDate(selectedDate.nextDay())
         }
 
-        btnEmoji.setOnClickListener {
+        btnEmoji.setSafeOnClickListener {
             findNavController().navigate(R.id.action_navigate_emoji)
         }
 
-        btnDelete.setOnClickListener {
+        btnDelete.setSafeOnClickListener {
             viewModel.delete(date = selectedDate)
             findNavController().popBackStack()
         }
 
-        btnSelectDate.setOnClickListener {
+        btnSelectDate.setSafeOnClickListener {
             val calendar = Calendar.getInstance()
             val startFrom = calendar.timeInMillis
             val constraints = CalendarConstraints.Builder()
@@ -101,13 +146,26 @@ class AddWeightFragment : BottomSheetDialogFragment() {
                 fetchDate(Date(timestamp))
             }
 
-            datePicker.show(parentFragmentManager, TAG_DATE_PICKER)
+            datePicker.show(parentFragmentManager, TAG_DATE_PICKER);
         }
 
         btnSelectDate.text = selectedDate.toFormat(CURRENT_DATE_FORMAT)
 
-        btnSaveOrUpdate.setOnClickListener {
-            val weight = tilInputWeight.text.toString()
+        val unit = MeasureUnit.findValue(Hawk.get<String>(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT))
+        val unitResource = if (unit == MeasureUnit.KG) {
+            R.string.kg
+        } else {
+            R.string.lbs
+        }
+        binding.cardRulerWeight.render(
+            CardRuler(
+                unit = unitResource,
+                hint = R.string.enter_current_weight
+            )
+        )
+
+        btnSaveOrUpdate.setSafeOnClickListener {
+            val weight = binding.cardRulerWeight.mValue.toString()
             val note = tilInputNote.text.toString()
             viewModel.saveOrUpdateWeight(
                 weight = weight,
@@ -127,15 +185,20 @@ class AddWeightFragment : BottomSheetDialogFragment() {
             selectedDate > Date() || selectedDate.toFormat(CURRENT_DATE_FORMAT) == Date().toFormat(
                 CURRENT_DATE_FORMAT
             )
-        binding.btnNext.isGone = shouldHideNextButton
+        binding.btnNext.isEnabled = shouldHideNextButton.not()
     }
+
+    private var mInterstitialAd: InterstitialAd? = null
 
     private fun observe() {
         lifecycleScope.launchWhenStarted {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
                     AddWeightViewModel.Event.PopBackStack -> {
-                        findNavController().popBackStack()
+                       goBack()
+                    }
+                    AddWeightViewModel.Event.ShowInterstitialAd -> {
+                        showInterstitialAd()
                     }
                     is AddWeightViewModel.Event.ShowToast -> {
                         context.showToast(event.textResId)
@@ -152,15 +215,38 @@ class AddWeightFragment : BottomSheetDialogFragment() {
             emoji = bundle.getString(EmojiFragment.KEY_BUNDLE_EMOJI).orEmpty()
             binding.btnEmoji.text = getString(R.string.select_emoji_with_emoji_format, emoji)
         }
+
+    }
+
+    private fun showInterstitialAd(){
+        if (mInterstitialAd != null) {
+            mInterstitialAd?.fullScreenContentCallback = object :
+                FullScreenContentCallback() {
+                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                    goBack()
+                }
+                override fun onAdDismissedFullScreenContent() {
+                    goBack()
+                }
+            }
+            mInterstitialAd?.show(requireActivity())
+        } else {
+            goBack()
+        }
+    }
+    private fun goBack() {
+        findNavController().popBackStack()
     }
 
     private fun setUIState(uiState: AddWeightViewModel.UiState) = with(binding) {
         val weight = uiState.currentWeight
+        val shouldShowSaveButton  = uiState.shouldShowSaveButton
         tilInputNote.setText(weight?.note.orEmpty())
-        tilInputWeight.setText(uiState.currentWeight?.valueText.orEmpty())
-        setBtnSaveStatus(weight = weight)
+        cardRulerWeight.setValue(uiState.currentWeight?.value)
+        setBtnSaveStatus(shouldShowSaveButton = shouldShowSaveButton)
         setBtnEmojiStatus(weight = weight)
-        setDeleteButton(weight = weight)
+        setDeleteButton(shouldShowSaveButton = shouldShowSaveButton)
+        binding.adView.isVisible = uiState.shouldShowAds
     }
 
     private fun setBtnEmojiStatus(weight: WeightUIModel?) = with(binding.btnEmoji) {
@@ -172,12 +258,12 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setDeleteButton(weight: WeightUIModel?) {
-        binding.btnDelete.isGone = weight == null
+    private fun setDeleteButton(shouldShowSaveButton: Boolean) {
+        binding.btnDelete.isGone = shouldShowSaveButton
     }
 
-    private fun setBtnSaveStatus(weight: WeightUIModel?) = with(binding.btnSaveOrUpdate) {
-        if (weight == null) {
+    private fun setBtnSaveStatus(shouldShowSaveButton: Boolean) = with(binding.btnSaveOrUpdate) {
+        if (shouldShowSaveButton) {
             setText(R.string.save)
             icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_add_24)
             setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_700))

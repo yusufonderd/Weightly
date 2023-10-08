@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.yonder.statelayout.StateLayoutView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/tvHistory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/gray_50"
-        android:gravity="center"
-        android:paddingVertical="@dimen/space_8"
-        android:text="@string/history"
-        android:textAppearance="?android:textAppearanceLarge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent"
+    android:id="@+id/stateLayout"
+    app:textEmpty="@string/title_no_weight">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWeightHistory"
@@ -26,7 +16,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHistory"
+        app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="10"
         tools:listitem="@layout/item_weight_history" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.yonder.statelayout.StateLayoutView>

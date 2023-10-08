@@ -3,99 +3,129 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/clRoot"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/gray_50"
     android:padding="@dimen/activity_horizontal_margin">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/btnSelectDate"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/select_date"
+        app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/btnPrev"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
         android:text="@string/prev_day"
         android:textAllCaps="false"
+        app:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/btnNext"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
         android:text="@string/next_day"
         android:textAllCaps="false"
+        app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tfInputWeight"
-        android:layout_width="match_parent"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_8"
-        android:hint="@string/input_weight"
-        app:layout_constraintTop_toBottomOf="@+id/btnSelectDate">
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3586001333170518/2395094787"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/btnSelectDate" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tilInputWeight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:maxLength="5" />
-    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.yonder.weightly.uicomponents.CardRulerViewComponent
+        android:id="@+id/cardRulerWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_16"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/adView">
+
+    </com.yonder.weightly.uicomponents.CardRulerViewComponent>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tfInputNote"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_16"
         android:hint="@string/input_note"
-        app:layout_constraintTop_toBottomOf="@+id/tfInputWeight">
+        app:boxBackgroundColor="@color/white"
+        app:hintTextColor="@color/gray_500"
+        app:layout_constraintTop_toBottomOf="@+id/cardRulerWeight">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tilInputNote"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins"
+            android:gravity="center" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/btnEmoji"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_8"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/select_emoji"
         android:textAllCaps="false"
+        app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tfInputNote" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save_or_update"
-        style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/space_8"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/save"
-        app:icon="@drawable/ic_baseline_add_24"
+        android:textColor="@color/white_allways"
+        app:iconTint="@color/white_allways"
+        app:icon="@drawable/ic_baseline_done_24"
         app:iconGravity="textStart"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintStart_toStartOf="@+id/btnEmoji"
         app:layout_constraintTop_toBottomOf="@+id/btnEmoji" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDelete"
-        style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/space_8"
         android:layout_marginStart="@dimen/space_16"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/delete"
+        app:iconTint="@color/white_allways"
+        android:textColor="@color/white_allways"
         app:backgroundTint="@color/red"
         app:icon="@drawable/ic_baseline_delete_24"
         app:iconGravity="textStart"
@@ -103,4 +133,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_save_or_update"
         app:layout_constraintTop_toTopOf="@+id/btn_save_or_update" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

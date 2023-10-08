@@ -7,11 +7,15 @@ fun Float?.orZero() = this ?: 0.0f
 
 val Int?.orZero: Int get() = this ?: 0
 
-val Int.Companion.NOT_FOUND_INDEX: Int get() = -1
-
 val Int.Companion.ZERO: Int get() = 0
 
+val Float.Companion.ZERO: Float get() = 0.0f
+
 val String.Companion.EMPTY: String get() = ""
+
+fun String.replaceWithDot(): String{
+   return  replace(",",".")
+}
 
 fun Int.dpToPx(context: Context): Int {
     val displayMetrics = context.resources.displayMetrics
