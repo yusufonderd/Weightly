@@ -195,11 +195,13 @@ class AddWeightFragment : BottomSheetDialogFragment() {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
                     AddWeightViewModel.Event.PopBackStack -> {
-                       goBack()
+                        goBack()
                     }
+
                     AddWeightViewModel.Event.ShowInterstitialAd -> {
                         showInterstitialAd()
                     }
+
                     is AddWeightViewModel.Event.ShowToast -> {
                         context.showToast(event.textResId)
                     }
@@ -218,13 +220,14 @@ class AddWeightFragment : BottomSheetDialogFragment() {
 
     }
 
-    private fun showInterstitialAd(){
+    private fun showInterstitialAd() {
         if (mInterstitialAd != null) {
             mInterstitialAd?.fullScreenContentCallback = object :
                 FullScreenContentCallback() {
                 override fun onAdFailedToShowFullScreenContent(p0: AdError) {
                     goBack()
                 }
+
                 override fun onAdDismissedFullScreenContent() {
                     goBack()
                 }
@@ -234,13 +237,14 @@ class AddWeightFragment : BottomSheetDialogFragment() {
             goBack()
         }
     }
+
     private fun goBack() {
         findNavController().popBackStack()
     }
 
     private fun setUIState(uiState: AddWeightViewModel.UiState) = with(binding) {
         val weight = uiState.currentWeight
-        val shouldShowSaveButton  = uiState.shouldShowSaveButton
+        val shouldShowSaveButton = uiState.shouldShowSaveButton
         tilInputNote.setText(weight?.note.orEmpty())
         cardRulerWeight.setValue(uiState.currentWeight?.value)
         setBtnSaveStatus(shouldShowSaveButton = shouldShowSaveButton)
