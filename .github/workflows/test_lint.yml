@@ -21,19 +21,19 @@ jobs:
         with:
           java-version: 11
       - name: Update Play Public Key
-        run: echo 'play_public_key=${{ secrets.PLAY_PUBLIC_KEY }}' > ./local.properties
+        run: echo 'PLAY_PUBLIC_KEY=${{ secrets.PLAY_PUBLIC_KEY }}' > ./local.properties
       - name: Update Base Url
-        run: echo 'base_url=${{ secrets.BASE_URL }}' > ./local.properties
+        run: echo 'BASE_URL=${{ secrets.BASE_URL }}' > ./local.properties
       - name: Update Admob Full Screen AD Id
-        run: echo 'full_screen_ad_id=${{ secrets.FULL_SCREEN_AD_ID }}' > ./local.properties
+        run: echo 'FULL_SCREEN_AD_ID=${{ secrets.FULL_SCREEN_AD_ID }}' > ./local.properties
       - name: Update Admob AD Id
-        run: echo 'ad_id_project=${{ secrets.AD_ID_PROJECT }}' > ./local.properties
+        run: echo 'AD_ID_PROJECT=${{ secrets.AD_ID_PROJECT }}' > ./local.properties
       - name: Update Add Weight Banner AD Id
-        run: echo 'ad_id_add_weight_screen=${{ secrets.ADD_WEIGHT_AD_ID }}' > ./local.properties
+        run: echo 'ADD_WEIGHT_AD_ID=${{ secrets.ADD_WEIGHT_AD_ID }}' > ./local.properties
       - name: Update Calendar Banner AD Id
-        run: echo 'ad_id_calendar_screen=${{ secrets.CALENDAR_AD_ID }}' > ./local.properties
+        run: echo 'CALENDAR_AD_ID=${{ secrets.CALENDAR_AD_ID }}' > ./local.properties
       - name: Update Home Banner AD Id
-        run: echo 'ad_id_home_screen=${{ secrets.HOME_AD_ID }}' > ./local.properties
+        run: echo 'HOME_AD_ID=${{ secrets.HOME_AD_ID }}' > ./local.properties
       - name: Unit tests
         run: bash ./gradlew test --stacktrace
       - name: Unit tests results
