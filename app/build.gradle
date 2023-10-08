@@ -11,6 +11,7 @@ plugins {
     id 'com.google.firebase.crashlytics'
 }
 
+
 android {
     compileSdk Config.compileSdk
 
@@ -29,20 +30,33 @@ android {
         def play_public_key = properties.getProperty('play_public_key')
         def base_url = properties.getProperty('base_url')
         def full_screen_ad_id = properties.getProperty('full_screen_ad_id')
+        def adIdProject = properties.getProperty('ad_id_project')
+        def adIdAddWeight = properties.getProperty('ad_id_add_weight_screen')
+        def adIdCalendar = properties.getProperty('ad_id_calendar_screen')
+        def adIdHome = properties.getProperty('ad_id_home_screen')
+
 
         debug {
-            minifyEnabled false
             buildConfigField "String", "PLAY_PUBLIC_KEY", play_public_key
             buildConfigField "String", "BASE_URL", base_url
             buildConfigField "String", "FULL_SCREEN_AD_ID", full_screen_ad_id
+            minifyEnabled false
+            resValue("string", "home_ad_id", "${adIdHome}")
+            resValue("string", "add_weight_ad_id", "${adIdAddWeight}")
+            resValue("string", "calendar_ad_id", "${adIdCalendar}")
+            resValue("string", "gmsAdsId", "${adIdProject}")
         }
 
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "PLAY_PUBLIC_KEY", play_public_key
             buildConfigField "String", "BASE_URL", base_url
             buildConfigField "String", "FULL_SCREEN_AD_ID", full_screen_ad_id
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue("string", "home_ad_id", "${adIdHome}")
+            resValue("string", "add_weight_ad_id", "${adIdAddWeight}")
+            resValue("string", "calendar_ad_id", "${adIdCalendar}")
+            resValue("string", "gmsAdsId", "${adIdProject}")
         }
 
     }

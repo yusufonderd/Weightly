@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_8"
             ads:adSize="BANNER"
-            ads:adUnitId=""
+            ads:adUnitId="@string/home_ad_id"
             ads:layout_constraintEnd_toEndOf="parent"
             ads:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnAddWeightForToday" />

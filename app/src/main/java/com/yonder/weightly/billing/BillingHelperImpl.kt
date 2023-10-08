@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.util.Log
 import com.android.billingclient.api.*
+import com.yonder.weightly.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -109,7 +110,10 @@ class BillingHelperImpl @Inject constructor(
      * This is called right after [querySkuDetailsAsync]. It gets all the skus available
      * and get the details for all of them.
      */
-    private fun onSkuDetailsResponse(billingResult: BillingResult, skuDetailsList: List<SkuDetails>?) {
+    private fun onSkuDetailsResponse(
+        billingResult: BillingResult,
+        skuDetailsList: List<SkuDetails>?
+    ) {
         val responseCode = billingResult.responseCode
         val debugMessage = billingResult.debugMessage
         when (responseCode) {
@@ -158,8 +162,17 @@ class BillingHelperImpl @Inject constructor(
                 handlePurchase(list)
                 return
             } else Log.d(TAG, "Null Purchase List Returned from OK response!")
-            BillingClient.BillingResponseCode.USER_CANCELED -> Log.i(TAG, "onPurchasesUpdated: User canceled the purchase")
-            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> Log.i(TAG, "onPurchasesUpdated: The user already owns this item")
+
+            BillingClient.BillingResponseCode.USER_CANCELED -> Log.i(
+                TAG,
+                "onPurchasesUpdated: User canceled the purchase"
+            )
+
+            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> Log.i(
+                TAG,
+                "onPurchasesUpdated: The user already owns this item"
+            )
+
             BillingClient.BillingResponseCode.DEVELOPER_ERROR -> Log.e(
                 TAG,
                 "onPurchasesUpdated: Developer error means that Google Play " +
@@ -168,7 +181,11 @@ class BillingHelperImpl @Inject constructor(
                         "Google Play Console. The SKU product ID must match and the APK you " +
                         "are using must be signed with release keys."
             )
-            else -> Log.d(TAG, "BillingResult [" + billingResult.responseCode + "]: " + billingResult.debugMessage)
+
+            else -> Log.d(
+                TAG,
+                "BillingResult [" + billingResult.responseCode + "]: " + billingResult.debugMessage
+            )
         }
     }
 
@@ -252,6 +269,7 @@ class BillingHelperImpl @Inject constructor(
                 } else {
                     skuState.tryEmit(SkuState.SKU_STATE_PURCHASED)
                 }
+
                 else -> Log.e(TAG, "Purchase in unknown state: " + purchase.purchaseState)
             }
         }
@@ -262,7 +280,13 @@ class BillingHelperImpl @Inject constructor(
      */
     override fun isPurchased(sku: String): Flow<Boolean> {
         val skuStateFLow = skuStateMap[sku]!!
-        return skuStateFLow.map { skuState -> skuState == SkuState.SKU_STATE_PURCHASED_AND_ACKNOWLEDGED }
+        return if (BuildConfig.DEBUG) {
+            flow { emit(false) }
+        } else {
+            skuStateFLow.map { skuState ->
+                skuState == SkuState.SKU_STATE_PURCHASED_AND_ACKNOWLEDGED
+            }
+        }
     }
 
     /**
