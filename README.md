@@ -51,3 +51,8 @@ In large projects, we need to use a view component in more than one place. So i 
 - Unit tests
 - Implementation of static code analysis tool(ktlint or detekt)
 - Styling definitions for textviews and buttons etc.
+
+
+## Contribution
+If you want to contribute Weightly please contact me via e-mail.
+yusufonderder@gmail.com
