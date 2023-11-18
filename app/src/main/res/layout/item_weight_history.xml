@@ -9,12 +9,12 @@
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
-        android:fontFamily="@font/poppins_medium"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
         android:textAppearance="?android:textAppearanceMedium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="07 May 2022">
+        tools:text="07 May">
 
     </TextView>
 

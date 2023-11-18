@@ -1,4 +1,5 @@
 import com.yonder.weightly.Libs
+import com.yonder.weightly.Versions
 
 plugins {
     id 'com.android.application'
@@ -70,9 +71,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
+        compose true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.Compose.kotlinCompilerExtension
+    }
+
     lint {
         baseline = file("lint-baseline.xml")
     }
@@ -136,6 +144,11 @@ dependencies {
     implementation Libs.Network.okhttp
     implementation Libs.Network.interceptor
 
+    implementation Libs.Network.interceptor
+
+    implementation Libs.Compose.runtime
+    implementation Libs.Compose.ui
+    implementation Libs.Compose.material3
 
 
 }

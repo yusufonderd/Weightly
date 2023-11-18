@@ -1,3 +1,5 @@
+package com.yonder.weightly
+
 object Versions {
     const val stateLayout = "0.1.1"
 
@@ -17,5 +19,13 @@ object Versions {
     const val gson = "2.8.6"
     const val retrofit = "2.9.0"
     const val ok_http = "4.7.2"
+
+    object Compose {
+        const val runtime = "1.0.0-beta07"
+        const val kotlinCompilerExtension = "1.1.1"
+        const val ui = "1.0.0-alpha01"
+        const val material3 = "1.1.2"
+    }
+
 
 }

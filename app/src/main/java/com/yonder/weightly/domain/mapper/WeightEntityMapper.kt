@@ -31,6 +31,7 @@ class WeightEntityMapper @Inject constructor(
         formattedDate = getFormattedDate(),
         formattedValue = getFormattedValue(),
         difference = getDifferenceText(previousEntity),
+        shouldShowNote = note?.isBlank()?.not() ?: false,
         differenceColor = getDifferenceColor(previousEntity)
     )
 

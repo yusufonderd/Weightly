@@ -18,7 +18,7 @@ import javax.inject.Inject
 class HistoryViewModel @Inject constructor(private var getAllWeights: GetAllWeights) :
     ViewModel() {
 
-    var job: Job? = null
+    private var job: Job? = null
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
@@ -29,7 +29,7 @@ class HistoryViewModel @Inject constructor(private var getAllWeights: GetAllWeig
             getAllWeights().collectLatest { weightHistories ->
                 _uiState.update {
                     it.copy(
-                        histories = weightHistories.reversed(),
+                        histories = weightHistories.reversed().filterNotNull(),
                         shouldShowEmptyView = weightHistories.isEmpty()
                     )
                 }
@@ -42,7 +42,7 @@ class HistoryViewModel @Inject constructor(private var getAllWeights: GetAllWeig
     }
 
     data class UiState(
-        var histories: List<WeightUIModel?> = emptyList(),
+        var histories: List<WeightUIModel> = emptyList(),
         var shouldShowEmptyView: Boolean = false,
     )
 }
