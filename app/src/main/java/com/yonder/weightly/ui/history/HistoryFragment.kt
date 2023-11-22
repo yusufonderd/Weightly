@@ -47,7 +47,6 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
             }else{
                 HistoryItemsContent(list = uiState.histories)
             }
-
         }
     }
 

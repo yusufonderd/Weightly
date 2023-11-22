@@ -6,9 +6,9 @@ object Versions {
     const val coreKtx = "1.8.0"
     const val appCompat = "1.4.2"
     const val material = "1.6.1"
-    const val hilt = "2.42"
+    const val hilt = "2.48"
     const val timber = "5.0.1"
-    const val room = "2.4.2"
+    const val room = "2.5.2"
     const val boom = "30.1.0"
     const val constraint = "2.1.4"
     const val viewModel = "2.4.1"
@@ -22,7 +22,7 @@ object Versions {
 
     object Compose {
         const val runtime = "1.0.0-beta07"
-        const val kotlinCompilerExtension = "1.1.1"
+        const val kotlinCompilerExtension = "1.5.3"
         const val ui = "1.0.0-alpha01"
         const val material3 = "1.1.2"
     }
