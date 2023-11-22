@@ -51,7 +51,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
     private var selectedDate = Date()
     private var emoji: String = String.EMPTY
 
-    lateinit var adRequest: AdRequest
+    private lateinit var adRequest: AdRequest
 
     private val binding by viewBinding(FragmentAddWeightBinding::bind)
 
@@ -194,17 +194,11 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         lifecycleScope.launchWhenStarted {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
-                    AddWeightViewModel.Event.PopBackStack -> {
-                        goBack()
-                    }
+                    AddWeightViewModel.Event.PopBackStack -> goBack()
 
-                    AddWeightViewModel.Event.ShowInterstitialAd -> {
-                        showInterstitialAd()
-                    }
+                    AddWeightViewModel.Event.ShowInterstitialAd -> showInterstitialAd()
 
-                    is AddWeightViewModel.Event.ShowToast -> {
-                        context.showToast(event.textResId)
-                    }
+                    is AddWeightViewModel.Event.ShowToast -> context.showToast(event.textResId)
                 }
             }
         }

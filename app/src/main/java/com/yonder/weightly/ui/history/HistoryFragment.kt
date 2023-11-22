@@ -9,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentHistoryBinding
-import com.yonder.weightly.uicomponents.EmptyViewComponent
+import com.yonder.weightly.domain.uimodel.WeightUIModel
+import com.yonder.weightly.uicomponents.EmptyView
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,14 +44,16 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     private fun initViews() = with(binding) {
         composeView.setContent {
             val uiState by viewModel.uiState.collectAsState()
-            if (uiState.shouldShowEmptyView){
-                EmptyViewComponent()
-            }else{
-                HistoryItemsContent(list = uiState.histories)
+            if (uiState.shouldShowEmptyView) {
+                EmptyView(text = stringResource(id = R.string.title_no_weight))
+            } else {
+                HistoryItemsContent(
+                    list = uiState.histories,
+                    onClickWeight = ::onClickWeight
+                )
             }
         }
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -65,15 +69,14 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         inflater.inflate(R.menu.home_menu, menu)
     }
 
-
-    /*private fun onClickWeight(weight: WeightUIModel) {
+    private fun onClickWeight(weight: WeightUIModel) {
         findNavController().navigate(
             HistoryFragmentDirections.actionNavigateAddWeight(
                 weight = weight,
                 selectedDate = null
             )
         )
-    }*/
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -86,6 +89,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
                 )
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

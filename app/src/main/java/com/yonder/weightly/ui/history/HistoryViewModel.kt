@@ -15,8 +15,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HistoryViewModel @Inject constructor(private var getAllWeights: GetAllWeights) :
-    ViewModel() {
+class HistoryViewModel @Inject constructor(
+    private var getAllWeights: GetAllWeights
+) : ViewModel() {
 
     private var job: Job? = null
 
@@ -29,7 +30,7 @@ class HistoryViewModel @Inject constructor(private var getAllWeights: GetAllWeig
             getAllWeights().collectLatest { weightHistories ->
                 _uiState.update {
                     it.copy(
-                        histories = weightHistories.reversed().filterNotNull(),
+                        histories = weightHistories.reversed(),
                         shouldShowEmptyView = weightHistories.isEmpty()
                     )
                 }

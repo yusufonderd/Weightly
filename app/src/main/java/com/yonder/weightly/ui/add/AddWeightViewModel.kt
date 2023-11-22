@@ -36,8 +36,8 @@ class AddWeightViewModel @Inject constructor(
     private val dispatcher: CoroutineDispatchers
 ) : ViewModel() {
     sealed class Event {
-        object ShowInterstitialAd : Event()
-        object PopBackStack : Event()
+        data object ShowInterstitialAd : Event()
+        data object PopBackStack : Event()
         data class ShowToast(@StringRes val textResId: Int) : Event()
     }
 
@@ -47,15 +47,13 @@ class AddWeightViewModel @Inject constructor(
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
     val eventsFlow = eventChannel.receiveAsFlow()
 
-    var billingJob: Job? = null
+    private var billingJob: Job? = null
 
     fun checkIsPremiumUser() {
         billingJob = viewModelScope.launch {
             billingHelper.isPurchased(Constants.PREMIUM_ACCOUNT).collectLatest { isPremium ->
                 _uiState.update {
-                    it.copy(
-                        shouldShowAds = isPremium.not()
-                    )
+                    it.copy(shouldShowAds = isPremium.not())
                 }
             }
         }
@@ -89,7 +87,8 @@ class AddWeightViewModel @Inject constructor(
                         emoji = emoji,
                         date = date
                     )
-                    if (uiState.value.shouldShowAds) {
+                    val shouldShowAds = BuildConfig.DEBUG.not() && uiState.value.shouldShowAds
+                    if (shouldShowAds) {
                         eventChannel.send(Event.ShowInterstitialAd)
                     } else {
                         eventChannel.send(Event.PopBackStack)

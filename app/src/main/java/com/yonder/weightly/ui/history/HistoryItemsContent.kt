@@ -1,5 +1,6 @@
 package com.yonder.weightly.ui.history
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,12 +17,13 @@ import com.yonder.weightly.uicomponents.ListDivider
 @Composable
 fun HistoryItemsContent(
     modifier: Modifier = Modifier,
-    list: List<WeightUIModel>
+    list: List<WeightUIModel>,
+    onClickWeight: (WeightUIModel) -> Unit
 ) {
     LazyColumn(modifier = modifier) {
         itemsIndexed(items = list, key = { _, weight -> weight.uid }
         ) { index, weight ->
-            HistoryItemRow(weight = weight)
+            HistoryItemRow(weight = weight, onClickWeight = onClickWeight)
             if (index < list.lastIndex) {
                 ListDivider()
             }
@@ -30,9 +32,16 @@ fun HistoryItemsContent(
 }
 
 @Composable
-fun HistoryItemRow(weight: WeightUIModel) {
+fun HistoryItemRow(
+    weight: WeightUIModel,
+    onClickWeight: (WeightUIModel) -> Unit
+) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = {
+                onClickWeight(weight)
+            }),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
