@@ -18,6 +18,6 @@ class GetAllWeights @Inject constructor(
                 previousEntity = weightList[previousIndex]
             }
             mapper.map(entity = weightEntity, previousEntity = previousEntity)
-        }.reversed()
+        }.reversed().filterNotNull()
     }
 }

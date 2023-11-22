@@ -112,7 +112,7 @@ class HomeViewModel @Inject constructor(
                         startWeight = "${weightHistories.firstOrNull()?.formattedValue}",
                         currentWeight = "${weightHistories.lastOrNull()?.formattedValue}",
                         barEntries = weightHistories.mapIndexed { index, weight ->
-                            BarEntry(index.toFloat(), weight?.value.orZero())
+                            BarEntry(index.toFloat(), weight.value.orZero())
                         },
                         userGoal = getUserGoal(),
                         shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE, false),
@@ -137,7 +137,7 @@ class HomeViewModel @Inject constructor(
         var startWeight: String? = null,
         var currentWeight: String? = null,
         var goalWeight: String? = null,
-        var histories: List<WeightUIModel?> = emptyList(),
+        var histories: List<WeightUIModel> = emptyList(),
         var reversedHistories: List<WeightUIModel?> = emptyList(),
         var barEntries: List<BarEntry> = emptyList(),
         var shouldShowEmptyView: Boolean = false,

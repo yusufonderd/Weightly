@@ -1,21 +1,24 @@
 package com.yonder.weightly.ui.history
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import com.yonder.statelayout.State
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentHistoryBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
-import com.yonder.weightly.ui.history.adapter.WeightHistoryAdapter
-import com.yonder.weightly.ui.history.adapter.WeightItemDecorator
+import com.yonder.weightly.uicomponents.EmptyView
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class HistoryFragment : Fragment(R.layout.fragment_history) {
@@ -23,10 +26,6 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     private val viewModel: HistoryViewModel by viewModels()
 
     private val binding by viewBinding(FragmentHistoryBinding::bind)
-
-    private val adapterWeightHistory: WeightHistoryAdapter by lazy {
-        WeightHistoryAdapter(::onClickWeight)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,27 +39,19 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        observe()
     }
 
-    private fun initViews() {
-        initWeightRecyclerview()
-    }
-
-    private fun initWeightRecyclerview() = with(binding.rvWeightHistory) {
-        adapter = adapterWeightHistory
-        addItemDecoration(WeightItemDecorator(requireContext()))
-        addItemDecoration(
-            DividerItemDecoration(
-                context,
-                DividerItemDecoration.VERTICAL
-            )
-        )
-    }
-
-    private fun observe() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.uiState.collect(::setUIState)
+    private fun initViews() = with(binding) {
+        composeView.setContent {
+            val uiState by viewModel.uiState.collectAsState()
+            if (uiState.shouldShowEmptyView) {
+                EmptyView(text = stringResource(id = R.string.title_no_weight))
+            } else {
+                HistoryItemsContent(
+                    list = uiState.histories,
+                    onClickWeight = ::onClickWeight
+                )
+            }
         }
     }
 
@@ -76,15 +67,6 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home_menu, menu)
-    }
-
-    private fun setUIState(uiState: HistoryViewModel.UiState) = with(binding) {
-        if (uiState.shouldShowEmptyView) {
-            stateLayout.setState(State.EMPTY)
-        } else {
-            stateLayout.setState(State.CONTENT)
-            adapterWeightHistory.submitList(uiState.histories)
-        }
     }
 
     private fun onClickWeight(weight: WeightUIModel) {
@@ -107,6 +89,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
                 )
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

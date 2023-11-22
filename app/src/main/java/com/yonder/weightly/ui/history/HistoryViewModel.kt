@@ -15,10 +15,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HistoryViewModel @Inject constructor(private var getAllWeights: GetAllWeights) :
-    ViewModel() {
+class HistoryViewModel @Inject constructor(
+    private var getAllWeights: GetAllWeights
+) : ViewModel() {
 
-    var job: Job? = null
+    private var job: Job? = null
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
@@ -42,7 +43,7 @@ class HistoryViewModel @Inject constructor(private var getAllWeights: GetAllWeig
     }
 
     data class UiState(
-        var histories: List<WeightUIModel?> = emptyList(),
+        var histories: List<WeightUIModel> = emptyList(),
         var shouldShowEmptyView: Boolean = false,
     )
 }

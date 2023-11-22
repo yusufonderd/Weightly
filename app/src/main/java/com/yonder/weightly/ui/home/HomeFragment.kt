@@ -2,6 +2,9 @@ package com.yonder.weightly.ui.home
 
 import android.os.Bundle
 import android.view.*
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,11 +20,11 @@ import com.yonder.weightly.ui.home.adapter.HomeInfoCardCreator
 import com.yonder.weightly.ui.home.chart.ChartFeeder
 import com.yonder.weightly.ui.home.chart.ChartInitializer
 import com.yonder.weightly.ui.home.chart.LimitLineFeeder
+import com.yonder.weightly.uicomponents.EmptyView
 import com.yonder.weightly.utils.enums.ChartType
 import com.yonder.weightly.utils.setSafeOnClickListener
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -30,9 +33,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by viewModels()
 
-    private val adapter: HomeInfoCardAdapter by lazy {
+   /* private val adapter: HomeInfoCardAdapter by lazy {
         HomeInfoCardAdapter()
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +50,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observe()
-        initAdListener()
+        // initAdListener()
     }
 
     private fun observe() {
@@ -57,54 +60,54 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setUIState(uiState: HomeViewModel.UiState) = with(binding) {
-        if (uiState.shouldShowEmptyView) {
-            stateLayout.setState(State.EMPTY)
-        } else {
-            stateLayout.setState(State.CONTENT)
-            binding.adView.isVisible = uiState.shouldShowAds
-            btnRemoveAds.isVisible = uiState.shouldShowAds
-            binding.btnAddWeightForToday.isVisible = uiState.shouldShowAddWeightForTodayButton
-            if (uiState.chartType == ChartType.LINE) {
-                lineChart.isVisible = true
-                barChart.isVisible = false
-                ChartFeeder.setLineChartData(
-                    chart = lineChart,
-                    histories = uiState.histories,
-                    barEntries = uiState.barEntries,
-                    context = requireContext()
-                )
+        /* if (uiState.shouldShowEmptyView) {
+             stateLayout.setState(State.EMPTY)
+         } else {
+             stateLayout.setState(State.CONTENT)
+             binding.adView.isVisible = uiState.shouldShowAds
+             btnRemoveAds.isVisible = uiState.shouldShowAds
+             binding.btnAddWeightForToday.isVisible = uiState.shouldShowAddWeightForTodayButton
+             if (uiState.chartType == ChartType.LINE) {
+                 lineChart.isVisible = true
+                 barChart.isVisible = false
+                 ChartFeeder.setLineChartData(
+                     chart = lineChart,
+                     histories = uiState.histories,
+                     barEntries = uiState.barEntries,
+                     context = requireContext()
+                 )
 
-            } else {
-                lineChart.isVisible = false
-                barChart.isVisible = true
-                ChartFeeder.setBarChartData(
-                    chart = barChart,
-                    histories = uiState.histories,
-                    barEntries = uiState.barEntries,
-                    context = requireContext()
-                )
-            }
+             } else {
+                 lineChart.isVisible = false
+                 barChart.isVisible = true
+                 ChartFeeder.setBarChartData(
+                     chart = barChart,
+                     histories = uiState.histories,
+                     barEntries = uiState.barEntries,
+                     context = requireContext()
+                 )
+             }
 
-            if (uiState.shouldShowLimitLine) {
-                LimitLineFeeder.addLimitLineToLineChart(
-                    requireContext(),
-                    lineChart,
-                    uiState.averageWeight?.toFloatOrNull(),
-                    uiState.goalWeight?.toFloatOrNull()
-                )
-                LimitLineFeeder.addLimitLineToBarChart(
-                    requireContext(),
-                    barChart,
-                    uiState.averageWeight?.toFloatOrNull(),
-                    uiState.goalWeight?.toFloatOrNull()
-                )
-            } else {
-                LimitLineFeeder.removeLimitLines(lineChart = lineChart, barChart = barChart)
-            }
-            val infoCardList = HomeInfoCardCreator.create(uiState)
-            adapter.submitList(infoCardList)
-            uiState.userGoal?.run(tvGoalDescription::setText)
-        }
+             if (uiState.shouldShowLimitLine) {
+                 LimitLineFeeder.addLimitLineToLineChart(
+                     requireContext(),
+                     lineChart,
+                     uiState.averageWeight?.toFloatOrNull(),
+                     uiState.goalWeight?.toFloatOrNull()
+                 )
+                 LimitLineFeeder.addLimitLineToBarChart(
+                     requireContext(),
+                     barChart,
+                     uiState.averageWeight?.toFloatOrNull(),
+                     uiState.goalWeight?.toFloatOrNull()
+                 )
+             } else {
+                 LimitLineFeeder.removeLimitLines(lineChart = lineChart, barChart = barChart)
+             }
+             val infoCardList = HomeInfoCardCreator.create(uiState)
+             adapter.submitList(infoCardList)
+             uiState.userGoal?.run(tvGoalDescription::setText)
+         }*/
     }
 
     override fun onResume() {
@@ -120,35 +123,40 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun initViews() = with(binding) {
-
-        with(rvInfoCard){
-            layoutManager = GridLayoutManager(requireContext(), 3)
-            adapter = this@HomeFragment.adapter
-            itemAnimator = null
-        }
-
-        ChartInitializer.initLineChart(lineChart)
-        ChartInitializer.initBarChart(barChart)
-        btnRemoveAds.setSafeOnClickListener {
-            viewModel.startBilling(requireActivity())
-        }
-        btnAddWeightForToday.setSafeOnClickListener {
-            findNavController().navigate(
-                HomeFragmentDirections.actionNavigateAddWeight(
-                    selectedDate = null,
-                    weight = null
+        composeView.setContent {
+            val uiState by viewModel.uiState.collectAsState()
+            if (uiState.shouldShowEmptyView) {
+                EmptyView(text = stringResource(id = R.string.title_no_weight))
+            } else {
+                HomeScreenContent(
+                    uiState = uiState,
+                    onClickAddWeightForToday = ::onClickWeightForToday
                 )
-            )
+            }
         }
+
+        /* with(rvInfoCard){
+             layoutManager = GridLayoutManager(requireContext(), 3)
+             adapter = this@HomeFragment.adapter
+             itemAnimator = null
+         }
+         btnRemoveAds.setSafeOnClickListener {
+             viewModel.startBilling(requireActivity())
+         }
+         */
+    }
+
+    private fun onClickWeightForToday() {
+        findNavController().navigate(
+            HomeFragmentDirections.actionNavigateAddWeight(
+                selectedDate = null,
+                weight = null
+            )
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home_menu, menu)
-    }
-
-    private fun initAdListener() {
-        val adRequest = AdRequest.Builder().build()
-        binding.adView.loadAd(adRequest)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -162,6 +170,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 )
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

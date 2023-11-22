@@ -13,6 +13,7 @@ data class WeightUIModel(
     var valueText: String,
     var emoji: String,
     var note: String,
+    val shouldShowNote: Boolean,
     var date: Date,
     var formattedDate: String,
     var formattedValue: String,

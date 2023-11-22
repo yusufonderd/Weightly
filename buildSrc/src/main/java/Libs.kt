@@ -1,7 +1,5 @@
 package com.yonder.weightly
 
-import Versions
-
 object Libs {
 
     object Gradle {
@@ -54,6 +52,11 @@ object Libs {
         const val interceptor = "com.squareup.okhttp3:logging-interceptor:" + Versions.ok_http
     }
 
+    object Compose{
+        const val runtime: String = "androidx.compose.runtime:runtime:" + Versions.Compose.runtime
+        const val ui : String = "androidx.compose.ui:ui:" + Versions.Compose.ui
+        const val material3 = "androidx.compose.material3:material3:" + Versions.Compose.material3
+    }
 
     const val hawk =  "com.orhanobut:hawk:2.0.1"
     const val chart =  "com.github.PhilJay:MPAndroidChart:3.1.0"

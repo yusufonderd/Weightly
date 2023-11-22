@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_add_weight,
                 R.id.navigation_set_lock,
                 R.id.navigation_open_lock
-
             )
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val shouldShowBottomNavigation = noBottomNavigationIds.contains(destination.id).not()

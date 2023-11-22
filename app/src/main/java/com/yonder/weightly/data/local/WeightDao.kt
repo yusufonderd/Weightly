@@ -19,16 +19,16 @@ interface WeightDao {
     fun insertAll(vararg users: WeightEntity)
 
     @Insert
-    suspend fun save(weight: WeightEntity)
+    fun save(weight: WeightEntity)
 
     @Update
-    suspend fun update(weight: WeightEntity)
+    fun update(weight: WeightEntity)
 
     @Delete
-    suspend fun delete(user: WeightEntity)
+    fun delete(user: WeightEntity)
 
     @Query("DELETE FROM weight")
-    suspend fun deleteAll()
+    fun deleteAll()
 
     @Query("SELECT * FROM weight ORDER BY timestamp DESC")
     fun getAllWeights(): Flow<List<WeightEntity>>
