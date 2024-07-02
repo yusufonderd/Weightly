@@ -11,6 +11,7 @@ import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentOpenLockBinding
 import com.yonder.weightly.utils.Constants
+import com.yonder.weightly.utils.extensions.safeNavigate
 import com.yonder.weightly.utils.extensions.showToast
 import com.yonder.weightly.utils.setSafeOnClickListener
 import com.yonder.weightly.utils.viewBinding
@@ -35,7 +36,7 @@ class OpenLockFragment : Fragment(R.layout.fragment_open_lock) {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
                     OpenLockViewModel.Event.NavigateToHome -> {
-                        findNavController().navigate(OpenLockFragmentDirections.actionNavigateHome())
+                        safeNavigate(OpenLockFragmentDirections.actionNavigateHome())
                     }
                     is OpenLockViewModel.Event.ShowMessage -> {
                         context?.showToast(event.message)

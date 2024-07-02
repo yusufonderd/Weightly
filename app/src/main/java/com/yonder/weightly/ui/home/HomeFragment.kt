@@ -18,6 +18,7 @@ import com.yonder.weightly.ui.home.chart.ChartFeeder
 import com.yonder.weightly.ui.home.chart.ChartInitializer
 import com.yonder.weightly.ui.home.chart.LimitLineFeeder
 import com.yonder.weightly.utils.enums.ChartType
+import com.yonder.weightly.utils.extensions.safeNavigate
 import com.yonder.weightly.utils.setSafeOnClickListener
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -133,7 +134,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewModel.startBilling(requireActivity())
         }
         btnAddWeightForToday.setSafeOnClickListener {
-            findNavController().navigate(
+            safeNavigate(
                 HomeFragmentDirections.actionNavigateAddWeight(
                     selectedDate = null,
                     weight = null
@@ -154,7 +155,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_add -> {
-                findNavController().navigate(
+                safeNavigate(
                     HomeFragmentDirections.actionNavigateAddWeight(
                         null,
                         null

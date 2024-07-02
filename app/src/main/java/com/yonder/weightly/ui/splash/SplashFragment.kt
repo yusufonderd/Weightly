@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentSplashBinding
+import com.yonder.weightly.utils.extensions.safeNavigate
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -29,13 +30,13 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
                     SplashViewModel.Event.NavigateToOnBoardingScreen -> {
-                        findNavController().navigate(SplashFragmentDirections.actionNavigateOnBoarding())
+                        safeNavigate(SplashFragmentDirections.actionNavigateOnBoarding())
                     }
                     SplashViewModel.Event.NavigateToHome -> {
-                        findNavController().navigate(SplashFragmentDirections.actionNavigateHome())
+                        safeNavigate(SplashFragmentDirections.actionNavigateHome())
                     }
                     SplashViewModel.Event.NavigateToOpenLockScreen -> {
-                        findNavController().navigate(SplashFragmentDirections.actionNavigateToOpenLock())
+                        safeNavigate(SplashFragmentDirections.actionNavigateToOpenLock())
                     }
                 }
             }

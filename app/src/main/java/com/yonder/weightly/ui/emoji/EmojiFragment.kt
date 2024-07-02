@@ -17,6 +17,7 @@ import com.vanniktech.emoji.EmojiView
 import com.vanniktech.emoji.listeners.OnEmojiBackspaceClickListener
 import com.vanniktech.emoji.listeners.OnEmojiClickListener
 import com.yonder.weightly.R
+import com.yonder.weightly.utils.extensions.findNavControllerSafely
 
 class EmojiFragment : BottomSheetDialogFragment(), OnEmojiClickListener,
     OnEmojiBackspaceClickListener {
@@ -69,7 +70,7 @@ class EmojiFragment : BottomSheetDialogFragment(), OnEmojiClickListener,
 
     override fun onEmojiClick(emoji: Emoji) {
         setFragmentResult(KEY_REQUEST_EMOJI, bundleOf(KEY_BUNDLE_EMOJI to emoji.unicode))
-        findNavController().popBackStack()
+        findNavControllerSafely()?.popBackStack()
     }
 
     companion object {

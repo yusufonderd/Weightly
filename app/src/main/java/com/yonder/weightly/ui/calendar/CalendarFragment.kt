@@ -23,6 +23,7 @@ import com.yonder.weightly.databinding.Example3CalendarDayBinding
 import com.yonder.weightly.databinding.Example3CalendarHeaderBinding
 import com.yonder.weightly.databinding.FragmentCalendarBinding
 import com.yonder.weightly.ui.calendar.calendarview.DayViewContainer
+import com.yonder.weightly.utils.extensions.safeNavigate
 import com.yonder.weightly.utils.extensions.setTextColorRes
 import com.yonder.weightly.utils.extensions.toDate
 import com.yonder.weightly.utils.extensions.toFormat
@@ -70,7 +71,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
                     is CalendarViewModel.Event.NavigateToWeight -> {
-                        findNavController().navigate(
+                        safeNavigate(
                             CalendarFragmentDirections.actionNavigateAddWeight(
                                 weight= event.model,
                                 selectedDate =  null
@@ -78,7 +79,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                         )
                     }
                     is CalendarViewModel.Event.NavigateToNewWeight -> {
-                        findNavController().navigate(
+                       safeNavigate(
                             CalendarFragmentDirections.actionNavigateAddWeight(
                                 weight= null,
                                 selectedDate =  event.model

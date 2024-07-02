@@ -120,12 +120,12 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         }
 
         btnEmoji.setSafeOnClickListener {
-            findNavController().navigate(R.id.action_navigate_emoji)
+            safeNavigate(R.id.action_navigate_emoji)
         }
 
         btnDelete.setSafeOnClickListener {
             viewModel.delete(date = selectedDate)
-            findNavController().popBackStack()
+            findNavControllerSafely()?.popBackStack()
         }
 
         btnSelectDate.setSafeOnClickListener {
@@ -239,7 +239,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
     }
 
     private fun goBack() {
-        findNavController().popBackStack()
+        findNavControllerSafely()?.popBackStack()
     }
 
     private fun setUIState(uiState: AddWeightViewModel.UiState) = with(binding) {

@@ -13,6 +13,7 @@ import com.yonder.weightly.databinding.FragmentHistoryBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.ui.history.adapter.WeightHistoryAdapter
 import com.yonder.weightly.ui.history.adapter.WeightItemDecorator
+import com.yonder.weightly.utils.extensions.safeNavigate
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -88,7 +89,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     }
 
     private fun onClickWeight(weight: WeightUIModel) {
-        findNavController().navigate(
+        safeNavigate(
             HistoryFragmentDirections.actionNavigateAddWeight(
                 weight = weight,
                 selectedDate = null
@@ -99,7 +100,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_add -> {
-                findNavController().navigate(
+                safeNavigate(
                     HistoryFragmentDirections.actionNavigateAddWeight(
                         weight = null,
                         selectedDate = null
@@ -107,6 +108,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
                 )
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

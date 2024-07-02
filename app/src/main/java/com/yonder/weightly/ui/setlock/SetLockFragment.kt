@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentSetLockBinding
+import com.yonder.weightly.utils.extensions.safeNavigate
 import com.yonder.weightly.utils.extensions.showToast
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +39,7 @@ class SetLockFragment : Fragment(R.layout.fragment_set_lock) {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
                     SetLockViewModel.Event.NavigateToSplash -> {
-                        findNavController().navigate(SetLockFragmentDirections.actionNavigateSplash())
+                       safeNavigate(SetLockFragmentDirections.actionNavigateSplash())
                     }
                     is SetLockViewModel.Event.ShowMessage -> {
                         context?.showToast(event.message)
