@@ -29,6 +29,7 @@ import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.NotificationReceiver
 import com.yonder.weightly.utils.enums.MeasureUnit
 import com.yonder.weightly.utils.extensions.EMPTY
+import com.yonder.weightly.utils.extensions.safeNavigate
 import com.yonder.weightly.utils.notificationID
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -58,7 +59,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
                     SettingsViewModel.Event.NavigateToSplash -> {
-                        findNavController().navigate(SettingsFragmentDirections.actionNavigateSplash())
+                        safeNavigate(SettingsFragmentDirections.actionNavigateSplash())
                     }
                 }
             }
@@ -142,7 +143,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     alertBuilder.show()
 
                 }else{
-                    findNavController().navigate(SettingsFragmentDirections.actionNavigateToSetLock())
+                   safeNavigate(SettingsFragmentDirections.actionNavigateToSetLock())
                 }
                 true
             }

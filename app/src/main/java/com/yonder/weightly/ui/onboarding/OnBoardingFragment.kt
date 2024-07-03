@@ -17,6 +17,7 @@ import com.yonder.weightly.databinding.FragmentOnBoardingBinding
 import com.yonder.weightly.uicomponents.CardRuler
 import com.yonder.weightly.utils.*
 import com.yonder.weightly.utils.enums.MeasureUnit
+import com.yonder.weightly.utils.extensions.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -41,7 +42,7 @@ class OnBoardingFragment : Fragment(R.layout.fragment_on_boarding) {
                     }
 
                     is OnBoardingViewModel.Event.NavigateToHome -> {
-                        findNavController().navigate(OnBoardingFragmentDirections.actionNavigateHome())
+                        safeNavigate(OnBoardingFragmentDirections.actionNavigateHome())
                     }
                 }
             }
