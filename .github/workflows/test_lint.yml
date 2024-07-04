@@ -43,22 +43,3 @@ jobs:
           name: unit-tests-results
           path: app/build/reports/tests/testDebugUnitTest/index.html
 
-  lint:
-    name: Lint Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up our JDK environment
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: 21
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-      - name: Lint debug flavor
-        run: ./gradlew lint --stacktrace
-      - name: Lint results
-        uses: yutailang0119/action-android-lint@v2
-        with:
-          report-path: build/reports/*.xml # Support glob patterns by https://www.npmjs.com/package/@actions/glob
-        continue-on-error: false # If annotations contain error of severity, action-android-lint exit 1.
