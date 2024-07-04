@@ -9,12 +9,12 @@ plugins {
     id 'kotlin-parcelize'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.appdistribution'
 }
-
 
 android {
     compileSdk Config.compileSdk
-
+    namespace "com.yonder.weightly"
     defaultConfig {
         applicationId Config.applicationId
         minSdk Config.minSdk
@@ -23,6 +23,7 @@ android {
         versionName Config.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    android.buildFeatures.buildConfig true
 
     buildTypes {
         Properties properties = new Properties()

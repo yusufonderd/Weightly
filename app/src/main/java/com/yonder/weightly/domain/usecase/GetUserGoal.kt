@@ -17,7 +17,7 @@ class GetUserGoal @Inject constructor(
     private val weightDao: WeightDao
 ) {
 
-    operator fun invoke(): String {
+    suspend operator fun invoke(): String {
         val firstWeight = weightDao.fetchLastWeight().firstOrNull()
         val goalWeight = Hawk.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0f)
         val difference = abs(firstWeight?.value.orZero() - goalWeight)
