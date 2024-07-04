@@ -19,6 +19,7 @@ jobs:
       - name: Set up our JDK environment
         uses: actions/setup-java@v4
         with:
+          distribution: 'temurin'
           java-version: 21
       - name: Update Play Public Key
         run: echo 'PLAY_PUBLIC_KEY=${{ secrets.PLAY_PUBLIC_KEY }}' > ./local.properties
@@ -50,6 +51,7 @@ jobs:
       - name: Set up our JDK environment
         uses: actions/setup-java@v4
         with:
+          distribution: 'temurin'
           java-version: 21
       - name: Make gradlew executable
         run: chmod +x ./gradlew
