@@ -9,12 +9,15 @@ import com.yonder.weightly.utils.extensions.orZero
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class UnitFormatDecider @Inject constructor(@ApplicationContext val context: Context) {
-    operator fun invoke(value: Float?): String {
-        return if (MeasureUnit.findValue(Hawk.get(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT)) == MeasureUnit.KG) {
-            context.getString(R.string.kg_format, value.orZero())
-        } else {
-            context.getString(R.string.lb_format, value.orZero())
-        }
+class UnitFormatDecider
+    @Inject
+    constructor(
+        @ApplicationContext val context: Context,
+    ) {
+        operator fun invoke(value: Float?): String =
+            if (MeasureUnit.findValue(Hawk.get(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT)) == MeasureUnit.KG) {
+                String.format(context.getString(R.string.kg_format), value.orZero())
+            } else {
+                String.format(context.getString(R.string.lb_format), value.orZero())
+            }
     }
-}

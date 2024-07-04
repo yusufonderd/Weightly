@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.ads.AdRequest
 import com.yonder.statelayout.State
@@ -26,7 +25,6 @@ import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
-
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
     private val viewModel: HomeViewModel by viewModels()
@@ -38,13 +36,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        setHasOptionsMenu(true)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+        savedInstanceState: Bundle?,
+    ): View? = super.onCreateView(inflater, container, savedInstanceState)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observe()
@@ -57,56 +55,56 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun setUIState(uiState: HomeViewModel.UiState) = with(binding) {
-        if (uiState.shouldShowEmptyView) {
-            stateLayout.setState(State.EMPTY)
-        } else {
-            stateLayout.setState(State.CONTENT)
-            binding.adView.isVisible = uiState.shouldShowAds
-            btnRemoveAds.isVisible = uiState.shouldShowAds
-            binding.btnAddWeightForToday.isVisible = uiState.shouldShowAddWeightForTodayButton
-            if (uiState.chartType == ChartType.LINE) {
-                lineChart.isVisible = true
-                barChart.isVisible = false
-                ChartFeeder.setLineChartData(
-                    chart = lineChart,
-                    histories = uiState.histories,
-                    barEntries = uiState.barEntries,
-                    context = requireContext()
-                )
-
+    private fun setUIState(uiState: HomeViewModel.UiState) =
+        with(binding) {
+            if (uiState.shouldShowEmptyView) {
+                stateLayout.setState(State.EMPTY)
             } else {
-                lineChart.isVisible = false
-                barChart.isVisible = true
-                ChartFeeder.setBarChartData(
-                    chart = barChart,
-                    histories = uiState.histories,
-                    barEntries = uiState.barEntries,
-                    context = requireContext()
-                )
-            }
+                stateLayout.setState(State.CONTENT)
+                binding.adView.isVisible = uiState.shouldShowAds
+                btnRemoveAds.isVisible = uiState.shouldShowAds
+                binding.btnAddWeightForToday.isVisible = uiState.shouldShowAddWeightForTodayButton
+                if (uiState.chartType == ChartType.LINE) {
+                    lineChart.isVisible = true
+                    barChart.isVisible = false
+                    ChartFeeder.setLineChartData(
+                        chart = lineChart,
+                        histories = uiState.histories,
+                        barEntries = uiState.barEntries,
+                        context = requireContext(),
+                    )
+                } else {
+                    lineChart.isVisible = false
+                    barChart.isVisible = true
+                    ChartFeeder.setBarChartData(
+                        chart = barChart,
+                        histories = uiState.histories,
+                        barEntries = uiState.barEntries,
+                        context = requireContext(),
+                    )
+                }
 
-            if (uiState.shouldShowLimitLine) {
-                LimitLineFeeder.addLimitLineToLineChart(
-                    requireContext(),
-                    lineChart,
-                    uiState.averageWeight?.toFloatOrNull(),
-                    uiState.goalWeight?.toFloatOrNull()
-                )
-                LimitLineFeeder.addLimitLineToBarChart(
-                    requireContext(),
-                    barChart,
-                    uiState.averageWeight?.toFloatOrNull(),
-                    uiState.goalWeight?.toFloatOrNull()
-                )
-            } else {
-                LimitLineFeeder.removeLimitLines(lineChart = lineChart, barChart = barChart)
+                if (uiState.shouldShowLimitLine) {
+                    LimitLineFeeder.addLimitLineToLineChart(
+                        requireContext(),
+                        lineChart,
+                        uiState.averageWeight?.toFloatOrNull(),
+                        uiState.goalWeight?.toFloatOrNull(),
+                    )
+                    LimitLineFeeder.addLimitLineToBarChart(
+                        requireContext(),
+                        barChart,
+                        uiState.averageWeight?.toFloatOrNull(),
+                        uiState.goalWeight?.toFloatOrNull(),
+                    )
+                } else {
+                    LimitLineFeeder.removeLimitLines(lineChart = lineChart, barChart = barChart)
+                }
+                val infoCardList = HomeInfoCardCreator.create(uiState)
+                adapter.submitList(infoCardList)
+                uiState.userGoal?.run(tvGoalDescription::setText)
             }
-            val infoCardList = HomeInfoCardCreator.create(uiState)
-            adapter.submitList(infoCardList)
-            uiState.userGoal?.run(tvGoalDescription::setText)
         }
-    }
 
     override fun onResume() {
         super.onResume()
@@ -120,30 +118,33 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.cancelJobs()
     }
 
-    private fun initViews() = with(binding) {
+    private fun initViews() =
+        with(binding) {
+            with(rvInfoCard) {
+                layoutManager = GridLayoutManager(requireContext(), 3)
+                adapter = this@HomeFragment.adapter
+                itemAnimator = null
+            }
 
-        with(rvInfoCard){
-            layoutManager = GridLayoutManager(requireContext(), 3)
-            adapter = this@HomeFragment.adapter
-            itemAnimator = null
-        }
-
-        ChartInitializer.initLineChart(lineChart)
-        ChartInitializer.initBarChart(barChart)
-        btnRemoveAds.setSafeOnClickListener {
-            viewModel.startBilling(requireActivity())
-        }
-        btnAddWeightForToday.setSafeOnClickListener {
-            safeNavigate(
-                HomeFragmentDirections.actionNavigateAddWeight(
-                    selectedDate = null,
-                    weight = null
+            ChartInitializer.initLineChart(lineChart)
+            ChartInitializer.initBarChart(barChart)
+            btnRemoveAds.setSafeOnClickListener {
+                viewModel.startBilling(requireActivity())
+            }
+            btnAddWeightForToday.setSafeOnClickListener {
+                safeNavigate(
+                    HomeFragmentDirections.actionNavigateAddWeight(
+                        selectedDate = null,
+                        weight = null,
+                    ),
                 )
-            )
+            }
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(
+        menu: Menu,
+        inflater: MenuInflater,
+    ) {
         inflater.inflate(R.menu.home_menu, menu)
     }
 
@@ -152,18 +153,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.adView.loadAd(adRequest)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
             R.id.action_add -> {
                 safeNavigate(
                     HomeFragmentDirections.actionNavigateAddWeight(
                         null,
-                        null
-                    )
+                        null,
+                    ),
                 )
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
 }

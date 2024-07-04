@@ -43,7 +43,9 @@ class CardRulerViewComponent
                 binding.rulerViewCurrent.setUnitStr(context.getString(R.string.kg))
             }
             currentUnit = unit
-            binding.tilInputCurrentWeight.setText(context.getString(R.string.kg_format, mValue))
+            binding.tilInputCurrentWeight.setText(
+                String.format(context.getString(R.string.kg_format), mValue),
+            )
             binding.rulerViewCurrent.setValue(mValue)
         }
 
@@ -52,7 +54,7 @@ class CardRulerViewComponent
                 mValue = value.orZero()
                 if (value != null) {
                     rulerViewCurrent.setValue(value)
-                    tilInputCurrentWeight.setText(context.getString(R.string.kg_format, value))
+                    tilInputCurrentWeight.setText(String.format(context.getString(R.string.kg_format), value))
                 } else {
                     rulerViewCurrent.setValue(0f)
                     tilInputCurrentWeight.setText("")
@@ -67,7 +69,7 @@ class CardRulerViewComponent
                 rulerViewCurrent.setValueListener {
                     shouldChangeRulerView = false
                     mValue = it
-                    tilInputCurrentWeight.setText(context.getString(R.string.kg_format, it))
+                    tilInputCurrentWeight.setText(String.format(context.getString(R.string.kg_format), it))
                 }
 
                 rulerViewCurrent.setMaxValue(cardRuler.max)
