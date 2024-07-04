@@ -11,11 +11,11 @@
     <string name="title_open_lock">Kilidi aç</string>
 
 
-    <string name="kg_format" >%1$s kg</string>
-    <string name="lb_format" >%1$s lb</string>
+    <string name="kg_format">%1$s kg</string>
+    <string name="lb_format">%1$s lb</string>
 
     <string name="kg">kg</string>
-    <string name="lbs" >lb</string>
+    <string name="lbs">lb</string>
 
     <string name="history">Geçmiş</string>
     <string name="summary">Özet</string>
@@ -75,7 +75,7 @@
 
     <string name="show_limit_lines_summary">Hedef kilom ve ortalama kilom grafikte görünsün</string>
     <string name="rate_us_from_google_play">Bizi Google Play\'de oyla</string>
-    <string name="goal_summary_format">Hedefine ulaşmana %.1f %s kaldı</string>
+    <string name="goal_summary_format" formatted="false">Hedefine ulaşmana %.1f %s kaldı</string>
 
     <string name="be_premium">Premium ol</string>
     <string name="be_premium_description">Reklamları kaldır</string>

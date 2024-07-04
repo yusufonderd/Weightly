@@ -76,7 +76,7 @@
 
     <string name="show_limit_lines_summary">See the goal and the average weight on the graph chart</string>
     <string name="rate_us_from_google_play">Rate us on Google Play</string>
-    <string name="goal_summary_format">%.1f %s left until you reach the goal</string>
+    <string name="goal_summary_format" formatted="false">%.1f %s left until you reach the goal</string>
 
     <string name="be_premium">Be premium</string>
     <string name="be_premium_description">Remove ads</string>
