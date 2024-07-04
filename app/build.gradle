@@ -62,6 +62,7 @@ android {
 
     }
 
+
     compileOptions {
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -116,7 +117,6 @@ dependencies {
     implementation Libs.emoji
 
     implementation Libs.stateLayout
-    implementation Libs.rulerView
 
     // Firebase
     implementation platform(Libs.Firebase.boom)

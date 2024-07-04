@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RulerView">
+        <attr name="numTextColor" format="color"/>
+        <attr name="sideLineColor" format="color"/>
+        <attr name="centerLineColor" format="color"/>
+
+        <attr name="numDigits" format="integer"/>
+        <attr name="numMaxValue" format="integer"/>
+        <attr name="numMinValue" format="integer"/>
+        <attr name="numValue" format="integer"/>
+        <attr name="numShow" format="integer"/>
+
+        <attr name="sideLineWidth" format="dimension"/>
+        <attr name="centerLineWidth" format="dimension"/>
+        <attr name="textSpaceHeight" format="dimension"/>
+
+        <attr name="centerLineHeight" format="dimension"/>
+        <attr name="sideLineHeight" format="dimension"/>
+
+        <attr name="textSize" format="dimension"/>
+
+        <attr name="unitStr" format="string"/>
+
+        <attr name="moveSpeed" format="integer"/>
+    </declare-styleable>
+
+</resources>

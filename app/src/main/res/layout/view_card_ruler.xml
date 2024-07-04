@@ -31,7 +31,7 @@
                 android:maxLength="5" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.neobaran.open.android.nruler.RulerView
+        <com.yonder.weightly.uicomponents.RulerView
             android:id="@+id/rulerViewCurrent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
