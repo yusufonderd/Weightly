@@ -138,5 +138,8 @@
     <string name="app_notification_channel_title">Weightly App Notifications</string>
     <string name="app_notification_channel_description">Weightly reminders</string>
 
+    <string name="check_app_updates">Check Updates</string>
+
+
 
 </resources>

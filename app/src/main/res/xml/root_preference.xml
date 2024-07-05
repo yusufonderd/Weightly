@@ -8,6 +8,12 @@
         android:summary="@string/be_premium_description"
         app:title="@string/be_premium" />
 
+
+    <Preference
+        app:icon="@drawable/ic_baseline_360_24"
+        app:key="check_app_updates"
+        app:title="@string/check_app_updates" />
+
     <PreferenceCategory app:title="@string/chart">
 
         <CheckBoxPreference

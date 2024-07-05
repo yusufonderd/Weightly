@@ -25,6 +25,8 @@ jobs:
         run: echo 'PLAY_PUBLIC_KEY=${{ secrets.PLAY_PUBLIC_KEY }}' > ./local.properties
       - name: Update Base Url
         run: echo 'BASE_URL=${{ secrets.BASE_URL }}' > ./local.properties
+      - name: Update Firebase Base Url
+        run: echo 'BASE_URL_FIREBASE_CLOUD=${{ secrets.BASE_URL_FIREBASE_CLOUD }}' > ./local.properties
       - name: Update Admob Full Screen AD Id
         run: echo 'FULL_SCREEN_AD_ID=${{ secrets.FULL_SCREEN_AD_ID }}' > ./local.properties
       - name: Update Admob AD Id
