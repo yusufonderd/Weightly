@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.domain.usecase.DeleteAllWeights
 import com.yonder.weightly.domain.usecase.GetGoalWeight
+import com.yonder.weightly.network.FirebaseApiService
+import com.yonder.weightly.network.LatestVersionResponse
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.coroutines.CoroutineDispatchers
 import com.yonder.weightly.utils.enums.ChartType
@@ -28,6 +30,7 @@ class SettingsViewModel
     constructor(
         private val getGoalWeight: GetGoalWeight,
         private val deleteAllWeights: DeleteAllWeights,
+        private val apiFirebase: FirebaseApiService,
         private val dispatcher: CoroutineDispatchers,
     ) : ViewModel() {
         private val _uiState = MutableStateFlow(UiState())
@@ -87,16 +90,15 @@ class SettingsViewModel
             Hawk.put(Constants.Prefs.KEY_CHART_LIMIT_LINE, shouldShowLimitLine)
         }
 
-        fun updateGoalWeight(goalWeight: String)  {
-            if (goalWeight.isNotBlank())
-                {
-                    Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT, goalWeight.toFloatOrNull().orZero())
-                    _uiState.update {
-                        it.copy(
-                            goalWeight = getGoalWeight.invoke(),
-                        )
-                    }
+        fun updateGoalWeight(goalWeight: String) {
+            if (goalWeight.isNotBlank()) {
+                Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT, goalWeight.toFloatOrNull().orZero())
+                _uiState.update {
+                    it.copy(
+                        goalWeight = getGoalWeight.invoke(),
+                    )
                 }
+            }
         }
 
         fun updateNotification(notificationEnabled: Boolean) {
@@ -109,9 +111,11 @@ class SettingsViewModel
                 ThemeType.DEFAULT -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                 }
+
                 ThemeType.DARK -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 }
+
                 else -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 }
@@ -130,6 +134,16 @@ class SettingsViewModel
             }
         }
 
+        fun checkAppUpdates() {
+            viewModelScope.launch(dispatcher.io) {
+                val latestVersion =
+                    runCatching {
+                        apiFirebase.getLatestRelease().body()
+                    }.getOrNull() ?: return@launch
+                eventChannel.send(Event.ShowVersion(latestVersion))
+            }
+        }
+
         fun setNotificationTime(
             hour: Int,
             minute: Int,
@@ -143,7 +157,7 @@ class SettingsViewModel
             }
         }
 
-        fun deleteAllData()  {
+        fun deleteAllData() {
             Hawk.deleteAll()
             viewModelScope.launch(dispatcher.io) {
                 deleteAllWeights()
@@ -151,7 +165,7 @@ class SettingsViewModel
             }
         }
 
-        fun deleteAppLock()  {
+        fun deleteAppLock() {
             Hawk.delete(Constants.Prefs.APP_LOCK_HINT)
             Hawk.delete(Constants.Prefs.IS_APP_LOCKED)
             Hawk.delete(Constants.Prefs.APP_LOCK_PASSWORD)
@@ -194,5 +208,9 @@ class SettingsViewModel
 
         sealed class Event {
             object NavigateToSplash : Event()
+
+            data class ShowVersion(
+                val latest: LatestVersionResponse,
+            ) : Event()
         }
     }

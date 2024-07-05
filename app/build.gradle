@@ -28,6 +28,7 @@ android {
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
         def play_public_key = properties.getProperty('PLAY_PUBLIC_KEY')
         def base_url = properties.getProperty('BASE_URL')
+        def base_url_cloud = properties.getProperty('BASE_URL_FIREBASE_CLOUD')
         def full_screen_ad_id = properties.getProperty('FULL_SCREEN_AD_ID')
         def adIdProject = properties.getProperty('AD_ID_PROJECT')
         def adIdAddWeight = properties.getProperty('ADD_WEIGHT_AD_ID')
@@ -37,6 +38,7 @@ android {
         debug {
             buildConfigField "String", "PLAY_PUBLIC_KEY", "${play_public_key}"
             buildConfigField "String", "BASE_URL", "${base_url}"
+            buildConfigField "String", "BASE_URL_FIREBASE_CLOUD", "${base_url_cloud}"
             buildConfigField "String", "FULL_SCREEN_AD_ID", "${full_screen_ad_id}"
             minifyEnabled false
             resValue("string", "home_ad_id", "${adIdHome}")
@@ -48,6 +50,7 @@ android {
         release {
             buildConfigField "String", "PLAY_PUBLIC_KEY", "${play_public_key}"
             buildConfigField "String", "BASE_URL", "${base_url}"
+            buildConfigField "String", "BASE_URL_FIREBASE_CLOUD", "${base_url_cloud}"
             buildConfigField "String", "FULL_SCREEN_AD_ID", "${full_screen_ad_id}"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -59,7 +62,6 @@ android {
         }
 
     }
-
 
     compileOptions {
         coreLibraryDesugaringEnabled true

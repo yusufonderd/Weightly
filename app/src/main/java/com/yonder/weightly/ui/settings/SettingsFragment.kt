@@ -15,7 +15,6 @@ import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.preference.CheckBoxPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -37,15 +36,19 @@ import java.util.*
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
-
-
     private val viewModel: SettingsViewModel by viewModels()
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(
+        savedInstanceState: Bundle?,
+        rootKey: String?,
+    ) {
         setPreferencesFromResource(R.xml.root_preference, rootKey)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observe()
@@ -60,6 +63,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 when (event) {
                     SettingsViewModel.Event.NavigateToSplash -> {
                         safeNavigate(SettingsFragmentDirections.actionNavigateSplash())
+                    }
+
+                    is SettingsViewModel.Event.ShowVersion -> {
+                        Toast
+                            .makeText(
+                                requireContext(),
+                                "Last version: ${event.latest.displayVersion}",
+                                Toast.LENGTH_SHORT,
+                            ).show()
                     }
                 }
             }
@@ -90,78 +102,77 @@ class SettingsFragment : PreferenceFragmentCompat() {
             premiumPreference?.summary = String.EMPTY
         }
         themePreference?.value = uiState.theme.value
-        if (uiState.isAppLocked){
-            setLockPreference?.icon = ContextCompat.getDrawable(requireContext(),R.drawable.ic_baseline_lock_open_24)
+        if (uiState.isAppLocked) {
+            setLockPreference?.icon =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_lock_open_24)
             setLockPreference?.title = getString(R.string.unlock)
-        }else{
-            setLockPreference?.icon = ContextCompat.getDrawable(requireContext(),R.drawable.ic_baseline_lock_24)
+        } else {
+            setLockPreference?.icon =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_lock_24)
             setLockPreference?.title = getString(R.string.lock)
         }
     }
 
     private fun initViews() {
-
-
-      /*  findPreference<Preference>("notification_time")?.onPreferenceClickListener =
-            Preference.OnPreferenceClickListener {
-                val picker = MaterialTimePicker.Builder()
-                    .setTimeFormat(TimeFormat.CLOCK_24H)
-                    .setHour(
-                        Hawk.get(
-                            Constants.Notification.KEY_HOUR,
-                            Constants.Defaults.NOTIFICATION_HOUR
-                        )
-                    )
-                    .setMinute(
-                        Hawk.get(
-                            Constants.Notification.KEY_MINUTE,
-                            Constants.Defaults.NOTIFICATION_MINUTE
-                        )
-                    )
-                    .setTitleText(R.string.select_notification_time)
-                    .build()
-                picker.addOnPositiveButtonClickListener {
-                    viewModel.setNotificationTime(hour = picker.hour, minute = picker.minute)
-                    scheduleNotification()
-                }
-                picker.show(parentFragmentManager, TAG_TIME_PICKER)
-                true
-            }*/
+        /*  findPreference<Preference>("notification_time")?.onPreferenceClickListener =
+              Preference.OnPreferenceClickListener {
+                  val picker = MaterialTimePicker.Builder()
+                      .setTimeFormat(TimeFormat.CLOCK_24H)
+                      .setHour(
+                          Hawk.get(
+                              Constants.Notification.KEY_HOUR,
+                              Constants.Defaults.NOTIFICATION_HOUR
+                          )
+                      )
+                      .setMinute(
+                          Hawk.get(
+                              Constants.Notification.KEY_MINUTE,
+                              Constants.Defaults.NOTIFICATION_MINUTE
+                          )
+                      )
+                      .setTitleText(R.string.select_notification_time)
+                      .build()
+                  picker.addOnPositiveButtonClickListener {
+                      viewModel.setNotificationTime(hour = picker.hour, minute = picker.minute)
+                      scheduleNotification()
+                  }
+                  picker.show(parentFragmentManager, TAG_TIME_PICKER)
+                  true
+              }*/
 
         findPreference<Preference>("set_lock")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
-                if (Hawk.get(Constants.Prefs.IS_APP_LOCKED,false)){
-
+                if (Hawk.get(Constants.Prefs.IS_APP_LOCKED, false)) {
                     val alertBuilder = MaterialAlertDialogBuilder(requireContext())
                     alertBuilder.setTitle(R.string.remove_app_lock_dialog_title)
-                    alertBuilder.setNegativeButton(R.string.no){ _,_->
-
+                    alertBuilder.setNegativeButton(R.string.no) { _, _ ->
                     }
-                    alertBuilder.setPositiveButton(R.string.yes){_,_ ->
+                    alertBuilder.setPositiveButton(R.string.yes) { _, _ ->
                         viewModel.deleteAppLock()
                     }
                     alertBuilder.show()
-
-                }else{
-                   safeNavigate(SettingsFragmentDirections.actionNavigateToSetLock())
+                } else {
+                    safeNavigate(SettingsFragmentDirections.actionNavigateToSetLock())
                 }
                 true
             }
 
-            findPreference<Preference>("goal_weight")?.onPreferenceClickListener =
+        findPreference<Preference>("goal_weight")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
                 val alert = MaterialAlertDialogBuilder(requireContext())
                 val editText = EditText(requireContext())
-                val editTextParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT
-                )
+                val editTextParams =
+                    LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                    )
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
                 val textInputLayout = TextInputLayout(requireContext())
-                val textInputLayoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
+                val textInputLayoutParams =
+                    LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                    )
                 textInputLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
 
                 textInputLayout.layoutParams = textInputLayoutParams
@@ -179,15 +190,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
 
-
         findPreference<Preference>("reset_all_data")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
                 val alertBuilder = MaterialAlertDialogBuilder(requireContext())
                 alertBuilder.setTitle(R.string.reset_all_data_title)
-                alertBuilder.setNegativeButton(R.string.no){ _,_->
-
+                alertBuilder.setNegativeButton(R.string.no) { _, _ ->
                 }
-                alertBuilder.setPositiveButton(R.string.yes){_,_ ->
+                alertBuilder.setPositiveButton(R.string.yes) { _, _ ->
                     viewModel.deleteAllData()
                 }
                 alertBuilder.show()
@@ -195,11 +204,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         findPreference<Preference>("share_with_friends")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
-                ShareCompat.IntentBuilder.from(requireActivity())
+                ShareCompat.IntentBuilder
+                    .from(requireActivity())
                     .setType("text/plain")
                     .setChooserTitle(getString(R.string.share_with_friends))
                     .setText("http://play.google.com/store/apps/details?id=" + activity?.packageName)
-                    .startChooser();
+                    .startChooser()
                 true
             }
 
@@ -213,6 +223,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 viewModel.startBilling(requireActivity())
                 true
             }
+
+        findPreference<Preference>("check_app_updates")?.onPreferenceClickListener =
+            Preference.OnPreferenceClickListener {
+                viewModel.checkAppUpdates()
+                true
+            }
+
         findPreference<Preference>("source_code")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
                 openUrl("https://github.com/yusufonderd/Weightly")
@@ -228,8 +245,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
-                    )
+                        Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}"),
+                    ),
                 )
                 true
             }
@@ -251,24 +268,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             true
         }
-     /*   findPreference<CheckBoxPreference>("notification")?.setOnPreferenceChangeListener { _, newValue ->
-            if (newValue is Boolean) {
-                viewModel.updateNotification(
-                    notificationEnabled = newValue
-                )
-                if (newValue) {
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.notification_activated,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    scheduleNotification()
-                } else {
-                    cancelNotification()
-                }
-            }
-            true
-        }*/
+        /*   findPreference<CheckBoxPreference>("notification")?.setOnPreferenceChangeListener { _, newValue ->
+               if (newValue is Boolean) {
+                   viewModel.updateNotification(
+                       notificationEnabled = newValue
+                   )
+                   if (newValue) {
+                       Toast.makeText(
+                           requireContext(),
+                           R.string.notification_activated,
+                           Toast.LENGTH_SHORT
+                       ).show()
+                       scheduleNotification()
+                   } else {
+                       cancelNotification()
+                   }
+               }
+               true
+           }*/
 
         findPreference<ListPreference>("theme")?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue is String) {
@@ -279,10 +296,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun openUrl(url: String) {
-        val viewIntent = Intent(
-            "android.intent.action.VIEW",
-            Uri.parse(url)
-        )
+        val viewIntent =
+            Intent(
+                "android.intent.action.VIEW",
+                Uri.parse(url),
+            )
         startActivity(viewIntent)
     }
 
@@ -290,12 +308,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         Toast.makeText(requireContext(), R.string.notification_closed, Toast.LENGTH_SHORT).show()
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(requireContext(), NotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            requireContext(),
-            notificationID,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                requireContext(),
+                notificationID,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+            )
         alarmManager.cancel(pendingIntent)
     }
 
@@ -304,12 +323,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val hour = Hawk.get(Constants.Notification.KEY_HOUR, 10)
         val minute = Hawk.get(Constants.Notification.KEY_MINUTE, 30)
         val intent = Intent(requireContext(), NotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            requireContext(),
-            notificationID,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                requireContext(),
+                notificationID,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+            )
 
         alarmManager.cancel(pendingIntent)
         val now = Calendar.getInstance()
@@ -318,15 +338,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND, 0)
         if (now.after(calendar)) {
-            calendar.add(Calendar.DATE, 1);
+            calendar.add(Calendar.DATE, 1)
         }
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY,
-            pendingIntent
+            pendingIntent,
         )
         Hawk.put(Constants.Prefs.KEY_IS_SCHEDULE_NOTIFICATION, true)
     }
-
 }
