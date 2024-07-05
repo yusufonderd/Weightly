@@ -25,6 +25,8 @@ jobs:
         run: echo 'PLAY_PUBLIC_KEY=${{ secrets.PLAY_PUBLIC_KEY }}' > ./local.properties
       - name: Update Base Url
         run: echo 'BASE_URL=${{ secrets.BASE_URL }}' > ./local.properties
+      - name: Update Firebase Base Url
+        run: echo 'BASE_URL_FIREBASE_CLOUD=${{ secrets.BASE_URL_FIREBASE_CLOUD }}' > ./local.properties
       - name: Update Admob Full Screen AD Id
         run: echo 'FULL_SCREEN_AD_ID=${{ secrets.FULL_SCREEN_AD_ID }}' > ./local.properties
       - name: Update Admob AD Id
@@ -42,15 +44,4 @@ jobs:
         with:
           name: unit-tests-results
           path: app/build/reports/tests/testDebugUnitTest/index.html
-
-
-      - name: build debug 
-        run: ./gradlew assembleDebug
-      - name: upload artifact to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
-          groups: testers
-          file: app/build/outputs/apk/debug/app-debug.apk
 
