@@ -136,6 +136,7 @@
 
     <string name="app_notification_channel_title">Weightly Bildirimleri</string>
     <string name="app_notification_channel_description">Weightly kilo takip hatırlatıcısı</string>
+    <string name="check_app_updates">Güncellemeleri kontrol et</string>
 
 
 </resources>
