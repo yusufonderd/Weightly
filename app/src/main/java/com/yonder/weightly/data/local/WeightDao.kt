@@ -9,9 +9,6 @@ interface WeightDao {
     @Query("SELECT * FROM weight ORDER BY timestamp DESC LIMIT 1")
     suspend fun fetchLastWeight(): List<WeightEntity>
 
-    @Query("SELECT * FROM weight WHERE uid IN (:userIds)")
-    suspend fun loadAllByIds(userIds: IntArray): List<WeightEntity>
-
     @Query("SELECT * FROM weight WHERE  timestamp BETWEEN :startDate AND :endDate")
     suspend  fun fetchBy(startDate: Date, endDate: Date): List<WeightEntity>
 

@@ -27,7 +27,7 @@ class DifferenceDecider @Inject constructor() {
         return differenceBuilder.toString()
     }
 
-    fun provideValue(current: Float?, previous: Float?): Float {
+    fun getDifference(current: Float?, previous: Float?): Float {
         return if (previous.orZero() == 0.0f) {
             DEFAULT_VALUE_OF_WEIGHT_DIFFERENCE
         } else {
