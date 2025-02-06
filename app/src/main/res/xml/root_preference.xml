@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
+        android:summary="@string/be_premium_description"
         app:icon="@drawable/ic_baseline_stars_24"
         app:key="premium"
-        android:summary="@string/be_premium_description"
         app:title="@string/be_premium" />
 
 
@@ -17,17 +17,17 @@
     <PreferenceCategory app:title="@string/chart">
 
         <CheckBoxPreference
-            android:title="@string/show_limit_lines"
             android:defaultValue="true"
-            app:icon="@drawable/ic_baseline_show_chart_24"
+            android:key="show_limit_lines"
             android:summary="@string/show_limit_lines_summary"
-            android:key="show_limit_lines" />
+            android:title="@string/show_limit_lines"
+            app:icon="@drawable/ic_baseline_show_chart_24" />
 
         <ListPreference
             app:entries="@array/chart_type_values"
             app:entryValues="@array/chart_type_entries"
-            app:key="chart_type"
             app:icon="@drawable/ic_baseline_multiline_chart_24"
+            app:key="chart_type"
             app:title="@string/chart_type"
             app:useSimpleSummaryProvider="true" />
 
@@ -35,34 +35,33 @@
 
     <PreferenceCategory app:title="@string/general">
 
-        <!--
         <CheckBoxPreference
-            android:title="@string/every_day_notification"
             android:defaultValue="true"
-            app:icon="@drawable/ic_baseline_notifications_24"
+            android:key="notification"
             android:summary="@string/every_day_notification_description"
-            android:key="notification" />
+            android:title="@string/every_day_notification"
+            app:icon="@drawable/ic_baseline_notifications_24" />
 
         <Preference
             app:dependency="notification"
             app:icon="@drawable/ic_baseline_access_time_filled_24"
             app:key="notification_time"
             app:title="@string/every_day_notification_time" />
-            -->
+
 
         <ListPreference
             app:entries="@array/theme_values"
             app:entryValues="@array/theme_entries"
-            app:key="theme"
             app:icon="@drawable/ic_baseline_dark_mode_24"
+            app:key="theme"
             app:title="@string/theme"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
             app:entries="@array/unit_entries"
             app:entryValues="@array/unit_entries"
-            app:key="unit"
             app:icon="@drawable/ic_baseline_bookmark_24"
+            app:key="unit"
             app:title="@string/unit"
             app:useSimpleSummaryProvider="true" />
 
@@ -79,9 +78,9 @@
 
         <com.yonder.weightly.ui.settings.TextColorPreference
             app:icon="@drawable/ic_baseline_delete_outline_red_24"
-            app:key="reset_all_data"
             app:iconSpaceReserved="false"
-            app:title="@string/reset_all_data"/>
+            app:key="reset_all_data"
+            app:title="@string/reset_all_data" />
 
 
     </PreferenceCategory>

@@ -1,5 +1,6 @@
 package com.yonder.weightly.di
 
+import android.app.AlarmManager
 import android.content.Context
 import android.content.pm.PackageManager
 import dagger.Module
@@ -17,22 +18,29 @@ import javax.inject.Singleton
 @DelicateCoroutinesApi
 object KotlinModule {
 
-    @Provides
-    @Singleton
+    @[Provides Singleton]
+
     fun provideCoroutineScope(): CoroutineScope {
         return GlobalScope
     }
 
-    @Provides
-    @Singleton
+    @[Provides Singleton]
+
     fun providePackageManager(
         @ApplicationContext context: Context
     ): PackageManager {
         return context.packageManager
     }
 
-    @Provides
-    @Singleton
+
+    @[Provides Singleton]
+    fun provideAlarmManager(
+        @ApplicationContext context: Context
+    ): AlarmManager {
+        return context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    }
+
+    @[Provides Singleton]
     fun provideContext(
         @ApplicationContext context: Context
     ): Context {

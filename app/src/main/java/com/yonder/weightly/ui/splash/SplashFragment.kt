@@ -5,17 +5,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.yonder.weightly.R
-import com.yonder.weightly.databinding.FragmentSplashBinding
 import com.yonder.weightly.utils.extensions.safeNavigate
-import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
-    private val binding by viewBinding(FragmentSplashBinding::bind)
 
     private val viewModel: SplashViewModel by viewModels()
 

@@ -14,9 +14,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor() : ViewModel() {
     sealed class Event {
-        object NavigateToHome : Event()
-        object NavigateToOpenLockScreen : Event()
-        object NavigateToOnBoardingScreen : Event()
+        data object NavigateToHome : Event()
+        data object NavigateToOpenLockScreen : Event()
+        data object NavigateToOnBoardingScreen : Event()
     }
 
     private val eventChannel = Channel<Event>(Channel.BUFFERED)

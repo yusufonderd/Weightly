@@ -1,8 +1,5 @@
 package com.yonder.weightly.ui.settings
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -21,18 +18,18 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.BuildConfig
 import com.yonder.weightly.R
 import com.yonder.weightly.utils.Constants
-import com.yonder.weightly.utils.NotificationReceiver
 import com.yonder.weightly.utils.enums.MeasureUnit
 import com.yonder.weightly.utils.extensions.EMPTY
 import com.yonder.weightly.utils.extensions.safeNavigate
-import com.yonder.weightly.utils.notificationID
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import java.util.*
+
+const val TAG_TIME_PICKER = "TAG_TIME_PICKER_SETTINGS"
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -61,6 +58,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
         lifecycleScope.launchWhenStarted {
             viewModel.eventsFlow.collect { event ->
                 when (event) {
+                    SettingsViewModel.Event.ShowAlarmSetMessage -> {
+                        Toast.makeText(
+                            requireContext(),
+                            R.string.notification_activated,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
                     SettingsViewModel.Event.NavigateToSplash -> {
                         safeNavigate(SettingsFragmentDirections.actionNavigateSplash())
                     }
@@ -114,31 +119,30 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun initViews() {
-        /*  findPreference<Preference>("notification_time")?.onPreferenceClickListener =
-              Preference.OnPreferenceClickListener {
-                  val picker = MaterialTimePicker.Builder()
-                      .setTimeFormat(TimeFormat.CLOCK_24H)
-                      .setHour(
-                          Hawk.get(
-                              Constants.Notification.KEY_HOUR,
-                              Constants.Defaults.NOTIFICATION_HOUR
-                          )
-                      )
-                      .setMinute(
-                          Hawk.get(
-                              Constants.Notification.KEY_MINUTE,
-                              Constants.Defaults.NOTIFICATION_MINUTE
-                          )
-                      )
-                      .setTitleText(R.string.select_notification_time)
-                      .build()
-                  picker.addOnPositiveButtonClickListener {
-                      viewModel.setNotificationTime(hour = picker.hour, minute = picker.minute)
-                      scheduleNotification()
-                  }
-                  picker.show(parentFragmentManager, TAG_TIME_PICKER)
-                  true
-              }*/
+        findPreference<Preference>("notification_time")?.onPreferenceClickListener =
+            Preference.OnPreferenceClickListener {
+                val picker = MaterialTimePicker.Builder()
+                    .setTimeFormat(TimeFormat.CLOCK_24H)
+                    .setHour(
+                        Hawk.get(
+                            Constants.Notification.KEY_HOUR,
+                            Constants.Defaults.NOTIFICATION_HOUR
+                        )
+                    )
+                    .setMinute(
+                        Hawk.get(
+                            Constants.Notification.KEY_MINUTE,
+                            Constants.Defaults.NOTIFICATION_MINUTE
+                        )
+                    )
+                    .setTitleText(R.string.select_notification_time)
+                    .build()
+                picker.addOnPositiveButtonClickListener {
+                    viewModel.setNotificationTime(hour = picker.hour, minute = picker.minute)
+                }
+                picker.show(parentFragmentManager, TAG_TIME_PICKER)
+                true
+            }
 
         findPreference<Preference>("set_lock")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
@@ -268,24 +272,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             true
         }
-        /*   findPreference<CheckBoxPreference>("notification")?.setOnPreferenceChangeListener { _, newValue ->
-               if (newValue is Boolean) {
-                   viewModel.updateNotification(
-                       notificationEnabled = newValue
-                   )
-                   if (newValue) {
-                       Toast.makeText(
-                           requireContext(),
-                           R.string.notification_activated,
-                           Toast.LENGTH_SHORT
-                       ).show()
-                       scheduleNotification()
-                   } else {
-                       cancelNotification()
-                   }
-               }
-               true
-           }*/
+        findPreference<CheckBoxPreference>("notification")?.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue is Boolean) {
+                viewModel.updateNotification(notificationEnabled = newValue)
+            }
+            true
+        }
 
         findPreference<ListPreference>("theme")?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue is String) {
@@ -304,48 +296,5 @@ class SettingsFragment : PreferenceFragmentCompat() {
         startActivity(viewIntent)
     }
 
-    private fun cancelNotification() {
-        Toast.makeText(requireContext(), R.string.notification_closed, Toast.LENGTH_SHORT).show()
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(requireContext(), NotificationReceiver::class.java)
-        val pendingIntent =
-            PendingIntent.getBroadcast(
-                requireContext(),
-                notificationID,
-                intent,
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
-            )
-        alarmManager.cancel(pendingIntent)
-    }
 
-    private fun scheduleNotification() {
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val hour = Hawk.get(Constants.Notification.KEY_HOUR, 10)
-        val minute = Hawk.get(Constants.Notification.KEY_MINUTE, 30)
-        val intent = Intent(requireContext(), NotificationReceiver::class.java)
-        val pendingIntent =
-            PendingIntent.getBroadcast(
-                requireContext(),
-                notificationID,
-                intent,
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
-            )
-
-        alarmManager.cancel(pendingIntent)
-        val now = Calendar.getInstance()
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, hour)
-        calendar.set(Calendar.MINUTE, minute)
-        calendar.set(Calendar.SECOND, 0)
-        if (now.after(calendar)) {
-            calendar.add(Calendar.DATE, 1)
-        }
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent,
-        )
-        Hawk.put(Constants.Prefs.KEY_IS_SCHEDULE_NOTIFICATION, true)
-    }
 }

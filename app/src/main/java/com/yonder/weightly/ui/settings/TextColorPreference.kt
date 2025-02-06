@@ -12,7 +12,6 @@ class TextColorPreference(
     attrs: AttributeSet?,
 ): Preference(context, attrs) {
 
-
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         holder.itemView.findViewById<TextView>(android.R.id.title)?.setTextColor(Color.RED)
