@@ -25,7 +25,7 @@ class WeightHistoryAdapter(private val onClickWeight: ((weight: WeightUIModel) -
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is WeightHistoryViewHolder -> {
-                getItem(position)?.let { item -> holder.bind(item) }
+                holder.bind(getItem(position))
             }
         }
     }

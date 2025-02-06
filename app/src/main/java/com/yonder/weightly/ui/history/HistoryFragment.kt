@@ -2,10 +2,11 @@ package com.yonder.weightly.ui.history
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.yonder.statelayout.State
 import com.yonder.weightly.R
@@ -16,7 +17,6 @@ import com.yonder.weightly.ui.history.adapter.WeightItemDecorator
 import com.yonder.weightly.utils.extensions.safeNavigate
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class HistoryFragment : Fragment(R.layout.fragment_history) {
@@ -29,14 +29,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         WeightHistoryAdapter(::onClickWeight)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        setHasOptionsMenu(true)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    private lateinit var menuHost: MenuHost
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,6 +38,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     }
 
     private fun initViews() {
+        menuHost = requireActivity()
         initWeightRecyclerview()
     }
 
@@ -68,15 +62,13 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     override fun onResume() {
         super.onResume()
         viewModel.getWeightHistories()
+        menuHost.addMenuProvider(menuProvider)
     }
 
     override fun onStop() {
         super.onStop()
         viewModel.cancelJobs()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.home_menu, menu)
+        menuHost.removeMenuProvider(menuProvider)
     }
 
     private fun setUIState(uiState: HistoryViewModel.UiState) = with(binding) {
@@ -97,19 +89,25 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         )
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_add -> {
-                safeNavigate(
-                    HistoryFragmentDirections.actionNavigateAddWeight(
-                        weight = null,
-                        selectedDate = null
-                    )
-                )
-                true
-            }
+    private val menuProvider: MenuProvider = object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.history_menu, menu)
+        }
 
-            else -> super.onOptionsItemSelected(item)
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return when (menuItem.itemId) {
+                R.id.action_add -> {
+                    safeNavigate(
+                        HistoryFragmentDirections.actionNavigateAddWeight(
+                            weight = null,
+                            selectedDate = null
+                        )
+                    )
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 

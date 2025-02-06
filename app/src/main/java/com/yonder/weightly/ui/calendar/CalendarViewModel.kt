@@ -25,81 +25,80 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CalendarViewModel
-    @Inject
-    constructor(
-        private val getAllWeights: GetAllWeights,
-        private val weightDao: WeightDao,
-        private val mapper: WeightEntityMapper,
-        private val dispatcher: CoroutineDispatchers,
-    ) : ViewModel() {
-        sealed class Event {
-            data class NavigateToWeight(
-                var model: WeightUIModel,
-            ) : Event()
+@Inject
+constructor(
+    private val getAllWeights: GetAllWeights,
+    private val weightDao: WeightDao,
+    private val mapper: WeightEntityMapper,
+    private val dispatcher: CoroutineDispatchers,
+) : ViewModel() {
+    sealed class Event {
+        data class NavigateToWeight(
+            var model: WeightUIModel,
+        ) : Event()
 
-            data class NavigateToNewWeight(
-                var model: WeightDateModel,
-            ) : Event()
-        }
-
-        var selectedLocalDate = LocalDate.now()
-
-        val today = LocalDate.now()
-
-        private val eventChannel = Channel<Event>(Channel.BUFFERED)
-        val eventsFlow = eventChannel.receiveAsFlow()
-
-        private val _uiState = MutableStateFlow(UiState())
-        val uiState: StateFlow<UiState> = _uiState
-
-        var job: Job? = null
-        var billingJob: Job? = null
-
-        fun checkIsPremiumUser() {
-            _uiState.update {
-                it.copy(
-                    shouldShowAds = true,
-                )
-            }
-        }
-
-        fun getWeightByDate(date: Date) {
-            viewModelScope.launch(dispatcher.io) {
-                val weightList =
-                    weightDao.fetchBy(
-                        startDate = date.startOfDay(),
-                        endDate = date.endOfDay(),
-                    )
-                val weightEntity = weightList.firstOrNull()
-                if (weightEntity != null) {
-                    val weightUIModel = mapper.map(weightEntity) ?: return@launch
-                    eventChannel.send(Event.NavigateToWeight(weightUIModel))
-                } else {
-                    eventChannel.send(Event.NavigateToNewWeight(WeightDateModel(date)))
-                }
-            }
-        }
-
-        fun getWeightHistories() {
-            job =
-                viewModelScope.launch(dispatcher.io) {
-                    getAllWeights().collectLatest { weightHistories ->
-                        _uiState.update {
-                            it.copy(
-                                histories = weightHistories.reversed(),
-                            )
-                        }
-                    }
-                }
-        }
-
-        fun cancelJobs() {
-            job?.cancel()
-            billingJob?.cancel()
-        }
-
-        data class UiState(
-            var histories: List<WeightUIModel?> = emptyList(),
-            var shouldShowAds: Boolean = true,
-        )
+        data class NavigateToNewWeight(
+            var model: WeightDateModel,
+        ) : Event()
     }
+
+    var selectedLocalDate = LocalDate.now()
+
+    val today = LocalDate.now()
+
+    private val eventChannel = Channel<Event>(Channel.BUFFERED)
+    val eventsFlow = eventChannel.receiveAsFlow()
+
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = _uiState
+
+    var job: Job? = null
+    var billingJob: Job? = null
+
+    fun checkIsPremiumUser() {
+        _uiState.update {
+            it.copy(
+                shouldShowAds = true,
+            )
+        }
+    }
+
+    fun getWeightByDate(date: Date) {
+        viewModelScope.launch(dispatcher.io) {
+            val weightList =
+                weightDao.fetchBy(
+                    startDate = date.startOfDay(),
+                    endDate = date.endOfDay(),
+                )
+            val weightEntity = weightList.firstOrNull()
+            if (weightEntity != null) {
+                val weightUIModel = mapper.map(weightEntity)
+                eventChannel.send(Event.NavigateToWeight(weightUIModel))
+            } else {
+                eventChannel.send(Event.NavigateToNewWeight(WeightDateModel(date)))
+            }
+        }
+    }
+
+    fun getWeightHistories() {
+        job = viewModelScope.launch(dispatcher.io) {
+            getAllWeights().collectLatest { weightHistories ->
+                _uiState.update {
+                    it.copy(
+                        histories = weightHistories.reversed(),
+                    )
+                }
+            }
+        }
+    }
+
+    fun cancelJobs() {
+        job?.cancel()
+        billingJob?.cancel()
+    }
+
+    data class UiState(
+        var histories: List<WeightUIModel?> = emptyList(),
+        var shouldShowAds: Boolean = true,
+    )
+}
