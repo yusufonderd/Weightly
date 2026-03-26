@@ -13,7 +13,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.codemybrainsout.ratingdialog.RatingDialog
-import com.google.android.gms.ads.MobileAds
 import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.databinding.ActivityMainBinding
 import com.yonder.weightly.utils.Constants
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setTheme()
-        initializeAds()
         createNotificationChannel()
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
@@ -134,7 +132,4 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    private fun initializeAds() {
-        MobileAds.initialize(this)
-    }
 }

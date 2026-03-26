@@ -108,17 +108,6 @@
 
         </Button>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/home_ad_id"
-            ads:layout_constraintEnd_toEndOf="parent"
-            ads:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnAddWeightForToday" />
-
         <TextView
             android:id="@+id/tvSummary"
             android:layout_width="wrap_content"
@@ -129,19 +118,20 @@
             android:text="@string/dashboard"
             android:textAppearance="?android:textAppearanceLarge"
             app:layout_constraintBottom_toTopOf="@+id/llContainer"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adView" />
+            app:layout_constraintTop_toBottomOf="@+id/btnAddWeightForToday" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvInfoCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            tools:listitem="@layout/item_home_info_card"
-            tools:itemCount="6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSummary">
+            app:layout_constraintTop_toBottomOf="@+id/tvSummary"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_home_info_card">
 
         </androidx.recyclerview.widget.RecyclerView>
 
