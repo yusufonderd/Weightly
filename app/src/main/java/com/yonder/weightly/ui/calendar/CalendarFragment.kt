@@ -9,8 +9,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import com.google.android.gms.ads.AdRequest
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
@@ -44,8 +42,6 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
     private val viewModel: CalendarViewModel by viewModels()
 
-    private lateinit var adRequest: AdRequest
-
     private val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
     private val daysOfWeek = daysOfWeek()
     private val currentMonth = YearMonth.now()
@@ -54,7 +50,6 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAdListener()
         observe()
         initViews()
     }
@@ -93,14 +88,6 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
     private fun setUIState(uiState: CalendarViewModel.UiState) = with(binding) {
         calendarView.notifyCalendarChanged()
-        adView.isVisible = uiState.shouldShowAds
-        if (uiState.shouldShowAds){
-            adView.loadAd(adRequest)
-        }
-    }
-
-    private fun initAdListener() {
-        adRequest = AdRequest.Builder().build()
     }
 
     private fun setupCalendarView() {

@@ -33,7 +33,6 @@ constructor(
     private val dispatcher: CoroutineDispatchers,
 ) : ViewModel() {
     sealed class Event {
-        data object ShowInterstitialAd : Event()
 
         data object PopBackStack : Event()
 
@@ -94,11 +93,7 @@ constructor(
                         emoji = emoji,
                         date = date,
                     )
-                    if (uiState.value.shouldShowAds) {
-                        eventChannel.send(Event.ShowInterstitialAd)
-                    } else {
-                        eventChannel.send(Event.PopBackStack)
-                    }
+                    eventChannel.send(Event.PopBackStack)
                 }
             }
         }

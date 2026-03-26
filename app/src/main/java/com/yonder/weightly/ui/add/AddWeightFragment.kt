@@ -6,24 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.orhanobut.hawk.Hawk
-import com.yonder.weightly.BuildConfig
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentAddWeightBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
@@ -50,8 +41,6 @@ class AddWeightFragment : BottomSheetDialogFragment() {
 
     private var selectedDate = Date()
     private var emoji: String = String.EMPTY
-
-    lateinit var adRequest: AdRequest
 
     private val binding by viewBinding(FragmentAddWeightBinding::bind)
 
@@ -81,23 +70,6 @@ class AddWeightFragment : BottomSheetDialogFragment() {
     ): View? = inflater.inflate(R.layout.fragment_add_weight, container, false)
 
 
-    private fun initAdListener() {
-        adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(requireContext(),
-            BuildConfig.FULL_SCREEN_AD_ID,
-            adRequest,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdLoaded(p0: InterstitialAd) {
-                    mInterstitialAd = p0
-                }
-
-                override fun onAdFailedToLoad(p0: LoadAdError) {
-                    mInterstitialAd = null
-                }
-            })
-        binding.adView.loadAd(adRequest)
-    }
-
     override fun onResume() {
         super.onResume()
         viewModel.checkIsPremiumUser()
@@ -110,7 +82,6 @@ class AddWeightFragment : BottomSheetDialogFragment() {
 
     private fun initViews() = with(binding) {
 
-        initAdListener()
         btnPrev.setSafeOnClickListener {
             fetchDate(selectedDate.prevDay())
         }
@@ -188,7 +159,6 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         binding.btnNext.isEnabled = shouldHideNextButton.not()
     }
 
-    private var mInterstitialAd: InterstitialAd? = null
 
     private fun observe() {
         lifecycleScope.launchWhenStarted {
@@ -196,10 +166,6 @@ class AddWeightFragment : BottomSheetDialogFragment() {
                 when (event) {
                     AddWeightViewModel.Event.PopBackStack -> {
                         goBack()
-                    }
-
-                    AddWeightViewModel.Event.ShowInterstitialAd -> {
-                        showInterstitialAd()
                     }
 
                     is AddWeightViewModel.Event.ShowToast -> {
@@ -220,23 +186,6 @@ class AddWeightFragment : BottomSheetDialogFragment() {
 
     }
 
-    private fun showInterstitialAd() {
-        if (mInterstitialAd != null) {
-            mInterstitialAd?.fullScreenContentCallback = object :
-                FullScreenContentCallback() {
-                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                    goBack()
-                }
-
-                override fun onAdDismissedFullScreenContent() {
-                    goBack()
-                }
-            }
-            mInterstitialAd?.show(requireActivity())
-        } else {
-            goBack()
-        }
-    }
 
     private fun goBack() {
         findNavControllerSafely()?.popBackStack()
@@ -250,7 +199,6 @@ class AddWeightFragment : BottomSheetDialogFragment() {
         setBtnSaveStatus(shouldShowSaveButton = shouldShowSaveButton)
         setBtnEmojiStatus(weight = weight)
         setDeleteButton(shouldShowSaveButton = shouldShowSaveButton)
-        binding.adView.isVisible = uiState.shouldShowAds
     }
 
     private fun setBtnEmojiStatus(weight: WeightUIModel?) = with(binding.btnEmoji) {

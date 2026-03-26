@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.gms.ads.AdRequest
 import com.yonder.statelayout.State
 import com.yonder.weightly.R
 import com.yonder.weightly.databinding.FragmentHomeBinding
@@ -43,7 +42,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observe()
-        initAdListener()
     }
 
     private fun initViews() {
@@ -57,9 +55,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             ChartInitializer.initLineChart(lineChart)
             ChartInitializer.initBarChart(barChart)
-            btnRemoveAds.setSafeOnClickListener {
-                viewModel.startBilling(requireActivity())
-            }
             btnAddWeightForToday.setSafeOnClickListener {
                 safeNavigate(
                     HomeFragmentDirections.actionNavigateAddWeight(
@@ -77,10 +72,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun initAdListener() {
-        val adRequest = AdRequest.Builder().build()
-        binding.adView.loadAd(adRequest)
-    }
 
     private fun setUIState(uiState: HomeViewModel.UiState) =
         with(binding) {
@@ -88,8 +79,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 stateLayout.setState(State.EMPTY)
             } else {
                 stateLayout.setState(State.CONTENT)
-                binding.adView.isVisible = uiState.shouldShowAds
-                btnRemoveAds.isVisible = uiState.shouldShowAds
                 binding.btnAddWeightForToday.isVisible = uiState.shouldShowAddWeightForTodayButton
                 if (uiState.chartType == ChartType.LINE) {
                     lineChart.isVisible = true
