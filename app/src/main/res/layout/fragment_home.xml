@@ -16,23 +16,6 @@
         tools:context=".ui.home.HomeFragment">
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnRemoveAds"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/space_8"
-            android:fontFamily="@font/poppins"
-            android:text="@string/be_premium_description"
-            android:textAllCaps="false"
-            android:textAppearance="?android:textAppearanceSmall"
-            app:icon="@drawable/ic_baseline_stars_24"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSummary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvSummary">
-
-        </com.google.android.material.button.MaterialButton>
-
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvOutline"
