@@ -4,10 +4,15 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -29,10 +34,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setTheme()
+        setupEdgeToEdgeInsets()
+        setupBackNavigation()
         createNotificationChannel()
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
@@ -53,7 +61,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_add_weight,
                 R.id.navigation_set_lock,
                 R.id.navigation_open_lock
-
             )
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val shouldShowBottomNavigation = noBottomNavigationIds.contains(destination.id).not()
@@ -70,6 +77,32 @@ class MainActivity : AppCompatActivity() {
         showRateDialog()
     }
 
+    private fun setupEdgeToEdgeInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(top = systemBars.top)
+            insets
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(binding.navView) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(bottom = systemBars.bottom)
+            insets
+        }
+    }
+
+    private fun setupBackNavigation() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.navView.selectedItemId == R.id.navigation_home) {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                } else {
+                    binding.navView.selectedItemId = R.id.navigation_home
+                }
+            }
+        })
+    }
+
     private fun showRateDialog() {
         val ratingDialog: RatingDialog = RatingDialog.Builder(this)
             .threshold(4)
@@ -84,16 +117,6 @@ class MainActivity : AppCompatActivity() {
             .onRatingBarFormSubmit(viewModel::addFeedback)
             .build()
         ratingDialog.show()
-    }
-
-
-    override fun onBackPressed() {
-        if (binding.navView.selectedItemId == R.id.navigation_home) {
-            super.onBackPressed();
-            finish();
-        } else {
-            binding.navView.selectedItemId = R.id.navigation_home;
-        }
     }
 
     private fun setTheme() {
