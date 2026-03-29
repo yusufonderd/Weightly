@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.databinding.FragmentOnBoardingBinding
 import com.yonder.weightly.uicomponents.CardRuler
 import com.yonder.weightly.utils.*
@@ -20,12 +20,16 @@ import com.yonder.weightly.utils.enums.MeasureUnit
 import com.yonder.weightly.utils.extensions.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnBoardingFragment : Fragment(R.layout.fragment_on_boarding) {
     private val binding by viewBinding(FragmentOnBoardingBinding::bind)
 
     private val viewModel: OnBoardingViewModel by viewModels()
+
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -102,7 +106,7 @@ class OnBoardingFragment : Fragment(R.layout.fragment_on_boarding) {
             AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
-        Hawk.put(Constants.Prefs.KEY_IS_SCHEDULE_NOTIFICATION,true)
+        preferenceManager.put(Constants.Prefs.KEY_IS_SCHEDULE_NOTIFICATION, true)
     }
 
 

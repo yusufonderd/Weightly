@@ -1,8 +1,8 @@
 package com.yonder.weightly.domain.usecase
 
 import android.content.Context
-import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.data.local.WeightDao
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.enums.MeasureUnit
@@ -14,14 +14,15 @@ import kotlin.math.abs
 
 class GetUserGoal @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val weightDao: WeightDao
+    private val weightDao: WeightDao,
+    private val preferenceManager: PreferenceManager
 ) {
 
     suspend operator fun invoke(): String {
         val firstWeight = weightDao.fetchLastWeight().firstOrNull()
-        val goalWeight = Hawk.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0f)
+        val goalWeight = preferenceManager.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0f)
         val difference = abs(firstWeight?.value.orZero() - goalWeight)
-        val unit = MeasureUnit.findValue(Hawk.get<String>(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT))
+        val unit = MeasureUnit.findValue(preferenceManager.get(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT, ""))
         if (difference == Float.ZERO) {
             return context.getString(R.string.you_reach_the_goal_weight)
         }

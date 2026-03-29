@@ -4,7 +4,7 @@ import android.app.Activity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.orhanobut.hawk.Hawk
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.domain.usecase.DeleteAllWeights
 import com.yonder.weightly.domain.usecase.GetGoalWeight
 import com.yonder.weightly.network.FirebaseApiService
@@ -32,9 +32,15 @@ constructor(
     private val deleteAllWeights: DeleteAllWeights,
     private val apiFirebase: FirebaseApiService,
     private val dispatcher: CoroutineDispatchers,
-    private val scheduleNotification: ScheduleNotification
+    private val scheduleNotification: ScheduleNotification,
+    private val preferenceManager: PreferenceManager
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(UiState())
+    private val _uiState = MutableStateFlow(
+        UiState(
+            isAppLocked = preferenceManager.get(Constants.Prefs.IS_APP_LOCKED, false),
+            notificationEnabled = preferenceManager.get(Constants.Prefs.KEY_IS_SCHEDULE_NOTIFICATION, false)
+        )
+    )
     val uiState: StateFlow<UiState> = _uiState
 
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
@@ -46,8 +52,8 @@ constructor(
     }
 
     private fun getNotificationTime(
-        hour: Int = Hawk.get(Constants.Notification.KEY_HOUR, 10),
-        minute: Int = Hawk.get(Constants.Notification.KEY_MINUTE, 30),
+        hour: Int = preferenceManager.get(Constants.Notification.KEY_HOUR, Constants.Defaults.NOTIFICATION_HOUR),
+        minute: Int = preferenceManager.get(Constants.Notification.KEY_MINUTE, Constants.Defaults.NOTIFICATION_MINUTE),
     ): String {
         var stringHour = "$hour"
         var stringMinute = "$minute"
@@ -61,10 +67,10 @@ constructor(
     }
 
     private fun fetchPreferences() {
-        val unit = Hawk.get<String>(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT)
-        val chartType = ChartType.findValue(Hawk.get(Constants.Prefs.KEY_CHART_TYPE, 0))
-        val themeType = ThemeType.findValue(Hawk.get(Constants.Prefs.THEME_TYPE, "0"))
-        val shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE, false)
+        val unit = preferenceManager.get(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT, "")
+        val chartType = ChartType.findValue(preferenceManager.get(Constants.Prefs.KEY_CHART_TYPE, 0))
+        val themeType = ThemeType.findValue(preferenceManager.get(Constants.Prefs.THEME_TYPE, "0"))
+        val shouldShowLimitLine = preferenceManager.get(Constants.Prefs.KEY_CHART_LIMIT_LINE, false)
         val notificationTime = getNotificationTime()
         _uiState.update {
             it.copy(
@@ -79,7 +85,7 @@ constructor(
     }
 
     fun updateUnit(unit: String) {
-        Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT, MeasureUnit.findValue(unit).value)
+        preferenceManager.put(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT, MeasureUnit.findValue(unit).value)
         _uiState.update {
             it.copy(
                 goalWeight = getGoalWeight.invoke(),
@@ -88,12 +94,12 @@ constructor(
     }
 
     fun updateLimitLine(shouldShowLimitLine: Boolean) {
-        Hawk.put(Constants.Prefs.KEY_CHART_LIMIT_LINE, shouldShowLimitLine)
+        preferenceManager.put(Constants.Prefs.KEY_CHART_LIMIT_LINE, shouldShowLimitLine)
     }
 
     fun updateGoalWeight(goalWeight: String) {
         if (goalWeight.isNotBlank()) {
-            Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT, goalWeight.toFloatOrNull().orZero())
+            preferenceManager.put(Constants.Prefs.KEY_GOAL_WEIGHT, goalWeight.toFloatOrNull().orZero())
             _uiState.update {
                 it.copy(
                     goalWeight = getGoalWeight.invoke(),
@@ -103,9 +109,9 @@ constructor(
     }
 
     fun updateNotification(notificationEnabled: Boolean) {
-        Hawk.put(Constants.Prefs.KEY_IS_SCHEDULE_NOTIFICATION, notificationEnabled)
-        val hour = Hawk.get(Constants.Notification.KEY_HOUR, 10)
-        val minute = Hawk.get(Constants.Notification.KEY_MINUTE, 30)
+        preferenceManager.put(Constants.Prefs.KEY_IS_SCHEDULE_NOTIFICATION, notificationEnabled)
+        val hour = preferenceManager.get(Constants.Notification.KEY_HOUR, Constants.Defaults.NOTIFICATION_HOUR)
+        val minute = preferenceManager.get(Constants.Notification.KEY_MINUTE, Constants.Defaults.NOTIFICATION_MINUTE)
         if (notificationEnabled) {
             triggerEvent(Event.ShowAlarmSetMessage)
             scheduleNotification.setAlarm(hour, minute)
@@ -129,12 +135,12 @@ constructor(
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
-        Hawk.put(Constants.Prefs.THEME_TYPE, themeType.value)
+        preferenceManager.put(Constants.Prefs.THEME_TYPE, themeType.value)
         _uiState.update { it.copy(theme = themeType) }
     }
 
     fun updateChartType(chartType: String) {
-        Hawk.put(Constants.Prefs.KEY_CHART_TYPE, ChartType.findValue(chartType.toInt()).value)
+        preferenceManager.put(Constants.Prefs.KEY_CHART_TYPE, ChartType.findValue(chartType.toInt()).value)
     }
 
     fun startBilling(activity: Activity) {
@@ -157,8 +163,8 @@ constructor(
         hour: Int,
         minute: Int,
     ) {
-        Hawk.put(Constants.Notification.KEY_HOUR, hour)
-        Hawk.put(Constants.Notification.KEY_MINUTE, minute)
+        preferenceManager.put(Constants.Notification.KEY_HOUR, hour)
+        preferenceManager.put(Constants.Notification.KEY_MINUTE, minute)
         _uiState.update {
             it.copy(
                 timePreference = getNotificationTime(),
@@ -169,7 +175,7 @@ constructor(
     }
 
     fun deleteAllData() {
-        Hawk.deleteAll()
+        preferenceManager.deleteAll()
         viewModelScope.launch(dispatcher.io) {
             deleteAllWeights()
             triggerEvent(Event.NavigateToSplash)
@@ -184,9 +190,9 @@ constructor(
     }
 
     fun deleteAppLock() {
-        Hawk.delete(Constants.Prefs.APP_LOCK_HINT)
-        Hawk.delete(Constants.Prefs.IS_APP_LOCKED)
-        Hawk.delete(Constants.Prefs.APP_LOCK_PASSWORD)
+        preferenceManager.delete(Constants.Prefs.APP_LOCK_HINT)
+        preferenceManager.delete(Constants.Prefs.IS_APP_LOCKED)
+        preferenceManager.delete(Constants.Prefs.APP_LOCK_PASSWORD)
         _uiState.update {
             it.copy(
                 isAppLocked = false,
@@ -210,17 +216,9 @@ constructor(
         var chartType: ChartType = ChartType.LINE,
         var theme: ThemeType = ThemeType.DEFAULT,
         var shouldShowLimitLine: Boolean = false,
-        var isAppLocked: Boolean =
-            Hawk.get(
-                Constants.Prefs.IS_APP_LOCKED,
-                false,
-            ),
+        var isAppLocked: Boolean = false,
         var shouldShowPremiumPreference: Boolean = false,
-        var notificationEnabled: Boolean =
-            Hawk.get(
-                Constants.Prefs.KEY_IS_SCHEDULE_NOTIFICATION,
-                false,
-            ),
+        var notificationEnabled: Boolean = false,
         var timePreference: String = "",
     )
 

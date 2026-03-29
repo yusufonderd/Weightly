@@ -3,8 +3,8 @@ package com.yonder.weightly.ui.openlock
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.network.ApiService
 import com.yonder.weightly.network.SendEmailRequest
 import com.yonder.weightly.utils.Constants
@@ -12,13 +12,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 
 @HiltViewModel
 class OpenLockViewModel @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val preferenceManager: PreferenceManager
 ) : ViewModel() {
 
     sealed class Event {
@@ -35,7 +35,7 @@ class OpenLockViewModel @Inject constructor(
             if (password.isBlank()) {
                 eventChannel.send(Event.ShowMessage(R.string.please_make_sure_to_fill_all_fields))
             } else {
-                if (password == Hawk.get(Constants.Prefs.APP_LOCK_PASSWORD)) {
+                if (password == preferenceManager.get(Constants.Prefs.APP_LOCK_PASSWORD, "")) {
                     eventChannel.send(Event.NavigateToHome)
                 } else {
                     eventChannel.send(Event.ShowMessage(R.string.wrong_password))
@@ -50,9 +50,9 @@ class OpenLockViewModel @Inject constructor(
                 val body = apiService.sendEmail(
                     SendEmailRequest(
                         appName = "weightly",
-                        email = Hawk.get(Constants.Prefs.RECOVERY_EMAIL),
+                        email = preferenceManager.get(Constants.Prefs.RECOVERY_EMAIL, ""),
                         subject = "Weightly recovery e-mail",
-                        content = "Your password:" + Hawk.get(Constants.Prefs.APP_LOCK_PASSWORD)
+                        content = "Your password:" + preferenceManager.get(Constants.Prefs.APP_LOCK_PASSWORD, "")
                     )
                 ).body()
 

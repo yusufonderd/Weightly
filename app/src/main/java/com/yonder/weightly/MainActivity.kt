@@ -18,11 +18,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.codemybrainsout.ratingdialog.RatingDialog
-import com.orhanobut.hawk.Hawk
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.databinding.ActivityMainBinding
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.enums.ThemeType
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 const val channelID = "channel1"
 
@@ -30,6 +31,9 @@ const val channelID = "channel1"
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
+
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
 
     private lateinit var binding: ActivityMainBinding
 
@@ -120,7 +124,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTheme() {
-        when (ThemeType.findValue(Hawk.get(Constants.Prefs.THEME_TYPE, "0"))) {
+        when (ThemeType.findValue(preferenceManager.get(Constants.Prefs.THEME_TYPE, "0"))) {
             ThemeType.DEFAULT -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             }

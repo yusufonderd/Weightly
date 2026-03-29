@@ -4,9 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
-import com.orhanobut.hawk.Hawk
-import com.yonder.weightly.R
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.NotificationReceiver
 import com.yonder.weightly.utils.notificationID
@@ -16,7 +14,8 @@ import javax.inject.Inject
 
 class ScheduleNotification @Inject constructor(
     private val alarmManager: AlarmManager,
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
+    private val preferenceManager: PreferenceManager
 ) {
 
     fun setAlarm(hour: Int, minute: Int) {
@@ -44,7 +43,7 @@ class ScheduleNotification @Inject constructor(
             AlarmManager.INTERVAL_DAY,
             pendingIntent,
         )
-        Hawk.put(Constants.Prefs.KEY_IS_SCHEDULE_NOTIFICATION, true)
+        preferenceManager.put(Constants.Prefs.KEY_IS_SCHEDULE_NOTIFICATION, true)
     }
 
     fun removeAlarm() {

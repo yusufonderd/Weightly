@@ -2,12 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--
     <Preference
         android:summary="@string/be_premium_description"
         app:icon="@drawable/ic_baseline_stars_24"
         app:key="premium"
         app:title="@string/be_premium" />
-
+-->
 
     <Preference
         app:icon="@drawable/ic_baseline_360_24"

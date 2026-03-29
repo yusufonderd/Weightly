@@ -1,10 +1,9 @@
 package com.yonder.weightly.ui.home
 
-import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.mikephil.charting.data.BarEntry
-import com.orhanobut.hawk.Hawk
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.data.local.WeightDao
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.domain.usecase.GetAllWeights
@@ -30,6 +29,7 @@ class HomeViewModel
         private val weightDao: WeightDao,
         private val getUserGoal: GetUserGoal,
         private val dispatcher: CoroutineDispatchers,
+        private val preferenceManager: PreferenceManager,
     ) : ViewModel() {
         private val _uiState = MutableStateFlow(UiState())
         val uiState: StateFlow<UiState> = _uiState
@@ -38,9 +38,6 @@ class HomeViewModel
         private var billingJob: Job? = null
         private var insightsJob: Job? = null
 
-        fun startBilling(activity: Activity) {
-            // billingHelper.launchBillingFlow(activity, Constants.PREMIUM_ACCOUNT)
-        }
 
         fun hasUserWeightForToday() {
             val today = Date()
@@ -113,16 +110,12 @@ class HomeViewModel
                                         BarEntry(index.toFloat(), weight?.value.orZero())
                                     },
                                 userGoal = getUserGoal(),
-                                shouldShowLimitLine = Hawk.get(Constants.Prefs.KEY_CHART_LIMIT_LINE, false),
-                                chartType =
-                                    ChartType.findValue(
-                                        Hawk.get(
-                                            Constants.Prefs.KEY_CHART_TYPE,
-                                            0,
-                                        ),
-                                    ),
+                                shouldShowLimitLine = preferenceManager.get(Constants.Prefs.KEY_CHART_LIMIT_LINE, false),
+                                chartType = ChartType.findValue(
+                                    preferenceManager.get(Constants.Prefs.KEY_CHART_TYPE, 0),
+                                ),
                                 shouldShowEmptyView = weightHistories.isEmpty(),
-                                goalWeight = "${Hawk.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0)}",
+                                goalWeight = "${preferenceManager.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0f)}",
                             )
                         }
                     }

@@ -7,8 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.databinding.FragmentOpenLockBinding
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.extensions.safeNavigate
@@ -16,6 +16,7 @@ import com.yonder.weightly.utils.extensions.showToast
 import com.yonder.weightly.utils.setSafeOnClickListener
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OpenLockFragment : Fragment(R.layout.fragment_open_lock) {
@@ -23,6 +24,9 @@ class OpenLockFragment : Fragment(R.layout.fragment_open_lock) {
     private val binding by viewBinding(FragmentOpenLockBinding::bind)
 
     private val viewModel: OpenLockViewModel by viewModels()
+
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +60,7 @@ class OpenLockFragment : Fragment(R.layout.fragment_open_lock) {
         btnForgotPassword.setSafeOnClickListener {
             val hint = String.format(
                 getString(R.string.hint),
-                Hawk.get(Constants.Prefs.APP_LOCK_HINT)
+                preferenceManager.get(Constants.Prefs.APP_LOCK_HINT, "")
             )
             val alertBuilder = MaterialAlertDialogBuilder(requireContext())
             alertBuilder.setTitle(hint)

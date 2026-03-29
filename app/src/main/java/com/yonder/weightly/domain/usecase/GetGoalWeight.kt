@@ -1,8 +1,8 @@
 package com.yonder.weightly.domain.usecase
 
 import android.content.Context
-import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.enums.MeasureUnit
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -12,10 +12,11 @@ class GetGoalWeight
     @Inject
     constructor(
         @ApplicationContext private val context: Context,
+        private val preferenceManager: PreferenceManager,
     ) {
         operator fun invoke(): String {
-            val goalWeight = Hawk.get<Float>(Constants.Prefs.KEY_GOAL_WEIGHT)
-            val unit = MeasureUnit.findValue(Hawk.get<String>(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT))
+            val goalWeight = preferenceManager.get(Constants.Prefs.KEY_GOAL_WEIGHT, 0.0f)
+            val unit = MeasureUnit.findValue(preferenceManager.get(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT, ""))
             return if (unit == MeasureUnit.KG) {
                 String.format(context.getString(R.string.kg_format), goalWeight)
             } else {

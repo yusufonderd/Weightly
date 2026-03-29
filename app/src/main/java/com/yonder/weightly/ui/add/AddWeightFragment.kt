@@ -14,8 +14,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.databinding.FragmentAddWeightBinding
 import com.yonder.weightly.domain.uimodel.WeightUIModel
 import com.yonder.weightly.ui.emoji.EmojiFragment
@@ -27,6 +27,7 @@ import com.yonder.weightly.utils.setSafeOnClickListener
 import com.yonder.weightly.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 
 const val CURRENT_DATE_FORMAT = "dd MMM yyyy"
@@ -34,6 +35,9 @@ const val TAG_DATE_PICKER = "Tag_Date_Picker"
 
 @AndroidEntryPoint
 class AddWeightFragment : BottomSheetDialogFragment() {
+
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
 
     private val args: AddWeightFragmentArgs by navArgs()
 
@@ -122,7 +126,7 @@ class AddWeightFragment : BottomSheetDialogFragment() {
 
         btnSelectDate.text = selectedDate.toFormat(CURRENT_DATE_FORMAT)
 
-        val unit = MeasureUnit.findValue(Hawk.get<String>(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT))
+        val unit = MeasureUnit.findValue(preferenceManager.get(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT, ""))
         val unitResource = if (unit == MeasureUnit.KG) {
             R.string.kg
         } else {

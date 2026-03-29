@@ -3,8 +3,8 @@ package com.yonder.weightly.ui.setlock
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.domain.decider.EmailValidator
 import com.yonder.weightly.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SetLockViewModel @Inject constructor(
-    private val emailValidator: EmailValidator
+    private val emailValidator: EmailValidator,
+    private val preferenceManager: PreferenceManager
 ) :
     ViewModel() {
 
@@ -44,10 +45,10 @@ class SetLockViewModel @Inject constructor(
                 if (password != passwordAgain) {
                     eventChannel.send(Event.ShowMessage(R.string.password_does_not_match))
                 } else {
-                    Hawk.put(Constants.Prefs.APP_LOCK_HINT, passwordHint)
-                    Hawk.put(Constants.Prefs.APP_LOCK_PASSWORD, password)
-                    Hawk.put(Constants.Prefs.RECOVERY_EMAIL, recoveryEmail)
-                    Hawk.put(Constants.Prefs.IS_APP_LOCKED, true)
+                    preferenceManager.put(Constants.Prefs.APP_LOCK_HINT, passwordHint)
+                    preferenceManager.put(Constants.Prefs.APP_LOCK_PASSWORD, password)
+                    preferenceManager.put(Constants.Prefs.RECOVERY_EMAIL, recoveryEmail)
+                    preferenceManager.put(Constants.Prefs.IS_APP_LOCKED, true)
                     eventChannel.send(Event.NavigateToSplash)
                 }
             }

@@ -3,8 +3,8 @@ package com.yonder.weightly.ui.onboarding
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.R
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.domain.usecase.SaveOrUpdateWeight
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.enums.MeasureUnit
@@ -20,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
-    private val saveOrUpdateWeight: SaveOrUpdateWeight
+    private val saveOrUpdateWeight: SaveOrUpdateWeight,
+    private val preferenceManager: PreferenceManager
 ) : ViewModel() {
     sealed class Event {
         object NavigateToHome : Event()
@@ -46,10 +47,10 @@ class OnBoardingViewModel @Inject constructor(
             return
         }
         viewModelScope.launch(Dispatchers.IO) {
-            Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT, goalWeight)
-            Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT, MeasureUnit.findValue(unit.value).value)
-            Hawk.put(Constants.Prefs.KEY_GOAL_WEIGHT_DATE, Date().time)
-            Hawk.put(Constants.Prefs.KEY_SHOULD_SHOW_ON_BOARDING, false)
+            preferenceManager.put(Constants.Prefs.KEY_GOAL_WEIGHT, goalWeight)
+            preferenceManager.put(Constants.Prefs.KEY_GOAL_WEIGHT_UNIT, MeasureUnit.findValue(unit.value).value)
+            preferenceManager.put(Constants.Prefs.KEY_GOAL_WEIGHT_DATE, Date().time)
+            preferenceManager.put(Constants.Prefs.KEY_SHOULD_SHOW_ON_BOARDING, false)
             saveOrUpdateWeight.invoke("$currentWeight", String.EMPTY, String.EMPTY, Date())
             eventChannel.send(Event.NavigateToHome)
         }

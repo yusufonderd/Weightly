@@ -20,20 +20,24 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import com.orhanobut.hawk.Hawk
 import com.yonder.weightly.BuildConfig
+import com.yonder.weightly.data.local.PreferenceManager
 import com.yonder.weightly.R
 import com.yonder.weightly.utils.Constants
 import com.yonder.weightly.utils.enums.MeasureUnit
 import com.yonder.weightly.utils.extensions.EMPTY
 import com.yonder.weightly.utils.extensions.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 const val TAG_TIME_PICKER = "TAG_TIME_PICKER_SETTINGS"
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
     private val viewModel: SettingsViewModel by viewModels()
+
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
 
     override fun onCreatePreferences(
         savedInstanceState: Bundle?,
@@ -86,7 +90,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun setUIState(uiState: SettingsViewModel.UiState) {
         val setLockPreference = findPreference<Preference>("set_lock")
         val notificationTimePreference = findPreference<Preference>("notification_time")
-        val premiumPreference = findPreference<Preference>("premium")
+       // val premiumPreference = findPreference<Preference>("premium")
         val goalWeightPreference = findPreference<Preference>("goal_weight")
         val unitPreferences = findPreference<ListPreference>("unit")
         val themePreference = findPreference<ListPreference>("theme")
@@ -99,13 +103,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         goalWeightPreference?.summary = uiState.goalWeight
         chartTypePreference?.value = "${uiState.chartType.value}"
         notificationTimePreference?.summary = uiState.timePreference
-        if (uiState.shouldShowPremiumPreference) {
+       /* if (uiState.shouldShowPremiumPreference) {
             premiumPreference?.title = getString(R.string.be_premium)
             premiumPreference?.summary = getString(R.string.be_premium_description)
         } else {
             premiumPreference?.title = getString(R.string.premium_user)
             premiumPreference?.summary = String.EMPTY
-        }
+        }*/
         themePreference?.value = uiState.theme.value
         if (uiState.isAppLocked) {
             setLockPreference?.icon =
@@ -124,13 +128,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 val picker = MaterialTimePicker.Builder()
                     .setTimeFormat(TimeFormat.CLOCK_24H)
                     .setHour(
-                        Hawk.get(
+                        preferenceManager.get(
                             Constants.Notification.KEY_HOUR,
                             Constants.Defaults.NOTIFICATION_HOUR
                         )
                     )
                     .setMinute(
-                        Hawk.get(
+                        preferenceManager.get(
                             Constants.Notification.KEY_MINUTE,
                             Constants.Defaults.NOTIFICATION_MINUTE
                         )
@@ -146,7 +150,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>("set_lock")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
-                if (Hawk.get(Constants.Prefs.IS_APP_LOCKED, false)) {
+                if (preferenceManager.get(Constants.Prefs.IS_APP_LOCKED, false)) {
                     val alertBuilder = MaterialAlertDialogBuilder(requireContext())
                     alertBuilder.setTitle(R.string.remove_app_lock_dialog_title)
                     alertBuilder.setNegativeButton(R.string.no) { _, _ ->

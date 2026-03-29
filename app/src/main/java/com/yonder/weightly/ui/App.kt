@@ -3,7 +3,6 @@ package com.yonder.weightly.ui
 import android.app.Application
 import com.google.android.material.color.DynamicColors
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.orhanobut.hawk.Hawk
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.google.GoogleEmojiProvider
 import com.yonder.weightly.BuildConfig
@@ -16,22 +15,17 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         setupTimber()
-        setupHawk()
         setupEmojiManager()
         initCrashlytics()
         DynamicColors.applyToActivitiesIfAvailable(this);
     }
 
     private fun initCrashlytics() {
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
+        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = !BuildConfig.DEBUG
     }
 
     private fun setupEmojiManager() {
         EmojiManager.install(GoogleEmojiProvider())
-    }
-
-    private fun setupHawk() {
-        Hawk.init(this).build()
     }
 
     private fun setupTimber() {
