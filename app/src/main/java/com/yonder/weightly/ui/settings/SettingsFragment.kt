@@ -217,11 +217,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
 
-        findPreference<Preference>("developer")?.onPreferenceClickListener =
-            Preference.OnPreferenceClickListener {
-                openUrl("https://twitter.com/iamyusufonder")
-                true
-            }
         findPreference<Preference>("premium")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
                 viewModel.startBilling(requireActivity())
@@ -234,11 +229,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
 
-        findPreference<Preference>("source_code")?.onPreferenceClickListener =
-            Preference.OnPreferenceClickListener {
-                openUrl("https://github.com/yusufonderd/Weightly")
-                true
-            }
+
         findPreference<Preference>("send_feedback")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
                 openUrl("https://forms.gle/kNxxSE4SS1xy2qRt7")
